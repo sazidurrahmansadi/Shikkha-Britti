@@ -83,7 +83,12 @@
                                                 <div class="form-group">
                                                     <label>Choose Document</label>
                                                     <input type="file" id="document" name="document" class="form-control"
-                                                        required>
+                                                        onchange="Filevalidation()" required>
+                                                    <small class="">*Document format must be <span
+                                                            class="text-danger">PDF/JPG/PNG/JPEG</span> and File Size max
+                                                        <span class="text-danger">5MB</span></small>
+                                                    <p id="size"></p>
+
 
 
                                                 </div>
@@ -186,6 +191,29 @@
             $('#document_id').val(document_id);
             $('#delete_document_modal').modal('show');
         });
+    </script>
+    <script>
+        Filevalidation = () => {
+            const fi = document.getElementById('document');
+            // Check if any file is selected.
+            if (fi.files.length > 0) {
+                for (const i = 0; i <= fi.files.length - 1; i++) {
+
+                    const fsize = fi.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+                    // The size of the file.
+                    // if (file > 5120) {
+                    //     alert(
+                    //       "File is too Big, maximum upload limit 5MB");
+                    // }
+                    // else {   }
+
+                    document.getElementById('size').innerHTML = '<b>' +
+                        file + '</b> KB';
+
+                }
+            }
+        }
     </script>
 
 

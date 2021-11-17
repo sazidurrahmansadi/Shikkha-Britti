@@ -55,7 +55,7 @@ class StudentDocumentController extends Controller
         $student = Student::where('user_id', $user_id)->first();
 
         $request->validate([
-            'document' => 'mimes:pdf,jpg,png,jpeg | required',
+            'document' => 'mimes:pdf,jpg,png,jpeg | max:5120 | required',
         ]);
 
 

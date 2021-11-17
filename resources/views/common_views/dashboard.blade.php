@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="card-block">
-                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                    <h4 class="m-b-20 p-b-5 b-b-default f-w-600">User Information</h4>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Full Name</p>
@@ -74,6 +74,7 @@
                                             <h6 class="text-muted f-w-400"><i class="fa fa-phone text-green mr-2 font-weight-bold" aria-hidden="true"></i>{{auth()->user()->phone}}</h6>
                                         </div>
                                     </div>
+                                    @can('superadmin-can')
                                     <h6 class="b-b-default"></h6>
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -87,6 +88,7 @@
                                             }}</h6> 
                                         </div> --}}
                                     </div>
+                                    @endcan
 {{--                                    <h6 class="b-b-default"></h6>--}}
 {{--                                    <div class="row">--}}
 {{--                                        <div class="col-sm-6">--}}
