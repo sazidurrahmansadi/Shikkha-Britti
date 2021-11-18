@@ -27,6 +27,40 @@ class ManageApplicationController extends Controller
         return view('tenant.manage_applications.manage_applications_index', [
             'applied_students' => $applied_students,
             'scholarship_id' => $scholarship_id,
+
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function scholarships_index()
+    {
+        $scholarships = Scholarship::all()->where('is_delete', 0);
+        return view('tenant.manage_applications.manage_applications_scholarship_index', [
+            'scholarships' => $scholarships,
+        ]);
+    }
+
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function approved_applicaions($scholarship_id)
+    {
+        $scholarship = Scholarship::find($scholarship_id);
+        // $applied_students = $scholarship->students;
+        $applied_students = $scholarship->approved_students;
+
+        // dd($applied_students);
+
+        return view('tenant.manage_applications.manage_applications_approved_application_index', [
+            'applied_students' => $applied_students,
+            'scholarship_id' => $scholarship_id,
             
         ]);
     }
@@ -100,7 +134,7 @@ class ManageApplicationController extends Controller
         $approve->save();
 
 
-        $student = Student::find($request->student_id);        
+        $student = Student::find($request->student_id);
         $student->scholarships()->detach($request->scholarship_id);
         $student->scholarships()->attach($request->scholarship_id, [
             'is_approve' => 1
@@ -118,7 +152,7 @@ class ManageApplicationController extends Controller
      */
     public function application_scholarship_details(Request $request, $scholarship_id, $student_id)
     {
-        $approved_application_detail= ApprovedApplication::where('scholarship_id',$scholarship_id)->where('student_id',$student_id)->first();
+        $approved_application_detail = ApprovedApplication::where('scholarship_id', $scholarship_id)->where('student_id', $student_id)->first();
 
         $student_data = Student::find($student_id)->name;
         $scholarship_data = Scholarship::find($scholarship_id)->scholarship_title;
@@ -129,7 +163,6 @@ class ManageApplicationController extends Controller
             'student_data' => $student_data,
             'scholarship_data' => $scholarship_data,
         ]);
-        
     }
     /**
      * Display the specified resource.
@@ -161,7 +194,7 @@ class ManageApplicationController extends Controller
      */
     public function update(Request $request)
     {
-       //
+        //
     }
 
     /**

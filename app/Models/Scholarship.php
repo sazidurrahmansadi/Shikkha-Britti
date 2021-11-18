@@ -17,6 +17,10 @@ class Scholarship extends Model
     {
         return $this->belongsToMany(Student::class, 'scholarship_student')->withoutGlobalScopes()->withPivot('is_approve');
     }
+    public function approved_students()
+    {
+        return $this->belongsToMany(Student::class, 'scholarship_student')->withoutGlobalScopes()->wherePivot('is_approve',1);
+    }
 
 
     protected static function booted()

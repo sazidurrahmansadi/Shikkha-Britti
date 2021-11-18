@@ -96,6 +96,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('manage_applications_scholarships_index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-check-circle"></i>
+                        <p>
+                            Approved Applications
+                        </p>
+                    </a>
+                </li>
                 {{-- @endcan --}}
 
 

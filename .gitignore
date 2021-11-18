@@ -2,6 +2,7 @@
 /storage/*.key
 /vendor
 /.svn
+/.git
 .env
 .env.backup
 .phpunit.result.cache

@@ -70,9 +70,13 @@ class TenantScholarshipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($scholarship_id)
     {
-        //
+        $scholarship_data = Scholarship::findOrFail($scholarship_id);
+        return view('tenant.manage_scholarships.manage_scholarships_details', [
+            'scholarship_data' => $scholarship_data,
+        ]);
+        
     }
 
     /**

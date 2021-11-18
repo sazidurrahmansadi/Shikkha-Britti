@@ -104,6 +104,7 @@ Route::GET('/manage-scholarships-edit/{scholarship_id}', [TenantScholarshipContr
 Route::POST('/manage-scholarships-update', [TenantScholarshipController::class, 'update'])->name('manage_scholarships_update')->middleware('auth');
 Route::POST('/manage-scholarships-delete', [TenantScholarshipController::class, 'destroy'])->name('manage_scholarships_delete')->middleware('auth');
 Route::POST('/manage-scholarships-status-change', [TenantScholarshipController::class, 'status'])->name('manage_scholarships_status_change')->middleware('auth');
+Route::GET('/manage-scholarships-details/{scholarship_id}', [TenantScholarshipController::class, 'show'])->name('manage_scholarships_details')->middleware('auth');
 
 
 /*
@@ -117,6 +118,9 @@ Route::GET('/manage-applications/{scholarship_id}/{student_id}', [ManageApplicat
 
 Route::POST('/manage-applications-approval', [ManageApplicationController::class, 'store'])->name('manage_applications_approval')->middleware('auth');
 Route::GET('/manage-applications-scholarship-details/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'application_scholarship_details'])->name('manage_applications_scholarship_details')->middleware('auth');
+
+Route::GET('/manage-applications-scholarships-index', [ManageApplicationController::class, 'scholarships_index'])->name('manage_applications_scholarships_index')->middleware('auth');
+Route::GET('/manage-applications-approved-index/{scholarship_id}', [ManageApplicationController::class, 'approved_applicaions'])->name('manage_applications_approved_index')->middleware('auth');
 
 
 
