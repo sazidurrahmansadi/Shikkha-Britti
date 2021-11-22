@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use PDF;
 
 class TenantScholarshipController extends Controller
 {
@@ -73,10 +74,28 @@ class TenantScholarshipController extends Controller
     public function show($scholarship_id)
     {
         $scholarship_data = Scholarship::findOrFail($scholarship_id);
+        
         return view('tenant.manage_scholarships.manage_scholarships_details', [
             'scholarship_data' => $scholarship_data,
         ]);
         
+    }
+
+    public function pdf_student_profile($scholarship_id)
+    {
+        $data = [
+            'title' => 'PDF File generate',
+            'scholarship_data' => Scholarship::findOrFail($scholarship_id),
+        ];
+
+        // $scholarship_data = Scholarship::findOrFail($scholarship_id);
+
+        // dd( $scholarship_data);
+
+
+        $pdf = PDF::loadView('tenant.manage_scholarships.manage_scholarships_details', $data)->setOptions(['defaultFont' => 'sans-serif']);
+
+        return $pdf->stream('test.pdf');
     }
 
     /**

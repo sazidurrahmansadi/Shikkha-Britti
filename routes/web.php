@@ -13,6 +13,7 @@ use App\Http\Controllers\Tenant\TenantScholarshipController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,14 +114,25 @@ Route::GET('/manage-scholarships-details/{scholarship_id}', [TenantScholarshipCo
 -----------------------------------------------------------
 */
 Route::GET('/manage-applications-index/{scholarship_id}', [ManageApplicationController::class, 'index'])->name('manage_applications_index')->middleware('auth');
-Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationController::class, 'show_profile'])->name('manage_applications_profile')->middleware('auth');
 Route::GET('/manage-applications/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'create'])->name('manage_applications')->middleware('auth');
-
+//Scholarship Application Approval 
 Route::POST('/manage-applications-approval', [ManageApplicationController::class, 'store'])->name('manage_applications_approval')->middleware('auth');
 Route::GET('/manage-applications-scholarship-details/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'application_scholarship_details'])->name('manage_applications_scholarship_details')->middleware('auth');
-
+//Approved Scholarship Applications
 Route::GET('/manage-applications-scholarships-index', [ManageApplicationController::class, 'scholarships_index'])->name('manage_applications_scholarships_index')->middleware('auth');
 Route::GET('/manage-applications-approved-index/{scholarship_id}', [ManageApplicationController::class, 'approved_applicaions'])->name('manage_applications_approved_index')->middleware('auth');
+//Student Profile
+Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationController::class, 'show_profile'])->name('manage_applications_profile')->middleware('auth');
+
+Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
+
+/*
+-----------------------------------------------------------
+ ==== Manage PDF starts Here  ===
+-----------------------------------------------------------
+*/
+// Route::GET('/test-pdf', [PDFController::class, 'pdf_student_profile'])->name('test_pdf')->middleware('auth');
+Route::GET('/test-pdf/{scholarship_id}', [TenantScholarshipController::class, 'pdf_student_profile'])->name('test_pdf')->middleware('auth');
 
 
 

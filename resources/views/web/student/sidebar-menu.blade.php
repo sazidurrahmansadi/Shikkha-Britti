@@ -26,30 +26,32 @@
                 </a>
             </li>
             @role('STUDENT')
-            <li>
-                <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"
-                    class="{{ \Request::route()->getName() == 'student_edit' ? 'active' : '' }}">
-                    <i class='bx bxs-edit'></i>
-                    Edit Profile
-                </a>
-                {{-- <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"><button type="submit"
+                @if ($student_data)
+                    <li>
+                        <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"
+                            class="{{ \Request::route()->getName() == 'student_edit' ? 'active' : '' }}">
+                            <i class='bx bxs-edit'></i>
+                            Edit Profile
+                        </a>
+                        {{-- <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"><button type="submit"
                     class="profile-btn"><i class="bx bxs-edit"></i> Edit</button></a> --}}
-            </li>
-                <li>
-                    <a href="{{ route('student_document') }}"
-                        class="{{ \Request::route()->getName() == 'student_document' ? 'active' : '' }}">
-                        <i class='bx bx-file'></i>
-                        Documents
-                    </a>
-                </li>
+                    </li>
+                    <li>
+                        <a href="{{ route('student_document') }}"
+                            class="{{ \Request::route()->getName() == 'student_document' ? 'active' : '' }}">
+                            <i class='bx bx-file'></i>
+                            Documents
+                        </a>
+                    </li>
 
 
-                <li>
-                    <a href="{{ route('student_applications_index') }}">
-                        <i class='bx bx-briefcase'></i>
-                        Applied Scholarships
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('student_applications_index') }}">
+                            <i class='bx bx-briefcase'></i>
+                            Applied Scholarships
+                        </a>
+                    </li>
+                @endif
             @endrole
 
 

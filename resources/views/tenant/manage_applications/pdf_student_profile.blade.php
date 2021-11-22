@@ -52,14 +52,10 @@
                                 <h6 class="mb-0"><i class="far fa-building pr-2"></i>Gender</h6>
                                 <span class="text-secondary">{{ $student_data->gender }}</span>
                             </li>
-                            @forelse($documents as $document)
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="far fa-building pr-2"></i>{{ $document->type }}</h6>
-                                {{-- <span class="text-secondary">{{ $student_data->aim_in_life }}</span> --}}
-                                <a href="{{ url('storage/uploaded_file/student_document/' . $document->document_url) }}" target="_blank">View/Download</a>
+                                <h6 class="mb-0"><i class="far fa-building pr-2"></i>Ain in Life</h6>
+                                <span class="text-secondary">{{ $student_data->aim_in_life }}</span>
                             </li>
-                            @empty
-                            @endforelse
 
 
                         </ul>
@@ -67,10 +63,10 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold text-info">Educational information</h4>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="row">
+                        <h4 class="text-center mt-3 text-bold">Educational information</h4><hr>
+                            <div class="col-md-12">
+                        <div class="row">
+
 
                                 <div class="col-md-6">
                                     <table class="table table-borderless table-sm">
@@ -105,57 +101,51 @@
                                     </table>
                                 </div>
 
-                                @if($academic_data->ssc_gpa || $academic_data->hsc_gpa)
                                 <div class="col-md-6">
                                     <table class="table table-borderless table-sm">
 
                                         <tbody>
                                             <tr>
-                                                <th scope="row">SSC Passing Year :</th>
+                                                <th scope="row">SSC Passing Year</th>
                                                 <td>{{ $academic_data->ssc_year }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">SSC Institution Name :</th>
+                                                <th scope="row">SSC Institution Name</th>
                                                 <td>{{ $academic_data->ssc_institution }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">SSC GPA :</th>
+                                                <th scope="row">SSC GPA</th>
                                                 <td>{{ $academic_data->ssc_gpa }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">HSC Passing Year :</th>
+                                                <th scope="row">HSC Passing Year</th>
                                                 <td>{{ $academic_data->hsc_year }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">HSC Institution Name :</th>
+                                                <th scope="row">HSC Institution Name</th>
                                                 <td>{{ $academic_data->hsc_institution }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">HSC GPA :</th>
+                                                <th scope="row">HSC GPA</th>
                                                 <td>{{ $academic_data->hsc_gpa }}</td>
                                             </tr>
                                         </tbody>
 
                                     </table>
                                 </div>
-                                @endif
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <table class="table table-borderless table-sm">
 
                                         <tbody>
                                             @forelse ($achievements as $achievement)
                                                 @if ($achievement->achievement != null)
                                                     <tr>
-                                                        <th scope="row">Achievement {{ $loop->index + 1 }} :</th>
+                                                        <th scope="row">Achievement {{ $loop->index + 1 }}:</th>
                                                         <td class="text-left">{{ $achievement->achievement }}</td>
                                                     </tr>
                                                 @endif
                                             @empty
-                                            @endforelse                                            
-                                            <tr>
-                                                <th scope="row">Ain in Life :</th>
-                                                <td class="text-left">{{ $student_data->aim_in_life }}</td>
-                                            </tr>
+                                            @endforelse
                                         </tbody>
 
                                     </table>
@@ -164,11 +154,11 @@
                         </div>
                     </div>
                     <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold text-info">Personal information</h4>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-10">
+                        <h4 class="text-center mt-3 text-bold">Personal information</h4><hr>
+                            <div class="col-md-12">
+                        <div class="row">
+
+                                <div class="col-md-6">
                                     <table class="table table-borderless table-sm">
 
                                         <tbody>
@@ -188,11 +178,22 @@
                                                 <th scope="row">Mother's Profession:</th>
                                                 <td>{{ $student_data->mother_profession }}</td>
                                             </tr>
+                                            
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <table class="table table-borderless table-sm">
+
+                                        <tbody>
                                             <tr>
                                                 <th scope="row">Siblings and their status :</th>
                                                 <td>{{ $student_data->siblings }}</td>
                                             </tr>
-
+                                            
+                                            
                                         </tbody>
 
                                     </table>
@@ -200,174 +201,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold text-info">Reference information</h4>
-                        <hr>
-                        <div class="col-md-10">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Reference Name:</th>
-                                                <td>{{ $student_data->reference_name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Reference Profession:</th>
-                                                <td>{{ $student_data->reference_profession }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Reference Contact No.</th>
-                                                <td>{{ $student_data->reference_phone }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Reason:</th>
-                                                <td>{{ $student_data->reason }}</td>
-                                            </tr>  
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                                <div class="col-md-10">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-
-
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold text-info">Financial information</h4>
-                        <hr>
-                        <div class="col-md-10">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Family Income (Tk. Monthly):</th>
-                                                <td>{{ $student_data->family_income }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Income Source:</th>
-                                                <td>{{ $student_data->income_source }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Other Scholarship:</th>
-                                                <td>{{ $student_data->other_scholarship }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Reason:</th>
-                                                <td>{{ $student_data->reason }}</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                                <div class="col-md-10">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-
-
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold text-info">Address</h4>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="row">
-
-
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Present Division:</th>
-                                                <td>{{ $addresses_present->division }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Present District:</th>
-                                                <td>{{ $addresses_present->district }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Present Upazila:</th>
-                                                <td>{{ $addresses_present->upazila }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Present Area:</th>
-                                                <td>{{ $addresses_present->area }}</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                                @if($addresses_present->same_as_present)
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Permanent Address:</th>
-                                                <td>Same as Present Address</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                @else
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
-
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Permanent Division:</th>
-                                                <td>{{ $addresses_permanent->division }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Permanent District:</th>
-                                                <td>{{ $addresses_permanent->district }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Permanent Upazila:</th>
-                                                <td>{{ $addresses_permanent->upazila }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Permanent Area:</th>
-                                                <td>{{ $addresses_permanent->area }}</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ManageApplicationController extends Controller
 {
@@ -79,8 +80,10 @@ class ManageApplicationController extends Controller
             'permanent_address',
             'degree_information',
             'achievements',
+            'student_documents',
         ])->find($student_id);
 
+        // dd($student_data);
 
         return view('tenant.manage_applications.manage_applications_student_profile', [
             'student_data' => $student_data,
@@ -88,7 +91,40 @@ class ManageApplicationController extends Controller
             'addresses_present' => $student_data->present_address,
             'addresses_permanent' => $student_data->permanent_address,
             'achievements' => $student_data->achievements,
+            'documents' => $student_data->student_documents,
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function pdf_student_profile(Request $request, $student_id)
+    {
+
+        $student_data = Student::with([
+            'present_address',
+            'permanent_address',
+            'degree_information',
+            'achievements',
+        ])->find($student_id);
+
+        $pdf = PDF::loadView('tenant.manage_applications.pdf_student_profile',[
+            'student_data' => $student_data,
+            'academic_data' => $student_data->degree_information,
+            'addresses_present' => $student_data->present_address,
+            'addresses_permanent' => $student_data->permanent_address,
+            'achievements' => $student_data->achievements,
+
+        ])->setOptions(['defaultFont' => 'sans-serif']);
+
+        // dd($pdf);
+        
+
+        return $pdf->download('test.pdf');
+
     }
 
     /**

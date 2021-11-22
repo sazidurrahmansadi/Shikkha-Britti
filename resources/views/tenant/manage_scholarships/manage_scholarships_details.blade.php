@@ -20,6 +20,10 @@
                                         class="fa fa-backward"></i>
                                     Back
                                 </a>
+                                <a href="{{ route('test_pdf', [$scholarship_data->id]) }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
+                                        class="fa fa-backward"></i>
+                                    Generate PDF
+                                </a>
                             </div>
                         </div>
                         <!-- title -->
@@ -67,31 +71,8 @@
                             <strong>Application Deadline:</strong>
                             {{ (new DateTime($scholarship_data->deadline))->format('d-M-Y') }}
 
-
                         </div>
                     </div>
-                    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>To Date:</strong>
-                            {{ (new DateTime($approved_application_detail->to_date))->format('d-M-Y') }}
-
-
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Approved By:</strong>
-                            {{$approved_application_detail->approved_by}}
-
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Approval Date:</strong>
-                            {{ (new DateTime($approved_application_detail->approval_date))->format('d-M-Y') }}
-
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>

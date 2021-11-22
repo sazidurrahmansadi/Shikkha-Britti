@@ -103,7 +103,10 @@
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
-                                                    role="button"><i class='far fa-user'></i> Profile</a>
+                                                    role="button"><i class='far fa-user'></i> Student Profile</a>
+                                                {{-- <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
+                                                    role="button"><i class='far fa-user'></i> Profile</a> --}}
 
                                                 @if ($applied_student->pivot->is_approve == 1)
 
