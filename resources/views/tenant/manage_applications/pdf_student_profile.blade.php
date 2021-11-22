@@ -1,347 +1,208 @@
-@extends('layouts.dashboard_layout')
-@section('custom_style')
-    <link href="{{ asset('/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-@endsection
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>One Page Resume</title>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: 16px Helvetica, Sans-Serif;
+            line-height: 24px;
+            background: url(images/noise.jpg);
+        }
+
+        .clear {
+            clear: both;
+        }
 
 
-@section('content')
-    <div class="container">
-        <div class="main-body">
 
-            {{-- <button class="btn btn-primary text-right mb-2">Download Profile</button> --}}
-            <a class="btn btn-primary text-right mb-2" href="{{ route('pdf_student_profile', [$student_data->id]) }}"
-                role="button">Download PDF</a>
+        .pic {
+            float: right;
+            margin: -30px 0 0 0;
+        }
 
+        h1 {
+            margin: 0 0 16px 0;
+            padding: 0 0 16px 0;
+            font-size: 42px;
+            font-weight: bold;
+            letter-spacing: -2px;
+            border-bottom: 1px solid #999;
+        }
 
-            <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                    class="rounded-circle" width="150">
-                                <div class="mt-3">
-                                    <h4>{{ $student_data->name }}</h4>
-                                    <p class="text-secondary mb-1">Scholarship Candidate</p>
-                                    <p class="text-muted font-size-sm">Student ID: {{ $student_data->sid }}</p>
-                                    {{-- <button class="btn btn-primary">Download Profile</button> --}}
-                                    {{-- <button class="btn btn-outline-primary">Message</button> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="fas fa-phone pr-2"></i>Phone </h6>
-                                <span class="text-secondary">{{ $student_data->phone }}</span>
-                            </li>
+        h2 {
+            font-size: 20px;
+            margin: 0 0 6px 0;
+            position: relative;
+        }
 
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="far fa-envelope pr-2"></i>Email</h6>
-                                <span class="text-secondary">{{ $student_data->email }}</span>
-                            </li>
+        h2 span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-style: italic;
+            font-family: Georgia, Serif;
+            font-size: 16px;
+            color: #999;
+            font-weight: normal;
+        }
 
+        p {
+            margin: 0 0 16px 0;
+        }
 
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="fas fa-user-tie pr-2"></i>Date of Birth</h6>
-                                <span
-                                    class="text-secondary">{{ (new DateTime($student_data->dob))->format('d-M-Y') }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="far fa-building pr-2"></i>Gender</h6>
-                                <span class="text-secondary">{{ $student_data->gender }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><i class="far fa-building pr-2"></i>Ain in Life</h6>
-                                <span class="text-secondary">{{ $student_data->aim_in_life }}</span>
-                            </li>
+        a {
+            color: #999;
+            text-decoration: none;
+            border-bottom: 1px dotted #999;
+        }
 
+        a:hover {
+            border-bottom-style: solid;
+            color: black;
+        }
 
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold">Educational information</h4><hr>
-                            <div class="col-md-12">
-                        <div class="row">
+        ul {
+            margin: 0 0 32px 17px;
+        }
 
+        .objective {
+            width: 500px;
+            float: left;
+        }
 
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
+        .objective p {
+            font-family: Georgia, Serif;
+            font-style: italic;
+            color: #666;
+        }
 
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Education Level:</th>
-                                                <td>{{ $academic_data->level }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Institution:</th>
-                                                <td>{{ $academic_data->institution }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Class/Degree:</th>
-                                                <td>{{ $academic_data->class_degree }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Semester:</th>
-                                                <td>{{ $academic_data->semester }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Marks/GPA/CGPA:</th>
-                                                <td>{{ $academic_data->marks_cgpa }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Class Position/ID:</th>
-                                                <td>{{ $academic_data->position }}</td>
-                                            </tr>
-                                        </tbody>
+        dt {
+            font-style: italic;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: right;
+            padding: 0 26px 0 0;
+            width: 150px;
+            float: left;
+            height: 100px;
+            border-right: 1px solid #999;
+        }
 
-                                    </table>
-                                </div>
+        dd {
+            width: 600px;
+            float: right;
+        }
 
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
+        dd.clear {
+            float: none;
+            margin: 0;
+            height: 15px;
+        }
 
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">SSC Passing Year</th>
-                                                <td>{{ $academic_data->ssc_year }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">SSC Institution Name</th>
-                                                <td>{{ $academic_data->ssc_institution }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">SSC GPA</th>
-                                                <td>{{ $academic_data->ssc_gpa }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">HSC Passing Year</th>
-                                                <td>{{ $academic_data->hsc_year }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">HSC Institution Name</th>
-                                                <td>{{ $academic_data->hsc_institution }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">HSC GPA</th>
-                                                <td>{{ $academic_data->hsc_gpa }}</td>
-                                            </tr>
-                                        </tbody>
+    </style>
+</head>
 
-                                    </table>
-                                </div>
-                                <div class="col-md-12">
-                                    <table class="table table-borderless table-sm">
+<body>
 
-                                        <tbody>
-                                            @forelse ($achievements as $achievement)
-                                                @if ($achievement->achievement != null)
-                                                    <tr>
-                                                        <th scope="row">Achievement {{ $loop->index + 1 }}:</th>
-                                                        <td class="text-left">{{ $achievement->achievement }}</td>
-                                                    </tr>
-                                                @endif
-                                            @empty
-                                            @endforelse
-                                        </tbody>
+    <div style="margin:40px auto 60px; ">
 
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <h4 class="text-center mt-3 text-bold">Personal information</h4><hr>
-                            <div class="col-md-12">
-                        <div class="row">
+        <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
 
-                                <div class="col-md-6">
-                                    <table class="table table-borderless table-sm">
+        <div class="contact-info" class="vcard">
 
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Father's Name:</th>
-                                                <td>{{ $student_data->father_name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Father's Profession:</th>
-                                                <td>{{ $student_data->father_profession }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Mother's Name:</th>
-                                                <td>{{ $student_data->mother_name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Mother's Profession:</th>
-                                                <td>{{ $student_data->mother_profession }}</td>
-                                            </tr>
-                                            
-                                        </tbody>
+            <!-- Microformats! -->
 
-                                    </table>
-                                </div>
+            <h1 class="fn">{{ $student_data->name }}</h1>
 
-                                <div class="col-md-12">
-                                    <table class="table table-borderless table-sm">
+            <p>
+                Phone: <span class="tel">{{ $student_data->phone }}</span><br/>
+                Email: <a class="email" href="mailto:greatoldone@lovecraft.com">{{ $student_data->email }}</a><br>
+                Date of Birth: <span>{{ (new DateTime($student_data->dob))->format('d-M-Y') }}</span><br/>
+                Gender: <span>{{ $student_data->gender }}</span><br/>
 
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Siblings and their status :</th>
-                                                <td>{{ $student_data->siblings }}</td>
-                                            </tr>
-                                            
-                                            
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Education Level</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ $academic_data->level }}
-                                </div>
-                            </div>
-                            {{-- <hr> --}}
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Institution</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ $academic_data->institution }}
-                                </div>
-                            </div>
-                            {{-- <hr> --}}
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Class/Degree</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ $academic_data->class_degree }}<br>
-                                    {{ $academic_data->semester }} semester
-
-                                </div>
-                            </div>
-                            {{-- <hr> --}}
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Marks/GPA/CGPA
-                                    </h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ $academic_data->marks_cgpa }}
-                                </div>
-                            </div>
-                            {{-- <hr> --}}
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Class Position/Roll/ID</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ $academic_data->marks_cgpa }}
-                                </div>
-                            </div>
-                            {{-- <hr>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a class="btn btn-info " target="__blank"
-                                        href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                                </div>
-                            </div> --}}
-                        </div>
-                    </div>
-
-                    <div class="row gutters-sm">
-                        <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i
-                                            class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i
-                                            class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+            </p>
         </div>
-    </div>
-@endsection
 
-@section('extra_js')
-    <script src="{{ asset('/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
-@endsection
+        <div class="objective">
+            <p>
+                {{-- I am an outgoing and energetic (ask anybody) young professional, seeking a
+                career that fits my professional skills, personality, and murderous tendencies.
+                My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
+                I can bring world domination to your organization. --}}
+            </p>
+        </div>
+
+        <div class="clear"></div>
+
+        <dl>
+            <dd class="clear"></dd>
+
+            <dt>Education</dt>
+            <dd>
+                {{-- <h2>Withering Madness University - Planet Vhoorl</h2> --}}
+                <p><strong>Education Level:</strong> {{ $academic_data->level }}<br />
+                    <strong>Institution:</strong> {{ $academic_data->institution }}dfgdfghfghdfghfgh
+                </p>
+            </dd>
+
+            <dd class="clear"></dd>
+
+            <dt>Personal Information</dt>
+            <dd>
+                <h2>Office skills</h2>
+                <p>Office and records management, database administration, event organization, customer support, travel
+                    coordination</p>
+
+                <h2>Computer skills</h2>
+                <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+            </dd>
+
+            <dd class="clear"></dd>
+
+            <dt>Reference</dt>
+            <dd>
+                <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
+                <ul>
+                    <li>Inspired and won highest peasant death competition among servants</li>
+                    <li>Helped coordinate managers to grow cult following</li>
+                    <li>Provided untimely deaths to all who opposed</li>
+                </ul>
+
+                <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
+                <ul>
+                    <li>Worked on grass-roots promotional campaigns</li>
+                    <li>Reduced theft and property damage percentages</li>
+                    <li>Janitorial work, Laundry</li>
+                </ul>
+            </dd>
+
+            <dd class="clear"></dd>
+
+            <dt>Financial Information</dt> 
+            <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+
+            <dd class="clear"></dd>
+
+            <dt>References</dt>
+            <dd>Available on request</dd>
+
+            <dd class="clear"></dd>
+        </dl>
+
+        <div class="clear"></div>
+
+    </div>
+
+</body>
+
+</html>

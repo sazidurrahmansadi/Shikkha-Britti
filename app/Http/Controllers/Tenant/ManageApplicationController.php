@@ -104,12 +104,7 @@ class ManageApplicationController extends Controller
     public function pdf_student_profile(Request $request, $student_id)
     {
 
-        $student_data = Student::with([
-            'present_address',
-            'permanent_address',
-            'degree_information',
-            'achievements',
-        ])->find($student_id);
+        $student_data = Student::find($student_id);
 
         $pdf = PDF::loadView('tenant.manage_applications.pdf_student_profile',[
             'student_data' => $student_data,
@@ -123,7 +118,15 @@ class ManageApplicationController extends Controller
         // dd($pdf);
         
 
-        return $pdf->download('test.pdf');
+        return $pdf->download($student_data->sid .' Student Profile.pdf');
+        return view('tenant.manage_applications.pdf_student_profile', [
+            'student_data' => $student_data,
+            'academic_data' => $student_data->degree_information,
+            'addresses_present' => $student_data->present_address,
+            'addresses_permanent' => $student_data->permanent_address,
+            'achievements' => $student_data->achievements,
+            'documents' => $student_data->student_documents,
+        ]);
 
     }
 
