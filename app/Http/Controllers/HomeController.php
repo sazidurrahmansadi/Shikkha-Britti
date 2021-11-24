@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $scholarships = Scholarship::where('status', "ACTIVE")->orderBy('id', 'DESC')->paginate(100);
+        $scholarships = Scholarship::where('status', "ACTIVE")->where('is_delete', 0)->orderBy('id', 'DESC')->paginate(100);
 
         return view('home', [
             'scholarships' => $scholarships,

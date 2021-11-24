@@ -124,15 +124,13 @@ Route::GET('/manage-applications-approved-index/{scholarship_id}', [ManageApplic
 //Student Profile
 Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationController::class, 'show_profile'])->name('manage_applications_profile')->middleware('auth');
 
-Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
-
 /*
 -----------------------------------------------------------
  ==== Manage PDF starts Here  ===
 -----------------------------------------------------------
 */
-// Route::GET('/test-pdf', [PDFController::class, 'pdf_student_profile'])->name('test_pdf')->middleware('auth');
-Route::GET('/test-pdf/{scholarship_id}', [TenantScholarshipController::class, 'pdf_student_profile'])->name('test_pdf')->middleware('auth');
+Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
+
 
 
 

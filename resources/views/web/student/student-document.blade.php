@@ -67,7 +67,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="type">Document Type</label>
+                                                    <label for="type">Document Type <span class="text-danger font-weight-bold">*</span></label>
                                                     <select class="form-control" name="type" id="type" required>
                                                         <option value="">Select</option>
                                                         <option value="Birth Certificate/NID">Birth Certificate/NID</option>
@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label>Choose Document</label>
+                                                    <label>Choose Document <span class="text-danger font-weight-bold">*</span></label>
                                                     <input type="file" id="document" name="document" class="form-control"
                                                         onchange="Filevalidation()" required>
                                                     <small class="">*Document format must be <span

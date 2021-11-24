@@ -10,7 +10,7 @@
                     @guest
                         <div class="theme-btn">
                             <a href="{{ route('login') }}" class="btn default-btn">Sign In</a>
-                            <a href="{{ route('register') }}" class="btn default-btn">Sigh Up</a>
+                            <a href="{{ route('register') }}" class="btn default-btn">Sign Up</a>
                         @else
                             <div class="theme-btn">
                             @endguest

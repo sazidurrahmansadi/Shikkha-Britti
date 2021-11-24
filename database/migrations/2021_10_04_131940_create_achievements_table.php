@@ -17,7 +17,7 @@ class CreateAchievementsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id')->nullable();
 
-            $table->string('achievement')->nullable();            
+            $table->text('achievement')->nullable();            
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');

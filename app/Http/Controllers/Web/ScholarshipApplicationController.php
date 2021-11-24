@@ -19,7 +19,7 @@ class ScholarshipApplicationController extends Controller
      */
     public function index()
     {
-        $scholarships = Scholarship::where('status', "ACTIVE")->orderBy('id', 'DESC')->get();
+        $scholarships = Scholarship::where('status', "ACTIVE")->where('is_delete', 0)->orderBy('id', 'DESC')->get();
 
         return view('web.scholarship.scholarship-list', [
             'scholarships' => $scholarships,

@@ -110,7 +110,7 @@
 
                                             <td class="text-center"><a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_applications_index', [$scholarship->id]) }}"
-                                                    role="button">View</a>
+                                                    role="button">View All</a>
                                             </td>
 
                                             <td class="text-center align-top">

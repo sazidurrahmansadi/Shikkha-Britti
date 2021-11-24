@@ -20,10 +20,6 @@
                                         class="fa fa-backward"></i>
                                     Back
                                 </a>
-                                <a href="{{ route('test_pdf', [$scholarship_data->id]) }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
-                                        class="fa fa-backward"></i>
-                                    Generate PDF
-                                </a>
                             </div>
                         </div>
                         <!-- title -->
@@ -51,7 +47,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Eligibility:</strong>
-                            {{ $scholarship_data->eligibility }}
+                            <div style="white-space: pre-wrap; padding-left:30px">{{ $scholarship_data->eligibility }}</div>
+                            
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

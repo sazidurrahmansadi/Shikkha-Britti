@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Your Full Name</label>
+                                        <label>Your Full Name <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="name" class="form-control" placeholder="Your Name"
                                             value="{{ $student_data->name }}" required>
                                     </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Your Phone</label>
+                                        <label>Your Phone <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="phone" pattern="[0]+[1]+[7/8/9/6/5/4/3]+[0-9]{8}" name="phone"
                                             class="form-control" placeholder="Your Phone"
                                             value="{{ $student_data->phone }}" required>
@@ -73,14 +73,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Date of Birth</label>
+                                        <label>Date of Birth <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="date" name="dob" class="form-control"
                                             value="{{ (new DateTime($student_data->dob))->format('Y-m-d') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Father's Name</label>
+                                        <label>Father's Name <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="father_name" class="form-control"
                                             placeholder="Your Father's Name" value="{{ $student_data->father_name }}"
                                             required>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Father's Profession</label>
+                                        <label>Father's Profession <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="father_profession" class="form-control"
                                             placeholder="Your Father's Profession"
                                             value="{{ $student_data->father_profession }}" required>
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mother's Name</label>
+                                        <label>Mother's Name <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="mother_name" class="form-control"
                                             placeholder="Your Mother's Profession"
                                             value="{{ $student_data->mother_name }}" required>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mother's Profession</label>
+                                        <label>Mother's Profession <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="mother_profession" class="form-control"
                                             placeholder="Your Mother's Name"
                                             value="{{ $student_data->mother_profession }}" required>
@@ -113,20 +113,20 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Siblings and their status (if any)</label>
-                                        <textarea name="siblings" class="form-control" placeholder="Write details"
+                                        <textarea name="siblings" class="form-control" placeholder="Write details" maxlength="999"
                                             style="max-height: 80px; height: 80px">{{ $student_data->siblings }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Your Aim in Life</label>
-                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details"
+                                        <label>Your Aim in Life <span class="text-danger font-weight-bold">*</span></label>
+                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999
                                             style="max-height: 80px; height: 80px" required>{{ $student_data->aim_in_life }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="gender">Gender</label>
+                                        <label for="gender">Gender <span class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="gender" id="gender" required>
                                             {{-- <option value="">Select</option> --}}
                                             <option value="Male"
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="institution">Institution</label>
+                                        <label for="institution">Institution <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="institution" class="form-control"
                                             placeholder="Your Institution" id="institution"
                                             value="{{ $academic_data->institution }}" required>
@@ -218,14 +218,14 @@
                                 </div>
                                 <div class="col-md-6" id="position">
                                     <div class="form-group">
-                                        <label>Class Position/Roll/ID</label>
+                                        <label>Class Position/Roll/ID <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="position" class="form-control"
-                                            placeholder="Your Class Position" value="{{ $academic_data->position }}">
+                                            placeholder="Your Class Position" value="{{ $academic_data->position }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Marks/GPA/CGPA</label>
+                                        <label>Marks/GPA/CGPA <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="number" step=0.01 name="marks_cgpa" class="form-control"
                                             placeholder="CGPA" value="{{ $academic_data->marks_cgpa }}" required>
                                     </div>
@@ -239,7 +239,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Year</label>
+                                        <label>Year <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" class="form-control" name="year" id="datepicker"
                                             value="{{ $academic_data->year }}" required/>
 
@@ -295,7 +295,7 @@
                                         <div class="form-group">
                                             <label>Achievement {{ $loop->index + 1 }}</label>
                                             <textarea id="" name="achievement[]" class="form-control"
-                                                placeholder=" (e.g., athlete, debater, organizer, etc.)"
+                                                placeholder=" (e.g., athlete, debater, organizer, etc.)" maxlength="999"
                                                 style="max-height: 80px; height: 80px">{{ $achievement->achievement }}</textarea>
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Reference name</label>
+                                        <label>Reference name <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="reference_name" class="form-control"
                                             placeholder="Enter reference name"
                                             value="{{ $student_data->reference_name }}" required>
@@ -324,15 +324,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Profession</label>
+                                        <label>Profession <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="reference_profession" class="form-control"
-                                            placeholder="Enter profession"
+                                            placeholder="Enter profession" maxlength="999"
                                             value="{{ $student_data->reference_profession }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Contact Number</label>
+                                        <label>Contact Number <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="phone" name="reference_phone" class="form-control"
                                             placeholder="Enter contact number"
                                             value="{{ $student_data->reference_phone }}" required>
@@ -348,7 +348,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Family Income (Monthly)</label>
+                                        <label>Family Income (Monthly) <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="number" name="family_income" class="form-control"
                                             placeholder="Enter monthly family income"
                                             value="{{ $student_data->family_income }}" required>
@@ -356,7 +356,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Income Source</label>
+                                        <label>Income Source <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="income_source" class="form-control"
                                             placeholder="Enter income source" value="{{ $student_data->income_source }}"
                                             required>
@@ -372,8 +372,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Reason for Financial Support</label>
-                                        <textarea name="reason" class="form-control" placeholder="Please write details"
+                                        <label>Reason for Financial Support <span class="text-danger font-weight-bold">*</span></label>
+                                        <textarea name="reason" class="form-control" placeholder="Please write details" maxlength="999"
                                             style="max-height: 80px; height: 80px">{{ $student_data->reason }}</textarea>
                                     </div>
                                 </div>
@@ -394,7 +394,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="hidden" id="form_type_present" value="EDIT">
-                                            <label>Division:</label>
+                                            <label>Division: <span class="text-danger font-weight-bold">*</span></label>
                                             <select class="form-control" id="division_present" name="division_present" required>
                                                 <option selected="selected" name="division_present">
                                                     {{ $present->division }}</option>
@@ -403,7 +403,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>District:</label>
+                                            <label>District: <span class="text-danger font-weight-bold">*</span></label>
                                             <select class="form-control" id="district_present" name="district_present" required>
                                                 <option selected="selected">{{ $present->district }}</option>
                                             </select>
@@ -411,7 +411,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Upazila:</label>
+                                            <label>Upazila: <span class="text-danger font-weight-bold">*</span></label>
                                             <select class="form-control" id="upazila_present" name="upazila_present" required>
                                                 <option selected="selected">{{ $present->upazila }}</option>
                                             </select>
@@ -420,7 +420,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Area</label>
+                                            <label>Area: <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="area_present" class="form-control"
                                                 placeholder="House and Area details" value="{{ $present->area }}" required>
                                         </div>
@@ -489,7 +489,7 @@
                                         </div>
                                         <div class="col-md-6" id="area_check">
                                             <div class="form-group">
-                                                <label>Area</label>
+                                                <label>Area:</label>
                                                 <input type="text" name="area_permanent" class="form-control"
                                                     placeholder="House and Area details" value="{{ $permanent->area }}">
                                             </div>
@@ -531,7 +531,7 @@
                                         </div>
                                         <div class="col-md-6" id="area_check">
                                             <div class="form-group">
-                                                <label>Area</label>
+                                                <label>Area:</label>
                                                 <input type="text" name="area_permanent" class="form-control"
                                                     placeholder="Your Area">
                                             </div>
@@ -640,7 +640,7 @@
                 var fieldHTML =
                     '<div class="col-md-6"><div class="form-group"><label>Significant Achievement ' +
                     clicks +
-                    '</label><textarea  id="" name="achievement[]" class="form-control" placeholder=" (e.g., athlete, debater, organizer, etc.)"></textarea></div><a href="javascript:void(0);" class="remove_button"><i class="bx bx-trash-alt text-danger"> Delete</i></a></div>'; //New input field html
+                    '</label><textarea  id="" name="achievement[]" class="form-control" placeholder=" (e.g., athlete, debater, organizer, etc.)" maxlength="999"></textarea></div><a href="javascript:void(0);" class="remove_button"><i class="bx bx-trash-alt text-danger"> Delete</i></a></div>'; //New input field html
                 //Check maximum number of input fields bx-trash-alt
                 if (x < maxField) {
                     x++; //Increment field counter

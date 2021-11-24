@@ -30,6 +30,7 @@ class DashboardController extends Controller
         //$image_name= time().'.png';
         $image_name = 'USER' . $request->user_id . '-' . time() . '.png';
 
+        mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
         $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
 
 

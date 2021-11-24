@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label for="eligibility">Eligibility</label><span class="text-danger">*</span></label>
                                 <textarea type="textarea" class="form-control" id="eligibility" name="eligibility"
-                                    placeholder="Please write details eligibility..." required></textarea>
+                                    placeholder="Please write details eligibility..." maxlength="999" required></textarea>
                             </div>
 
                             <!-- select -->

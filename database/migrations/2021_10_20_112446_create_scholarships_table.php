@@ -18,7 +18,7 @@ class CreateScholarshipsTable extends Migration
             $table->foreignId('tenant_id')->nullable()->constrained();
             $table->string('scholarship_title');
             $table->string('level');
-            $table->string('eligibility');
+            $table->text('eligibility');
             $table->double('amount');
             $table->string('payment_type')->nullable();
             $table->dateTime('deadline')->nullable();

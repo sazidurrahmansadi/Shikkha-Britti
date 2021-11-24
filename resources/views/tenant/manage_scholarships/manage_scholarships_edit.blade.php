@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="eligibility">Eligibility</label><span class="text-danger">*</span></label>
                                 <textarea type="textarea" class="form-control" id="eligibility" name="eligibility"
-                                    placeholder="Please write details eligibility..."
+                                    placeholder="Please write details eligibility..." maxlength="999"
                                     required>{{ $scholarship->eligibility }}</textarea>
                             </div>
 

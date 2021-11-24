@@ -338,6 +338,14 @@ class RegisterStudentController extends Controller
         $degree->marks_cgpa = $request->marks_cgpa;
         $degree->semester = $request->semester;
         $degree->year = $request->year;
+
+        $degree->ssc_year = $request->ssc_year;
+        $degree->ssc_institution = $request->ssc_institution;
+        $degree->ssc_gpa = $request->ssc_gpa;
+        $degree->hsc_year = $request->hsc_year;
+        $degree->hsc_institution = $request->hsc_institution;
+        $degree->hsc_gpa = $request->hsc_gpa;
+        
         $degree->save();
 
 

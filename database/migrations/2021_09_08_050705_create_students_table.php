@@ -26,19 +26,19 @@ class CreateStudentsTable extends Migration
             $table->string('father_profession')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('mother_profession')->nullable();
-            $table->string('siblings')->nullable();
-            $table->string('aim_in_life')->nullable();
+            $table->text('siblings')->nullable();
+            $table->text('aim_in_life')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('same_as_parmanent')->default(1);
 
             $table->string('reference_name')->nullable();
-            $table->string('reference_profession')->nullable();
+            $table->text('reference_profession')->nullable();
             $table->string('reference_phone')->nullable();
 
             $table->string('family_income')->nullable();
             $table->string('income_source')->nullable();
             $table->string('other_scholarship')->nullable();
-            $table->string('reason')->nullable();
+            $table->text('reason')->nullable();
 
             $table->timestamps();
 

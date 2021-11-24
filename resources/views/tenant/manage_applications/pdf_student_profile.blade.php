@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>One Page Resume</title>
+    <title>{{ $student_data->name }}</title>
 
     <style type="text/css">
         * {
@@ -23,9 +23,12 @@
             clear: both;
         }
 
+        .page-wrap {
+            width: 800px;
+            margin: 40px auto 60px;
+        }
 
-
-        .pic {
+        #pic {
             float: right;
             margin: -30px 0 0 0;
         }
@@ -36,7 +39,7 @@
             font-size: 42px;
             font-weight: bold;
             letter-spacing: -2px;
-            border-bottom: 1px solid #999;
+            /* border-bottom: 1px solid #999; */
         }
 
         h2 {
@@ -57,7 +60,8 @@
         }
 
         p {
-            margin: 0 0 16px 0;
+            font-size: 14px;
+            margin: 0 0 2px 0;
         }
 
         a {
@@ -109,12 +113,31 @@
             height: 15px;
         }
 
+        .fn {
+            /* margin-left: 50px; */
+            padding-left: 60px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+
+            /** Extra personal styles **/
+            background-color: #03a9f4;
+            color: white;
+            text-align: center;
+            line-height: 1.5cm;
+        }
+
     </style>
 </head>
 
 <body>
 
-    <div style="margin:40px auto 60px; ">
+    <div style="margin:40px auto 10px; ">
 
         <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
 
@@ -122,25 +145,18 @@
 
             <!-- Microformats! -->
 
-            <h1 class="fn">{{ $student_data->name }}</h1>
+            <h2 class="fn">{{ $student_data->name }}</h2>
 
-            <p>
-                Phone: <span class="tel">{{ $student_data->phone }}</span><br/>
-                Email: <a class="email" href="mailto:greatoldone@lovecraft.com">{{ $student_data->email }}</a><br>
-                Date of Birth: <span>{{ (new DateTime($student_data->dob))->format('d-M-Y') }}</span><br/>
-                Gender: <span>{{ $student_data->gender }}</span><br/>
+            <p class="fn">
+                <b>Student ID:</b> <span> {{ $student_data->sid }}</span><br>
+                <b>Phone:</b> <span> {{ $student_data->phone }}</span><br>
+                <b>Email:</b> <span> {{ $student_data->email }}</span><br>
+                <b>Gender:</b> <span> {{ $student_data->gender }}</span><br>
+                <b>Date of Birth:</b> <span> {{ (new DateTime($student_data->dob))->format('d-M-Y') }}</span><br>
 
             </p>
         </div>
-
-        <div class="objective">
-            <p>
-                {{-- I am an outgoing and energetic (ask anybody) young professional, seeking a
-                career that fits my professional skills, personality, and murderous tendencies.
-                My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
-                I can bring world domination to your organization. --}}
-            </p>
-        </div>
+        <p style="border-bottom: 1px solid #999; margin-top:20px"></p>
 
         <div class="clear"></div>
 
@@ -150,58 +166,102 @@
             <dt>Education</dt>
             <dd>
                 {{-- <h2>Withering Madness University - Planet Vhoorl</h2> --}}
-                <p><strong>Education Level:</strong> {{ $academic_data->level }}<br />
-                    <strong>Institution:</strong> {{ $academic_data->institution }}dfgdfghfghdfghfgh
-                </p>
+                <p><strong>Level:</strong> {{ $academic_data->level }}</p>
+                <p><strong>Class/Degree:</strong> {{ $academic_data->class_degree }}</p>
+                <p><strong>Semester:</strong> {{ $academic_data->semester }}</p>
+                <p><strong>Marks/GPA/CGPA:</strong> {{ $academic_data->marks_cgpa }}</p>
+                <p><strong>Class Position/ID:</strong> {{ $academic_data->position }}</p>
+                <p><strong>Institution:</strong> {{ $academic_data->institution }}</p><br>
+
+                @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year)
+
+                    <p><strong>SSC Passing Year:</strong> {{ $academic_data->ssc_year }}</p>
+                    <p><strong>SSC GPA:</strong> {{ $academic_data->ssc_gpa }}</p>
+                    <p><strong>SSC Institution Name:</strong> {{ $academic_data->ssc_institution }}</p>
+                    @if ($academic_data->hsc_gpa || $academic_data->hsc_year)
+                        <p><strong>HSC Passing Year:</strong> {{ $academic_data->hsc_year }}</p>
+                        <p><strong>HSC GPA:</strong> {{ $academic_data->hsc_gpa }}</p>
+                        <p><strong>HSC Institution Name:</strong> {{ $academic_data->hsc_institution }}</p><br>
+                    @endif
+                @endif
+                @forelse ($achievements as $achievement)
+                    @if ($achievement->achievement != null)
+                        <p><strong>Achievement {{ $loop->index + 1 }}:</strong> {{ $achievement->achievement }}
+                        </p>
+                    @endif
+                @empty
+                @endforelse
+                <br>
+                <p><strong>Aim in Life:</strong> {{ $student_data->aim_in_life }}</p>
+
             </dd>
 
             <dd class="clear"></dd>
 
             <dt>Personal Information</dt>
             <dd>
-                <h2>Office skills</h2>
-                <p>Office and records management, database administration, event organization, customer support, travel
-                    coordination</p>
 
-                <h2>Computer skills</h2>
-                <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+                <p><strong>Father's Name:</strong> {{ $student_data->father_name }}</p>
+                <p><strong>Father's Profession:</strong> {{ $student_data->father_profession }}</p>
+                <p><strong>Mother's Name:</strong> {{ $student_data->mother_name }}</p>
+                <p><strong>Mother's Profession:</strong> {{ $student_data->mother_profession }}</p>
+                <p><strong>Siblings and their status:</strong> {{ $student_data->siblings }}</p>
             </dd>
 
             <dd class="clear"></dd>
 
             <dt>Reference</dt>
             <dd>
-                <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
-                <ul>
-                    <li>Inspired and won highest peasant death competition among servants</li>
-                    <li>Helped coordinate managers to grow cult following</li>
-                    <li>Provided untimely deaths to all who opposed</li>
-                </ul>
-
-                <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
-                <ul>
-                    <li>Worked on grass-roots promotional campaigns</li>
-                    <li>Reduced theft and property damage percentages</li>
-                    <li>Janitorial work, Laundry</li>
-                </ul>
+                <p><strong>Reference Name:</strong> {{ $student_data->reference_name }}</p>
+                <p><strong>Reference Profession:</strong> {{ $student_data->reference_profession }}</p>
+                <p><strong>Reference Contact No.:</strong> {{ $student_data->reference_phone }}</p>
             </dd>
 
             <dd class="clear"></dd>
 
-            <dt>Financial Information</dt> 
-            <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+            <dt>Financial Information</dt>
+            <dd>
+
+                <p><strong>Family Income (Tk. Monthly):</strong> {{ $student_data->family_income }}</p>
+                <p><strong>Income Source:</strong> {{ $student_data->income_source }}</p>
+                <p><strong>Other Scholarship:</strong> {{ $student_data->other_scholarship }}</p>
+                <p><strong>Reason:</strong> {{ $student_data->reason }}</p>
+
+            </dd>
 
             <dd class="clear"></dd>
 
-            <dt>References</dt>
-            <dd>Available on request</dd>
+            <dt> Present Addresss</dt>
+            <dd>
+                <p><strong>Division:</strong> {{ $addresses_present->division }}</p>
+                <p><strong>District:</strong> {{ $addresses_present->district }}</p>
+                <p><strong>Upazila:</strong> {{ $addresses_present->upazila }}</p>
+                <p><strong>Area:</strong> {{ $addresses_present->area }}</p>
+
+            </dd>
+
+            <dd class="clear"></dd>
+
+            <dt> Permanent Address</dt>
+
+            <dd>
+                @if ($addresses_present->same_as_present == 1)
+                    <p><strong>Same as Present Address</strong></p>
+                @else
+                    <p><strong>Division:</strong> {{ $addresses_permanent->division }}</p>
+                    <p><strong>District:</strong> {{ $addresses_permanent->district }}</p>
+                    <p><strong>Upazila:</strong> {{ $addresses_permanent->upazila }}</p>
+                    <p><strong>Area:</strong> {{ $addresses_permanent->area }}</p>
+                @endif
+            </dd>
 
             <dd class="clear"></dd>
         </dl>
 
-        <div class="clear"></div>
-
     </div>
+    <footer>
+        Copyright &copy; <?php echo date('Y'); ?>
+    </footer>
 
 </body>
 

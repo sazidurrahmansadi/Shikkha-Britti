@@ -1,6 +1,5 @@
 @extends('layouts.dashboard_layout')
 @section('custom_style')
-    {{-- <link href="{{ asset('/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet"> --}}
     <style>
         .table-6 tbody th {
             width: 50%;
@@ -30,8 +29,8 @@
             {{-- <button class="btn btn-primary text-right mb-2">Download Profile</button> --}}
             <a class="btn btn-primary text-right mb-2" href="{{ route('pdf_student_profile', [$student_data->id]) }}"
                 role="button">Download PDF</a>
-            <button class="btn btn-primary mb-2" onclick="window.print()" style="margin-left:850px">Print Profile</button>
-                {{-- <button >Print this page</button> --}}
+            <button class="btn btn-primary mb-2" onclick="window.print()">Print Profile</button>
+            {{-- <button >Print this page</button> --}}
 
 
 
@@ -136,7 +135,7 @@
                                 </table>
                             </div>
 
-                            @if ($academic_data->ssc_gpa || $academic_data->hsc_gpa)
+                            @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year)
                                 <div class="col-md-6">
                                     <table class="table table-borderless table-sm table-6">
 
@@ -153,6 +152,7 @@
                                                 <th scope="row">SSC Institution Name:</th>
                                                 <td>{{ $academic_data->ssc_institution }}</td>
                                             </tr>
+                                            @if($academic_data->hsc_gpa || $academic_data->hsc_year)
                                             <tr>
                                                 <th scope="row">HSC Passing Year:</th>
                                                 <td>{{ $academic_data->hsc_year }}</td>
@@ -165,6 +165,7 @@
                                                 <th scope="row">HSC Institution Name:</th>
                                                 <td>{{ $academic_data->hsc_institution }}</td>
                                             </tr>
+                                            @endif
                                         </tbody>
 
                                     </table>
@@ -326,28 +327,28 @@
                                             <h5 scope="row" class="mt-2 text-info">Permanent Address</h5>
                                             <hr>
                                         </tr>
-                                        @if ($addresses_present->same_as_present)
-                                        <tr>
-                                            {{-- <th scope="row">Permanent Address:</th> --}}
-                                            <th>Same as Present Address</th>
-                                        </tr>
+                                        @if ($addresses_present->same_as_present == 1)
+                                            <tr>
+                                                {{-- <th scope="row">Permanent Address:</th> --}}
+                                                <th>Same as Present Address</th>
+                                            </tr>
                                         @else
-                                        <tr>
-                                            <th scope="row">Division:</th>
-                                            <td>{{ $addresses_permanent->division }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">District:</th>
-                                            <td>{{ $addresses_permanent->district }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Upazila:</th>
-                                            <td>{{ $addresses_permanent->upazila }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Area:</th>
-                                            <td>{{ $addresses_permanent->area }}</td>
-                                        </tr>
+                                            <tr>
+                                                <th scope="row">Division:</th>
+                                                <td>{{ $addresses_permanent->division }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">District:</th>
+                                                <td>{{ $addresses_permanent->district }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Upazila:</th>
+                                                <td>{{ $addresses_permanent->upazila }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Area:</th>
+                                                <td>{{ $addresses_permanent->area }}</td>
+                                            </tr>
                                         @endif
                                     </tbody>
 
@@ -356,11 +357,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
-
     </div>
     </div>
 @endsection

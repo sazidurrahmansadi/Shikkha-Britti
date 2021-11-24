@@ -64,7 +64,7 @@
                             </div>
                             <div class="details-text">
                                 <h3>Eligibility</h3>
-                                <p>{{$scholarship->eligibility}}</p>
+                                <p style="white-space: pre-wrap;">{{$scholarship->eligibility}}</p>
                             </div>
                             {{-- <div class="details-text">
                                 <h3>Requirements</h3>
@@ -124,10 +124,10 @@
                                                     <td><span>Location: </span></td>
                                                     <td>Bangladesh</td>
                                                 </tr>
-                                                <tr>
+                                                {{-- <tr>
                                                     <td><span>Amount: </span></td>
                                                     <td>Tk. {{$scholarship->amount}}</td>
-                                                </tr>
+                                                </tr> --}}
                                                 {{-- <tr>
                                                     <td><span>Salary</span></td>
                                                     <td>$10,000</td>
