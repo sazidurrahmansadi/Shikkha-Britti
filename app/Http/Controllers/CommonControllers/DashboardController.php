@@ -30,20 +30,18 @@ class DashboardController extends Controller
         //$image_name= time().'.png';
         $image_name = 'USER' . $request->user_id . '-' . time() . '.png';
 
-        if(public_path('storage') . "/uploaded_photo/user_photo"){
-            $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
-        }
-        mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
+        // if(public_path('storage') . "/uploaded_photo/user_photo"){
+        //     $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
+        // }
+        //     mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
         $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
-
 
 
         file_put_contents($path, $data);
         $user = User::findOrFail($request->user_id);
 
         $photo = $user->photo_url;
-        if ($photo)
-        {
+        if ($photo) {
             $filename = public_path('storage') . $photo;
             File::delete($filename);
         }
