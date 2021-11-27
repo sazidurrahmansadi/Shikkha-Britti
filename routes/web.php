@@ -11,7 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Tenant\ManageApplicationController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
-use App\Http\Controllers\Mentor\ManageMentorController;
+use App\Http\Controllers\Tenant\ManageMentorController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -92,7 +92,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_permissions', ManagePermissionsController::class);
     Route::resource('manage_tenants', ManageTenantsController::class);
     Route::resource('manage_mentors', ManageMentorController::class);
-    Route::resource('manage_mentor_accounts', ManageMentorAccountController::class);
 });
 
 
@@ -134,7 +133,13 @@ Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationContro
 */
 Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
 
-
+/*
+-----------------------------------------------------------
+ ==== Manage Mentor Account Here  ===
+-----------------------------------------------------------
+*/
+Route::GET('/manage-mentor-accounts-create/{mentor_id}', [ManageMentorAccountController::class, 'create'])->name('manage_mentor_accounts_create')->middleware('auth');
+Route::POST('/manage-mentor-accounts-store', [ManageMentorAccountController::class, 'store'])->name('manage_mentor_accounts_store')->middleware('auth');
 
 
 

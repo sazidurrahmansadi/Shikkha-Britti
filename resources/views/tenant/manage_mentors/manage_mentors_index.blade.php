@@ -94,7 +94,7 @@
                                                 {{-- <a class="btn btn-sm btn-primary" href="{{ route('manage_scholarships_details', [$scholarship->id]) }}" data-toggle="tooltip"
                                                     data-placement="top" title="View"><i class="fa fa-eye"></i></a> --}}
 
-                                                <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts.create') }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i></a>
+                                                <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i></a>
 
                                                 {{-- <span data-toggle="tooltip" data-placement="top" title="Delete"><button class="btn btn-sm btn-danger delete_warning_modal" type="button" data-toggle="modal" data-target="#delete_warning_modal" data-scholarship_id_d="{{ $scholarship->id }}"><i class="fa fa-trash"></i></button></span> --}}
                                             </td>

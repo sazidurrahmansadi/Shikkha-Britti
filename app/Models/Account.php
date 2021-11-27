@@ -8,6 +8,15 @@ use App\Scopes\TenantScope;
 
 class Account extends Model
 {
+    protected $fillable = [
+        'account_title',
+        'account_type',
+        'account_number',
+        'bank_name',
+        'branch_name',
+        'note',
+    ];
+
     const account_types = array('BANK', 'BKASH', 'NAGAD', 'ROCKET', 'UPAY');
 
     

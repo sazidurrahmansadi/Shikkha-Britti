@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Mentor;
 use Illuminate\Http\Request;
 
 class ManageMentorAccountController extends Controller
@@ -23,11 +24,12 @@ class ManageMentorAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($mentor_id)
     {
         $account_types = Account::account_types;
         return view('tenant.manage_mentors.manage_mentor_accounts_create',[
             'account_types' => $account_types,
+            'mentor_id' => $mentor_id,
         ]);
     }
 
@@ -39,7 +41,22 @@ class ManageMentorAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'account_title' => 'required',
+            'account_type' => 'required',
+            'account_number' => 'required',
+            'mentor_id' => 'required',
+        ]);
+
+        $mentor = Mentor::find($request->mentor_id);
+        
+        $account = new Account();
+        $account->account_title = $request->account_title;
+        $account->account_type = $request->account_type;
+        $account->account_number = $request->account_number;
+        $mentor->mentor_accounts()->save($account);
+
+        return redirect()->route('manage_mentors.index')->with('success', 'Account created succesfully');
     }
 
     /**

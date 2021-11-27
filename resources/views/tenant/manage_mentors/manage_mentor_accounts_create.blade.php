@@ -1,6 +1,5 @@
 @extends('layouts.dashboard_layout')
 @section('custom_style')
-    <link href="{{ asset('/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('page_errors')
@@ -44,8 +43,9 @@
             <!-- column -->
             <div class="col-md-12 mt-4">
                 <div class="card card-body">
-                    <form method="post" action="{{ route('manage_mentor_accounts.store') }}">
+                    <form method="post" action="{{ route('manage_mentor_accounts_store') }}">
                         @csrf
+                        <input type="hidden" name="mentor_id" value="{{$mentor_id}}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="account_title">Account Title<span
@@ -56,8 +56,8 @@
 
                             <!-- select -->
                             <div class="form-group">
-                                <label>Level<span class="text-danger">*</span></label>
-                                <select class="form-control" name="level" id="level" required>
+                                <label for="account_type">Account Type<span class="text-danger">*</span></label>
+                                <select class="form-control" name="account_type" id="account_type" required>
                                     @forelse($account_types as $account_type)
                                     <option value="{{$account_type}}">{{$account_type}}</option>
                                     @empty
@@ -66,37 +66,29 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="eligibility">Eligibility</label><span class="text-danger">*</span></label>
-                                <textarea type="textarea" class="form-control" id="eligibility" name="eligibility"
-                                    placeholder="Please write details eligibility..." maxlength="999" required></textarea>
+                                <label for="account_number">Account Number<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="account_number" name="account_number"
+                                    placeholder="Enter Account No." required>
                             </div>
-
-                            <!-- select -->
                             <div class="form-group">
-                                <label>Payment Type<span class="text-danger">*</span></label>
-                                <select class="form-control" name="payment_type" id="payment_type" required>
-                                    <option value="">Select</option>
-                                    <option value="One Time">One Time</option>
-                                    <option value="Monthly">Monthly</option>
-                                    <option value="Yearly">Yearly</option>
-                                </select>
+                                <label for="bank_name">Bank Name<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="bank_name" name="bank_name"
+                                    placeholder="Enter Bank Name" required>
                             </div>
-
-
                             <div class="form-group">
-                                <label for="amount">Amount (Tk.)<span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="amount" name="amount"
-                                    placeholder="Enter amountin Tk.">
+                                <label for="branch_name">Branch Name<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="branch_name" name="branch_name"
+                                    placeholder="Enter Branch Name" required>
                             </div>
-
-                            
 
                             <div class="form-group">
-                                <label>Application Deadline</label>
-                                <input type="date" name="deadline" class="form-control" required>
+                                <label for="note">Note</label><span class="text-danger">*</span></label>
+                                <textarea type="textarea" class="form-control" id="note" name="note"
+                                    placeholder="Self/ Father's account/ Mother's account..." maxlength="999" required></textarea>
                             </div>
-
-
 
                         </div>
                         <!-- /.card-body -->
@@ -113,7 +105,4 @@
 @endsection
 
 @section('extra_js')
-    <script src="{{ asset('/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
 @endsection
