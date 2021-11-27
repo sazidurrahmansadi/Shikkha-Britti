@@ -82,6 +82,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
+
+    public function mentor()
+    {
+        return $this->hasOne(Mentor::class);
+    }
     
 
     protected static function booted()

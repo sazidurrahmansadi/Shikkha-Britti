@@ -34,6 +34,7 @@ class DashboardController extends Controller
         //     $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
         // }
         //     mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
+        
         $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
 
 

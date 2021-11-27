@@ -7,6 +7,24 @@ use App\Scopes\TenantScope;
 
 class Mentor extends Model
 {
+
+    protected $fillable = [
+        'user_id',
+        'tenant_id',
+        'address',
+        'profession',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function mentor_accounts()
+    {
+        return $this->morphMany(Account::class, 'accountable');
+    }
+    
     protected static function booted()
     {
         static::addGlobalScope(new TenantScope);

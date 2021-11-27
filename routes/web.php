@@ -10,10 +10,11 @@ use App\Http\Controllers\CommonControllers\EditProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Tenant\ManageApplicationController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
+use App\Http\Controllers\Tenant\ManageMentorAccountController;
+use App\Http\Controllers\Mentor\ManageMentorController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_users', ManageUsersController::class);
     Route::resource('manage_permissions', ManagePermissionsController::class);
     Route::resource('manage_tenants', ManageTenantsController::class);
+    Route::resource('manage_mentors', ManageMentorController::class);
+    Route::resource('manage_mentor_accounts', ManageMentorAccountController::class);
 });
 
 
