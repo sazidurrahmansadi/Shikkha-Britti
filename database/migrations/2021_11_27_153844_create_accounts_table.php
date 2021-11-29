@@ -22,9 +22,8 @@ class CreateAccountsTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('branch_name')->nullable();
             $table->string('accountable_type'); //MENTOR/STUDENT
-            $table->string('Note')->nullable();
-
-
+            $table->string('note')->nullable();
+            $table->string('account_status')->nullable();
             $table->timestamps();
         });
     }

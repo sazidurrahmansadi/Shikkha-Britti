@@ -27,7 +27,7 @@ class ManageMentorAccountController extends Controller
     public function create($mentor_id)
     {
         $account_types = Account::account_types;
-        return view('tenant.manage_mentors.manage_mentor_accounts_create',[
+        return view('tenant.manage_mentors.manage_mentor_accounts_create', [
             'account_types' => $account_types,
             'mentor_id' => $mentor_id,
         ]);
@@ -41,6 +41,7 @@ class ManageMentorAccountController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'account_title' => 'required',
             'account_type' => 'required',
@@ -49,14 +50,17 @@ class ManageMentorAccountController extends Controller
         ]);
 
         $mentor = Mentor::find($request->mentor_id);
-        
+
         $account = new Account();
         $account->account_title = $request->account_title;
         $account->account_type = $request->account_type;
         $account->account_number = $request->account_number;
+        $account->bank_name = $request->bank_name;
+        $account->branch_name = $request->branch_name;
+        $account->note = $request->note;
         $mentor->mentor_accounts()->save($account);
 
-        return redirect()->route('manage_mentors.index')->with('success', 'Account created succesfully');
+        return redirect()->route('manage_mentor_accounts_details', $request->mentor_id)->with('success', 'Account created succesfully');
     }
 
     /**
@@ -65,9 +69,13 @@ class ManageMentorAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($mentor_id)
     {
-        //
+        $account_details = Mentor::find($mentor_id)->mentor_accounts;
+        return view('tenant.manage_mentors.manage_mentor_accounts_details', [
+            'account_details' => $account_details,
+            'mentor_id' => $mentor_id,
+        ]);
     }
 
     /**
@@ -76,9 +84,14 @@ class ManageMentorAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($account_id)
     {
-        //
+        $account_types = Account::account_types;
+        $account_details = Account::find($account_id);
+        return view('tenant.manage_mentors.manage_mentor_accounts_edit', [
+            'account_details' => $account_details,
+            'account_types' => $account_types,
+        ]);
     }
 
     /**
@@ -88,9 +101,26 @@ class ManageMentorAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request, [
+            'account_title' => 'required',
+            'account_type' => 'required',
+            'account_number' => 'required',
+        ]);
+
+        $account = Account::find($request->account_id);
+
+        $account->account_title = $request->account_title;
+        $account->account_type = $request->account_type;
+        $account->account_number = $request->account_number;
+        $account->bank_name = $request->bank_name;
+        $account->branch_name = $request->branch_name;
+        $account->note = $request->note;
+        $account->save();
+
+        return redirect()->route('manage_mentor_accounts_details', $request->mentor_id)->with('success', 'Account created succesfully');
     }
 
     /**

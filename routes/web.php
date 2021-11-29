@@ -140,6 +140,9 @@ Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::cl
 */
 Route::GET('/manage-mentor-accounts-create/{mentor_id}', [ManageMentorAccountController::class, 'create'])->name('manage_mentor_accounts_create')->middleware('auth');
 Route::POST('/manage-mentor-accounts-store', [ManageMentorAccountController::class, 'store'])->name('manage_mentor_accounts_store')->middleware('auth');
+Route::GET('/manage-mentor-accounts-details/{mentor_id}', [ManageMentorAccountController::class, 'show'])->name('manage_mentor_accounts_details')->middleware('auth');
+Route::GET('/manage-mentor-accounts-edit/{account_id}', [ManageMentorAccountController::class, 'edit'])->name('manage_mentor_accounts_edit')->middleware('auth');
+Route::POST('/manage-mentor-accounts-update', [ManageMentorAccountController::class, 'update'])->name('manage_mentor_accounts_update')->middleware('auth');
 
 
 
