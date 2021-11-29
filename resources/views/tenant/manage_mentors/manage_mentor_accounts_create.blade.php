@@ -71,13 +71,13 @@
                                 <input type="text" class="form-control" id="account_number" name="account_number"
                                     placeholder="Enter Account No." required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="bank_name">
                                 <label for="bank_name">Bank Name<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="bank_name" name="bank_name"
                                     placeholder="Enter Bank Name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="branch_name">
                                 <label for="branch_name">Branch Name<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="branch_name" name="branch_name"
@@ -105,4 +105,5 @@
 @endsection
 
 @section('extra_js')
+<script src="{{ asset('assets/js/mentor-payments.js') }}"></script>
 @endsection

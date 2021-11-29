@@ -54,7 +54,7 @@
                         <li class="nav-item d-md-block d-lg-none">
                             <a href="#" class="nav-link dropdown-toggle"><b>{{ Auth::user()->name }}</b></a>
                             <ul class="dropdown-menu">
-                                @cannot('tenant-can')
+                                @cannot('tenant-can','mentor-can')
                                     <li class="nav-item">
                                         <a href="{{ route('student_dashboard') }}" class="nav-link">
                                             Dashboard</a>
@@ -64,7 +64,7 @@
                                             class="nav-link">My Profile</a>
                                     </li>
                                 @endcan
-                                @can('tenant-can')
+                                @can('tenant-can','mentor-can')
                                     <li class="nav-item">
                                         <a href="{{ route('dashboard') }}" class="nav-link">
                                             Dashboard</a>

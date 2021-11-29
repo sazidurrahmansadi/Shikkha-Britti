@@ -55,6 +55,7 @@
 
                             </div>
                         </div>
+                        @if($account_details->bank_name)
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Bank Name:</strong>
@@ -67,6 +68,7 @@
                                 {{ $account_details->branch_name }}
                             </div>
                         </div>
+                        @endif
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Note:</strong>

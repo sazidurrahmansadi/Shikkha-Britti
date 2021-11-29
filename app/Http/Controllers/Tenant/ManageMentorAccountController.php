@@ -51,13 +51,24 @@ class ManageMentorAccountController extends Controller
 
         $mentor = Mentor::find($request->mentor_id);
 
+        $account_type = $request->account_type;
+        if ($account_type == "BANK") {  
+            $bank_name = $request->bank_name;
+            $branch_name = $request->branch_name; 
+        } else {
+            $bank_name = NULL;
+            $branch_name = NULL;      
+        }
+
         $account = new Account();
         $account->account_title = $request->account_title;
-        $account->account_type = $request->account_type;
+        $account->account_type = $account_type;
         $account->account_number = $request->account_number;
-        $account->bank_name = $request->bank_name;
-        $account->branch_name = $request->branch_name;
+        $account->bank_name = $bank_name;
+        $account->branch_name = $branch_name;
         $account->note = $request->note;
+        // dd($account)   ;
+
         $mentor->mentor_accounts()->save($account);
 
         return redirect()->route('manage_mentor_accounts_details', $request->mentor_id)->with('success', 'Account created succesfully');
@@ -110,13 +121,22 @@ class ManageMentorAccountController extends Controller
             'account_number' => 'required',
         ]);
 
+        $account_type = $request->account_type;
+        if ($account_type == "BANK") {  
+            $bank_name = $request->bank_name;
+            $branch_name = $request->branch_name; 
+        } else {
+            $bank_name = NULL;
+            $branch_name = NULL;     
+        }
+
         $account = Account::find($request->account_id);
 
         $account->account_title = $request->account_title;
         $account->account_type = $request->account_type;
         $account->account_number = $request->account_number;
-        $account->bank_name = $request->bank_name;
-        $account->branch_name = $request->branch_name;
+        $account->bank_name = $bank_name;
+        $account->branch_name = $branch_name;
         $account->note = $request->note;
         $account->save();
 

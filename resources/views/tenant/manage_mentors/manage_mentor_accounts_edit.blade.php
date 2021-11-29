@@ -46,7 +46,8 @@
                     <form method="post" action="{{ route('manage_mentor_accounts_update') }}">
                         @csrf
                         <input type="hidden" id="account_id" name="account_id" value="{{ $account_details->id }}">
-                        <input type="hidden" id="mentor_id" name="mentor_id" value="{{ $account_details->accountable_id }}">
+                        <input type="hidden" id="mentor_id" name="mentor_id"
+                            value="{{ $account_details->accountable_id }}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="account_title">Account Title<span class="text-danger">*</span></label>
@@ -72,12 +73,12 @@
                                     placeholder="Enter Account No." value="{{ $account_details->account_number }}"
                                     required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="bank_name">
                                 <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="bank_name" name="bank_name"
                                     placeholder="Enter Bank Name" value="{{ $account_details->bank_name }}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="branch_name">
                                 <label for="branch_name">Branch Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="branch_name" name="branch_name"
                                     placeholder="Enter Branch Name" value="{{ $account_details->branch_name }}">
@@ -104,6 +105,8 @@
 @endsection
 
 @section('extra_js')
+    <script src="{{ asset('assets/js/mentor-payments.js') }}"></script>
+
     <script>
         $(window).on('load', function() {
             document.getElementById("account_type").value = "{{ $account_details->account_type }}";

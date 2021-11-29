@@ -82,7 +82,8 @@
                         </a>
                     </li>
                 @endcan
-                {{-- @can('admin-can	') --}}
+                {{-- @can('admin-can', 'tenant-can') --}}
+                @role('SUPER_ADMIN|TENANT')
                 <li class="nav-item">
                     <a href="{{ route('manage_scholarships_create') }}" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
@@ -107,14 +108,6 @@
                         </p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('manage_mentors.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-check"></i>
-                        <p>
-                            Manage Mentors
-                        </p>
-                    </a>
-                </li> --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-address-card"></i>
@@ -140,7 +133,27 @@
                         </li>
                     </ul>
                 </li>
+                @endrole
                 {{-- @endcan --}}
+                @role('MENTOR')
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-address-card"></i>
+                        <p>
+                            Accounts
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('manage_mentor_accounts_details', auth()->user()->mentor->id) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Account List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endrole
 
 
                 {{-- <li class="nav-item"> --}}
