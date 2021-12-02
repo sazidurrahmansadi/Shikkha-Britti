@@ -10,12 +10,12 @@
     <section class="page-title title-bg10">
         <div class="d-table">
             <div class="d-table-cell">
-                <h2>Student Documents</h2>
+                <h2>Student Account</h2>
                 <ul>
                     <li>
                         <a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li>Documents</li>
+                    <li>Account</li>
                 </ul>
             </div>
         </div>

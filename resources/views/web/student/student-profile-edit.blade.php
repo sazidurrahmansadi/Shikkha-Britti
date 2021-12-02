@@ -8,7 +8,7 @@
     <section class="page-title title-bg10">
         <div class="d-table">
             <div class="d-table-cell">
-                <h2>Student Create</h2>
+                <h2>Update Information</h2>
                 <ul>
                     <li>
                         <a href="{{ route('home') }}">Home</a>
@@ -120,7 +120,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Your Aim in Life <span class="text-danger font-weight-bold">*</span></label>
-                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999
+                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999"
                                             style="max-height: 80px; height: 80px" required>{{ $student_data->aim_in_life }}</textarea>
                                     </div>
                                 </div>

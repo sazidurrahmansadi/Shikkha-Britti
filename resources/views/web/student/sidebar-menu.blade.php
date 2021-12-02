@@ -26,32 +26,35 @@
                 </a>
             </li>
             @role('STUDENT')
-                @if ($student_data)
+                {{-- @if ($student_data) --}}
                     <li>
                         <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"
                             class="{{ \Request::route()->getName() == 'student_edit' ? 'active' : '' }}">
                             <i class='bx bxs-edit'></i>
                             Edit Profile
                         </a>
-                        {{-- <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"><button type="submit"
-                    class="profile-btn"><i class="bx bxs-edit"></i> Edit</button></a> --}}
                     </li>
                     <li>
-                        <a href="{{ route('student_document') }}"
-                            class="{{ \Request::route()->getName() == 'student_document' ? 'active' : '' }}">
+                        <a href="{{ route('student_document') }}" class="{{ \Request::route()->getName() == 'student_document' ? 'active' : '' }}">
                             <i class='bx bx-file'></i>
                             Documents
                         </a>
                     </li>
 
-
                     <li>
-                        <a href="{{ route('student_applications_index') }}">
+                        <a href="{{ route('student_applications_index') }}" class="{{ \Request::route()->getName() == 'student_applications_index' ? 'active' : '' }}">
                             <i class='bx bx-briefcase'></i>
                             Applied Scholarships
                         </a>
                     </li>
-                @endif
+
+                    <li>
+                        <a href="{{ route('student_applications_index') }}">
+                            <i class='bx bx-money'></i>
+                            Accounts
+                        </a>
+                    </li>
+                {{-- @endif --}}
             @endrole
 
 
