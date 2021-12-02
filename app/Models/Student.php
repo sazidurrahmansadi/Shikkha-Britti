@@ -61,6 +61,11 @@ class Student extends Model
         return $this->belongsToMany(Scholarship::class, 'scholarship_student')->withoutGlobalScopes()->withPivot('is_approve');
     }
 
+    public function student_accounts()
+    {
+        return $this->morphMany(Account::class, 'accountable');
+    }
+
 
 
 

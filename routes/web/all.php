@@ -4,6 +4,7 @@ use App\Http\Controllers\CommonControllers\DashboardController;
 use App\Http\Controllers\Student\RegisterStudentController;
 use App\Http\Controllers\Student\StudentDocumentController;
 use App\Http\Controllers\Student\StudentApplicationController;
+use App\Http\Controllers\Student\StudentAccountController;
 use App\Http\Controllers\Web\ScholarshipApplicationController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -38,3 +39,11 @@ Route::GET('/available-scholarships', [ScholarshipApplicationController::class, 
 Route::GET('/available-scholarships-details/{scholarship_id}', [ScholarshipApplicationController::class, 'show'])->name('available_scholarships_details');
 Route::POST('/available-scholarships-apply', [ScholarshipApplicationController::class, 'store'])->name('available_scholarships_apply')->middleware('auth');
 Route::POST('/withdraw-scholarship', [ScholarshipApplicationController::class, 'destroy'])->name('withdraw_scholarship')->middleware('auth');
+
+
+/*
+-----------------------------------------------------------
+ ==== Manage Web View Student Accounts starts Here  ===
+-----------------------------------------------------------
+*/
+Route::GET('/student/student-account', [StudentAccountController::class, 'index'])->name('student_account');

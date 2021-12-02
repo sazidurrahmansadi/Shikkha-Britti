@@ -39,7 +39,7 @@
                 <div class="col-md-8">
 
                     <div class="row">
-                        <div class="job-style-two account-details">
+                        <div class="job-style-two ">
 
                             <div class="display-message">
                                 @if (count($errors) > 0)
@@ -54,93 +54,71 @@
 
                             @include('include.messages')
 
-                            <h5 class="text-center text-danger" style="margin-bottom: 30px;">Please upload the necessary
-                                Documents </h5>
-                            <div class="basic-info">
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <form method="POST" class="basic-info" action="{{ route('student_document_upload') }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
-                                    <div class="dynm_field">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="type">Document Type <span class="text-danger font-weight-bold">*</span></label>
-                                                    <select class="form-control" name="type" id="type" required>
-                                                        <option value="">Select</option>
-                                                        <option value="Birth Certificate/NID">Birth Certificate/NID</option>
-                                                        <option value="Studentship Certificate">Studentship Certificate
-                                                        </option>
-                                                        <option value="SSC Certificate">SSC Certificate</option>
-                                                        <option value="HSC Certificate">HSC Certificate</option>
-                                                        <option value="Other">Other</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>Choose Document <span class="text-danger font-weight-bold">*</span></label>
-                                                    <input type="file" id="document" name="document" class="form-control"
-                                                        onchange="Filevalidation()" required>
-                                                    <small class="">*Document format must be <span
-                                                            class="text-danger">PDF/JPG/PNG/JPEG</span> and File Size max
-                                                        <span class="text-danger">5MB</span></small>
-                                                    <p id="size"></p>
+                            {{-- <h5 class="text-center text-danger" style="margin-bottom: 30px;">Please upload the necessary
+                                Documents </h5> --}}
+                            <h3 class=" text-center"><i class="bx bx-money candidate-heading"></i> Account Information
+                            </h3>
 
 
 
-                                                </div>
-                                            </div>
+                            <div class="candidate-info-text candidate-education">
+                                @if ($account_details->count() == null)
+                                    <a href="#" class="btn btn-success shadow-sm"> <i
+                                            class="fas fa-university"></i>
+                                        Create New Account
+                                    </a><br><br>
+                                @endif
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Account Title</h4>
+                                            <p>{{ $student_data->name }}</p>
+                                            {{-- <span>2000-2010</span> --}}
                                         </div>
-                                    </div><br>
-                                    <div class="col-md-12 text-center">
-                                        <button type="submit" class="btn btn-danger">Upload Document</button>
                                     </div>
-                                </form>
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Account Type</h4>
+                                            <p>{{ $student_data->email }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Account Number</h4>
+                                            <p>{{ $student_data->phone }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Bank Name</h4>
+                                            <p>{{ $student_data->father_name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Branch Name</h4>
+                                            <p>{{ $student_data->father_profession }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="education-info">
+                                            <h4>Note</h4>
+                                            <p>{{ $student_data->mother_name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-danger">Edit</button>
+
+                                    <button type="button" class="btn btn-danger delete_document_modal"
+                                        data-target="#delete_document_modal"
+                                        data-document_id="{{ $student_data->id }}">Delete</button>
+                                </div>
+
+
                             </div>
                         </div>
-                    </div><br>
-
-                    <div class="row">
-                        <section class="job-style-two job-list-section pt-50 pb-70">
-                            <h2 class="text-center text-dark" style="margin-bottom: 30px;">Uploaded Documents</h2>
-                            <div class="container">
-                                @forelse ($documents as $document)
-                                    <div class="job-card-two">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-8 col-md-6">
-                                                <div class="job-info">
-                                                    <h3><a href="{{ url('storage/uploaded_file/student_document/' . $document->document_url) }}"
-                                                            target="_blank">{{ $loop->index + 1 }}.
-                                                            {{ $document->type }}</a>
-                                                    </h3>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="job-info">
-
-                                                    <button class="btn btn-secondary"><a class="text-light"
-                                                            href="{{ url('storage/uploaded_file/student_document/' . $document->document_url) }}"
-                                                            target="_blank" class="default-btn">View</a></button>
-
-                                                    <button type="button" class="btn btn-danger delete_document_modal"
-                                                        data-target="#delete_document_modal"
-                                                        data-document_id="{{ $document->id }}">Delete</button>
-
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @empty
-                                    <h5 class="text-center text-danger" style="margin-top: 30px;">No document found!</h5>
-                                @endforelse
-
-                            </div>
-                        </section>
                     </div>
                 </div>
             </div>
@@ -168,12 +146,10 @@
 
                         <input type="hidden" id="document_id" name="document_id" value="">
                         <div class="modal-footer justify-content-center">
-                            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

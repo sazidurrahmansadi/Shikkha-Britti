@@ -49,7 +49,7 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('student_applications_index') }}">
+                        <a href="{{ route('student_account') }}">
                             <i class='bx bx-money'></i>
                             Accounts
                         </a>
