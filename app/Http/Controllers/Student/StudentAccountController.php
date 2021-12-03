@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,13 +19,17 @@ class StudentAccountController extends Controller
     public function index()
     {
         $student_data = User::find(Auth::user()->id)->student_information;
-        // $account_details = Student::find(Auth::user()->id)->student_accounts;
         $account_details = $student_data->student_accounts;
+        $account_types = Account::account_types;
 
+        // $account_details = Student::find($student_data->id)->student_accounts;
+
+        // dd($student_data);
 
         return view('web.student.student-account',[
             'student_data' => $student_data,
             'account_details' => $account_details,
+            'account_types' => $account_types,
         ]);
     }
 
@@ -46,7 +51,39 @@ class StudentAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        $this->validate($request, [
+            'account_title' => 'required',
+            'account_type' => 'required',
+            'account_number' => 'required',
+            'student_id' => 'required',
+        ]);
+
+        $mentor = Student::find($request->student_id);
+
+        $account_type = $request->account_type;
+        if ($account_type == "BANK") {  
+            $bank_name = $request->bank_name;
+            $branch_name = $request->branch_name; 
+        } else {
+            $bank_name = NULL;
+            $branch_name = NULL;      
+        }
+
+        $account = new Account();
+        $account->account_title = $request->account_title;
+        $account->account_type = $account_type;
+        $account->account_number = $request->account_number;
+        $account->bank_name = $bank_name;
+        $account->branch_name = $branch_name;
+        $account->note = $request->note;
+        $account->account_status = "ACTIVE";
+        // dd($account)   ;
+
+        $mentor->student_accounts()->save($account);
+
+        return redirect()->route('student_account')->with('success','Account created successfully');
     }
 
     /**

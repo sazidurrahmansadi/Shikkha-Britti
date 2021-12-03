@@ -47,3 +47,5 @@ Route::POST('/withdraw-scholarship', [ScholarshipApplicationController::class, '
 -----------------------------------------------------------
 */
 Route::GET('/student/student-account', [StudentAccountController::class, 'index'])->name('student_account');
+Route::POST('/student/student-account-store', [StudentAccountController::class, 'store'])->name('student_account_store')->middleware('auth');
+

@@ -67,7 +67,7 @@ class ManageMentorAccountController extends Controller
         $account->bank_name = $bank_name;
         $account->branch_name = $branch_name;
         $account->note = $request->note;
-        // dd($account)   ;
+        $account->account_status = "ACTIVE";
 
         $mentor->mentor_accounts()->save($account);
 
