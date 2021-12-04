@@ -131,10 +131,12 @@ class ManageApplicationController extends Controller
     {
         $scholarship_data = Scholarship::find($scholarship_id);
         $student_data = Student::find($student_id);
+        $account_details = $student_data->student_accounts;
 
         return view('tenant.manage_applications.manage_applications_approve', [
             'scholarship_data' => $scholarship_data,
             'student_data' => $student_data,
+            'account_details' => $account_details,
         ]);
     }
 

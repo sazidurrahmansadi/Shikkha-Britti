@@ -3,7 +3,7 @@
 @section('custom_styles')
     <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
     <style>
-        .sadi label {
+        .label-bold label {
             font-weight: bold;
         }
 
@@ -62,8 +62,7 @@
 
                             {{-- <h5 class="text-center text-danger" style="margin-bottom: 30px;">Please upload the necessary
                                 Documents </h5> --}}
-                            <h3 class=" text-center m-4"><i class="bx bx-money candidate-heading"></i> Account Information
-                            </h3>
+                            <h3 class="m-4">Account Information</h3>
 
 
                             <div class="candidate-info-text candidate-education">
@@ -89,18 +88,22 @@
                                                 <p>{{ $account_details->account_number }}</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Bank Name</h4>
-                                                <p>{{ $account_details->bank_name }}</p>
+
+                                        @if ($account_details->bank_name)
+                                            <div class="col-md-6">
+                                                <div class="education-info">
+                                                    <h4>Bank Name</h4>
+                                                    <p>{{ $account_details->bank_name }}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Branch Name</h4>
-                                                <p>{{ $account_details->branch_name }}</p>
+                                            <div class="col-md-6">
+                                                <div class="education-info">
+                                                    <h4>Branch Name</h4>
+                                                    <p>{{ $account_details->branch_name }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+
                                         <div class="col-md-6">
                                             <div class="education-info">
                                                 <h4>Note</h4>
@@ -110,17 +113,20 @@
                                     </div>
                                     <br>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-danger">Edit</button>
-                                        <button type="button" class="btn btn-danger delete_document_modal"
-                                            data-target="#delete_document_modal"
-                                            data-document_id="{{ $student_data->id }}">Delete</button>
+                                        {{-- <button type="button" class="btn btn-danger edit_account_modal"
+                                            data-target="#edit_account_modal"
+                                            data-document_id="{{ $student_data->id }}">Edit</button> --}}
+
+                                        <button type="button" class="btn btn-primary edit_account_modal"
+                                            data-bs-toggle="modal" data-bs-target="#edit_account_modal">Edit</button>
+
                                     </div>
                                 @empty
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"><i class="fas fa-university"></i> Create New
-                                    Account</button>
-                                <br><br>
-                                <h3 class="text-danger mt-4"> Sorry! No account found.</h3>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"><i class="fas fa-university"></i> Create New
+                                        Account</button>
+                                    <br><br>
+                                    <h3 class="text-danger mt-4"> Sorry! No account found.</h3>
 
                                 @endforelse
                             </div>
@@ -201,8 +207,81 @@
     </div>
 
 
+    {{-- ------------------------Edit account Modal------------------------- --}}
+    <div class="modal fade" id="edit_account_modal" tabindex="-1" aria-labelledby="edit_account_modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_account_modal">New Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('student_account_update') }}">
+                        @csrf
+                        <input type="hidden" name="account_id" value="{{ $account_details->id }}">
+
+                        <div class="card-body label-bold">
+                            <div class="mb-3" class="col-form-label">
+                                <label for="account_title">Account Title<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="account_title" name="account_title"
+                                    placeholder="Enter Account Title" value="{{ $account_details->account_title }}"
+                                    required>
+                            </div>
+
+                            <!-- select -->
+                            <div class="mb-3" class="col-form-label">
+                                <label for="account_type">Account Type<span class="text-danger">*</span></label>
+                                <select class="form-control" name="account_type" id="edit_account_type" required>
+                                    @forelse($account_types as $account_type)
+                                        <option value="{{ $account_type }}">{{ $account_type }}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+
+                            <div class="mb-3" class="col-form-label">
+                                <label for="account_number">Account Number<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="account_number" name="account_number"
+                                    placeholder="Enter Account No." value="{{ $account_details->account_number }}"
+                                    required>
+                            </div>
+
+                            <div class="mb-3" id="edit_bank_name" class="col-form-label">
+                                <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="bank_name" name="bank_name"
+                                    placeholder="Enter Bank Name" value="{{ $account_details->bank_name }}">
+                            </div>
+
+                            <div class="mb-3" id="edit_branch_name" class="col-form-label">
+                                <label for="branch_name">Branch Name<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="branch_name" name="branch_name"
+                                    placeholder="Enter Branch Name" value="{{ $account_details->branch_name }}">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="note">Note</label></label>
+                                <textarea type="textarea" class="form-control" id="note" name="note"
+                                    placeholder="Self/ Father's account/ Mother's account..."
+                                    maxlength="999">{{ $account_details->note }}" </textarea>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     {{-- ------------------------Delete User Modal------------------------- --}}
-    <div class="modal fade" id="delete_document_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="delete_document_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -228,13 +307,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
 @endsection
 
 @section('custom_js')
-    <script src="{{ asset('assets/js/mentor-payments.js') }}"></script>
+    <script src="{{ asset('assets/js/mentor-student-payment-types.js') }}"></script>
+    <script>
+        $(window).on('load', function() {
+            document.getElementById("edit_account_type").value = "{{ $account_details->account_type }}";
+        });
+    </script>
 
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
 
@@ -245,26 +329,5 @@
             $('#document_id').val(document_id);
             $('#delete_document_modal').modal('show');
         });
-    </script>
-    <script>
-        Filevalidation = () => {
-            const fi = document.getElementById('document');
-            // Check if any file is selected.
-            if (fi.files.length > 0) {
-                for (const i = 0; i <= fi.files.length - 1; i++) {
-
-                    const fsize = fi.files.item(i).size;
-                    const file = Math.round((fsize / 1024));
-                    // The size of the file.
-                    // if (file > 5120) {
-                    //     alert(
-                    //       "File is too Big, maximum upload limit 5MB");
-                    // }
-                    // else { }
-                    document.getElementById('size').innerHTML = '<b>' + file + '</b> KB';
-
-                }
-            }
-        }
     </script>
 @endsection

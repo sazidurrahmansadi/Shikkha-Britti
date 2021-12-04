@@ -105,7 +105,7 @@
 @endsection
 
 @section('extra_js')
-    <script src="{{ asset('assets/js/mentor-payments.js') }}"></script>
+    <script src="{{ asset('assets/js/mentor-student-payment-types.js') }}"></script>
 
     <script>
         $(window).on('load', function() {

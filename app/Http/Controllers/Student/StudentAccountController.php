@@ -24,9 +24,7 @@ class StudentAccountController extends Controller
 
         // $account_details = Student::find($student_data->id)->student_accounts;
 
-        // dd($student_data);
-
-        return view('web.student.student-account',[
+        return view('web.student.student-account', [
             'student_data' => $student_data,
             'account_details' => $account_details,
             'account_types' => $account_types,
@@ -60,15 +58,15 @@ class StudentAccountController extends Controller
             'student_id' => 'required',
         ]);
 
-        $mentor = Student::find($request->student_id);
+        $student = Student::find($request->student_id);
 
         $account_type = $request->account_type;
-        if ($account_type == "BANK") {  
+        if ($account_type == "BANK") {
             $bank_name = $request->bank_name;
-            $branch_name = $request->branch_name; 
+            $branch_name = $request->branch_name;
         } else {
             $bank_name = NULL;
-            $branch_name = NULL;      
+            $branch_name = NULL;
         }
 
         $account = new Account();
@@ -81,9 +79,9 @@ class StudentAccountController extends Controller
         $account->account_status = "ACTIVE";
         // dd($account)   ;
 
-        $mentor->student_accounts()->save($account);
+        $student->student_accounts()->save($account);
 
-        return redirect()->route('student_account')->with('success','Account created successfully');
+        return redirect()->route('student_account')->with('success', 'Account created successfully');
     }
 
     /**
@@ -115,9 +113,36 @@ class StudentAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request, [
+            'account_title' => 'required',
+            'account_type' => 'required',
+            'account_number' => 'required',
+        ]);
+
+        $account_type = $request->account_type;
+        if ($account_type == "BANK") {
+            $bank_name = $request->bank_name;
+            $branch_name = $request->branch_name;
+        } else {
+            $bank_name = NULL;
+            $branch_name = NULL;
+        }
+
+        $account = Account::find($request->account_id);
+
+        $account->account_title = $request->account_title;
+        $account->account_type = $request->account_type;
+        $account->account_number = $request->account_number;
+        $account->bank_name = $bank_name;
+        $account->branch_name = $branch_name;
+        $account->note = $request->note;
+        $account->save();
+
+
+        return redirect()->route('student_account')->with('success', 'Account updated successfully');
     }
 
     /**
