@@ -24,6 +24,13 @@ class Mentor extends Model
     {
         return $this->morphMany(Account::class, 'accountable');
     }
+
+    public function mentor_active_account()
+    {
+        // return $this->mentor_accounts->first();
+        return $this->morphMany(Account::class, 'accountable')->first();
+
+    }
     
     protected static function booted()
     {

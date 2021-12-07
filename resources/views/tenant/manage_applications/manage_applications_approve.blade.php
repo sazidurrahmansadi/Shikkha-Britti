@@ -46,7 +46,8 @@
                     <form method="post" action="{{ route('manage_applications_approval') }}">
                         @csrf
                         <input type="hidden" id="student_id" name="student_id" value="{{ $student_data->id }}">
-                        <input type="hidden" id="scholarship_id" name="scholarship_id" value="{{ $scholarship_data->id }}">
+                        <input type="hidden" id="scholarship_id" name="scholarship_id"
+                            value="{{ $scholarship_data->id }}">
 
                         <div class="card-body">
                             <div class="form-group">
@@ -58,8 +59,7 @@
                             <div class="form-group">
                                 <label for="amount">Approved Amount(Tk.)</label>
                                 <input type="number" class="form-control" id="approved_amount" name="approved_amount"
-                                    placeholder="Enter amountin Tk." value="{{ $scholarship_data->amount }}"
-                                    >
+                                    placeholder="Enter amountin Tk." value="{{ $scholarship_data->amount }}">
                             </div>
 
                             <div class="form-group">
@@ -74,20 +74,85 @@
                             </div>
 
 
-                        </div>
-                        <!-- /.card-body -->
+                            <div class="form-group">
+                                <label>Pay To<span class="text-danger">*</span></label>
+                                <select class="form-control" name="pay_to" id="pay_to" required>
+                                    <option value="">SELECT</option>
+                                    <option value="STUDENT">Student Account</option>
+                                    <option value="MENTOR">Mentor Account</option>
+                                </select>
+                            </div>
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Approve</button>
+                            @forelse($account_details as $account_details)
+                                <div id="student">
+                                    <input type="hidden" name="account_id" id="account_id" value="{{ $account_details->id }}">
+
+                                    {{-- <div class="form-group">
+                                        <label>Account Title<span class="text-danger">*</span></label>
+                                        <input type="text" name="account_title" id="st_account_title" class="form-control"
+                                            value="{{ $account_details->account_title }}" disabled required>
+                                    </div> --}}
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Account Name: </strong>
+                                            {{ $account_details->account_title }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Account Number: </strong>
+                                            ({{ $account_details->account_type }})
+                                            {{ $account_details->account_number }}
+                                        </div>
+                                    </div>
+                                @empty
+                            @endforelse
                         </div>
-                    </form>
+
+
+                        <div id="mentor">
+                            <div class="form-group">
+                                <label>Mentor Name<span class="text-danger">*</span></label>
+                                <select class="form-control" name="mentor" id="mentor" required>
+                                    <option value="">SELECT</option>
+                                    @foreach($mentors as $mentor)
+                                    <option value="">Mr. ABC</option>
+                                </select>
+                            </div>
+                        </div>
                 </div>
+                <!-- /.card-body -->
 
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Approve</button>
+                </div>
+                </form>
             </div>
+
         </div>
+    </div>
     </div>
 @endsection
 
 @section('extra_js')
+    <script>
+        $("#pay_to").change(function() {
 
+            if ($(this).val() == "STUDENT") {
+                $('#student').show();
+                $('#mentor').hide();
+                // $("#st_account_title").prop("required", true);
+
+            } else if ($(this).val() == "MENTOR") {
+                $('#student').hide();
+                $('#mentor').show();
+                // this.getField("st_account_title").required = true;
+
+            } else {
+                $('#student').hide();
+                $('#mentor').hide();
+            }
+        });
+        $("#pay_to").trigger("change");
+    </script>
 @endsection

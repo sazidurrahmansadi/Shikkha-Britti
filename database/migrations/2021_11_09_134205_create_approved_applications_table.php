@@ -23,6 +23,7 @@ class CreateApprovedApplicationsTable extends Migration
             $table->dateTime('to_date')->nullable();
             $table->dateTime('approval_date')->nullable();
             $table->string('approved_by')->nullable();
+            $table->foreignId('account_id')->references('id')->on('accounts');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\ApprovedApplication;
+use App\Models\Mentor;
 use App\Models\Scholarship;
 use App\Models\Student;
 use App\Scopes\TenantScope;
@@ -131,13 +132,18 @@ class ManageApplicationController extends Controller
     {
         $scholarship_data = Scholarship::find($scholarship_id);
         $student_data = Student::find($student_id);
-        $account_details = $student_data->student_accounts;
+        $student_account_details = $student_data->student_accounts;
+        // $mentors = Mentor::with("mentor_accounts")->get();
+        $mentors = Mentor::with("mentor_active_account")->get();
 
-        return view('tenant.manage_applications.manage_applications_approve', [
-            'scholarship_data' => $scholarship_data,
-            'student_data' => $student_data,
-            'account_details' => $account_details,
-        ]);
+        return $mentors;
+
+        // return view('tenant.manage_applications.manage_applications_approve', [
+        //     'scholarship_data' => $scholarship_data,
+        //     'student_data' => $student_data,
+        //     'account_details' => $student_account_details,
+        //     'mentors' => $mentors,
+        // ]);
     }
 
     /**
@@ -164,6 +170,7 @@ class ManageApplicationController extends Controller
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
         $approve->approved_by = Auth::user()->name;
+        $approve->account_id = $request->account_id;
         $approve->save();
 
 
