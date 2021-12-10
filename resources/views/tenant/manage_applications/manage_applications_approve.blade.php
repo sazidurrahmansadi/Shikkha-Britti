@@ -115,8 +115,10 @@
                                 <label>Mentor Name<span class="text-danger">*</span></label>
                                 <select class="form-control" name="mentor" id="mentor" required>
                                     <option value="">SELECT</option>
-                                    @foreach($mentors as $mentor)
-                                    <option value="">Mr. ABC</option>
+                                    @forelse($mentors as $mentor)
+                                    <option value=""></option>
+                                    @empty
+                                    @endforelse
                                 </select>
                             </div>
                         </div>

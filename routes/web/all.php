@@ -48,5 +48,6 @@ Route::POST('/withdraw-scholarship', [ScholarshipApplicationController::class, '
 */
 Route::GET('/student/student-account', [StudentAccountController::class, 'index'])->name('student_account');
 Route::POST('/student/student-account-store', [StudentAccountController::class, 'store'])->name('student_account_store')->middleware('auth');
+Route::GET('/student/student-account-edit/{account_id}', [StudentAccountController::class, 'edit'])->name('student_account_edit');
 Route::POST('/student/student-account-update', [StudentAccountController::class, 'update'])->name('student_account_update')->middleware('auth');
 

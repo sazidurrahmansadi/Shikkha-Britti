@@ -62,72 +62,66 @@
 
                             {{-- <h5 class="text-center text-danger" style="margin-bottom: 30px;">Please upload the necessary
                                 Documents </h5> --}}
-                            <h3 class="m-4">Account Information</h3>
+                            <h3 class="m-4">Edit Account Information</h3>
 
 
-                            <div class="candidate-info-text candidate-education">
-                                @forelse($account_details as $account_details)
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Account Title</h4>
-                                                <p>{{ $account_details->account_title }}</p>
-                                                {{-- <span>2000-2010</span> --}}
-                                            </div>
+                            <div class="candidate-education">
+                                <form method="post" action="{{ route('student_account_update') }}">
+                                    @csrf
+                                    <input type="hidden" name="account_id" value="{{ $account_details->id }}">
+            
+                                    <div class="card-body label-bold">
+                                        <div class="mb-3" class="col-form-label">
+                                            <label for="account_title">Account Title<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="account_title" name="account_title"
+                                                placeholder="Enter Account Title" value="{{ $account_details->account_title }}"
+                                                required>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Account Type</h4>
-                                                <p>{{ $account_details->account_type }}</p>
-                                            </div>
+            
+                                        <!-- select -->
+                                        <div class="mb-3" class="col-form-label">
+                                            <label for="account_type">Account Type<span class="text-danger">*</span></label>
+                                            <select class="form-control" name="account_type" id="edit_account_type" required>
+                                                @forelse($account_types as $account_type)
+                                                    <option value="{{ $account_type }}">{{ $account_type }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Account Number</h4>
-                                                <p>{{ $account_details->account_number }}</p>
-                                            </div>
+            
+                                        <div class="mb-3" class="col-form-label">
+                                            <label for="account_number">Account Number<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="account_number" name="account_number"
+                                                placeholder="Enter Account No." value="{{ $account_details->account_number }}"
+                                                required>
                                         </div>
-
-                                        @if ($account_details->bank_name)
-                                            <div class="col-md-6">
-                                                <div class="education-info">
-                                                    <h4>Bank Name</h4>
-                                                    <p>{{ $account_details->bank_name }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="education-info">
-                                                    <h4>Branch Name</h4>
-                                                    <p>{{ $account_details->branch_name }}</p>
-                                                </div>
-                                            </div>
-                                        @endif
-
-                                        <div class="col-md-6">
-                                            <div class="education-info">
-                                                <h4>Note</h4>
-                                                <p>{{ $account_details->note }}</p>
-                                            </div>
+            
+                                        <div class="mb-3" id="edit_bank_name" class="col-form-label">
+                                            <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="bank_name" name="bank_name"
+                                                placeholder="Enter Bank Name" value="{{ $account_details->bank_name }}">
+                                        </div>
+            
+                                        <div class="mb-3" id="edit_branch_name" class="col-form-label">
+                                            <label for="branch_name">Branch Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="branch_name" name="branch_name"
+                                                placeholder="Enter Branch Name" value="{{ $account_details->branch_name }}">
+                                        </div>
+            
+            
+                                        <div class="form-group">
+                                            <label for="note">Note</label></label>
+                                            <textarea type="textarea" class="form-control" id="note" name="note"
+                                                placeholder="Self/ Father's account/ Mother's account..."
+                                                maxlength="999">{{ $account_details->note }}" </textarea>
+                                        </div>
+            
+            
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="col-md-12">
-                                        {{-- <button type="button" class="btn btn-danger edit_account_modal"
-                                            data-target="#edit_account_modal"
-                                            data-document_id="{{ $student_data->id }}">Edit</button> --}}
-
-                                        <a href="{{ route('student_account_edit',$account_details->id) }}" type="button" class="btn btn-primary">Edit</a>
-
-                                    </div>
-                                @empty
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"><i class="fas fa-university"></i> Create New
-                                        Account</button>
-                                    <br><br>
-                                    <h3 class="text-danger mt-4"> Sorry! No account found.</h3>
-
-                                @endforelse
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -135,32 +129,34 @@
             </div>
     </section>
 
+    
 
-    {{-- ------------------------Create account Modal------------------------- --}}
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- ------------------------Edit account Modal------------------------- --}}
+    <div class="modal fade" id="edit_account_modal" tabindex="-1" aria-labelledby="edit_account_modalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Account</h5>
+                    <h5 class="modal-title" id="edit_account_modal">New Account</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('student_account_store') }}">
+                    <form method="post" action="{{ route('student_account_update') }}">
                         @csrf
-                        <input type="hidden" name="student_id" value="{{ $student_data->id }}">
+                        <input type="hidden" name="account_id" value="{{ $account_details->id }}">
 
-                        <div class="card-body sadi">
+                        <div class="card-body label-bold">
                             <div class="mb-3" class="col-form-label">
                                 <label for="account_title">Account Title<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="account_title" name="account_title"
-                                    placeholder="Enter Account Title" required>
+                                    placeholder="Enter Account Title" value="{{ $account_details->account_title }}"
+                                    required>
                             </div>
 
                             <!-- select -->
                             <div class="mb-3" class="col-form-label">
                                 <label for="account_type">Account Type<span class="text-danger">*</span></label>
-                                <select class="form-control" name="account_type" id="account_type" required>
+                                <select class="form-control" name="account_type" id="edit_account_type" required>
                                     @forelse($account_types as $account_type)
                                         <option value="{{ $account_type }}">{{ $account_type }}</option>
                                     @empty
@@ -171,32 +167,34 @@
                             <div class="mb-3" class="col-form-label">
                                 <label for="account_number">Account Number<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="account_number" name="account_number"
-                                    placeholder="Enter Account No." required>
+                                    placeholder="Enter Account No." value="{{ $account_details->account_number }}"
+                                    required>
                             </div>
 
-                            <div class="mb-3" id="bank_name" class="col-form-label">
+                            <div class="mb-3" id="edit_bank_name" class="col-form-label">
                                 <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="bank_name" name="bank_name"
-                                    placeholder="Enter Bank Name">
+                                    placeholder="Enter Bank Name" value="{{ $account_details->bank_name }}">
                             </div>
 
-                            <div class="mb-3" id="branch_name" class="col-form-label">
+                            <div class="mb-3" id="edit_branch_name" class="col-form-label">
                                 <label for="branch_name">Branch Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="branch_name" name="branch_name"
-                                    placeholder="Enter Branch Name">
+                                    placeholder="Enter Branch Name" value="{{ $account_details->branch_name }}">
                             </div>
 
 
                             <div class="form-group">
                                 <label for="note">Note</label></label>
                                 <textarea type="textarea" class="form-control" id="note" name="note"
-                                    placeholder="Self/ Father's account/ Mother's account..." maxlength="999"></textarea>
+                                    placeholder="Self/ Father's account/ Mother's account..."
+                                    maxlength="999">{{ $account_details->note }}" </textarea>
                             </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -204,9 +202,6 @@
             </div>
         </div>
     </div>
-
-
-   
 
 
     {{-- ------------------------Delete User Modal------------------------- --}}
@@ -243,7 +238,11 @@
 
 @section('custom_js')
     <script src="{{ asset('assets/js/mentor-student-payment-types.js') }}"></script>
-
+    <script>
+        $(window).on('load', function() {
+            document.getElementById("edit_account_type").value = "{{ $account_details->account_type }}";
+        });
+    </script>
 
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
 

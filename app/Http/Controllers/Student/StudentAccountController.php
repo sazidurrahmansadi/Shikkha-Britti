@@ -101,9 +101,17 @@ class StudentAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($account_id)
+    {        
+        $student_data = User::find(Auth::user()->id)->student_information;
+        $account_details = Account::find($account_id);
+
+
+        return view('web.student.student-account-edit', [
+            'student_data' => $student_data,
+            'account_details' => $account_details,
+            'account_types' => Account::account_types,
+        ]);
     }
 
     /**

@@ -28,7 +28,7 @@
             margin: 40px auto 60px;
         }
 
-        #pic {
+        .pic {
             float: right;
             margin: -30px 0 0 0;
         }
@@ -139,7 +139,7 @@
 
     <div style="margin:40px auto 10px; ">
 
-        <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
+        {{-- <img src="{{$user_data->photo_url != null ? url('storage' . $user_data->photo_url) : asset('/assets/img/null/avatar.jpg') }}" alt="" class="pic" /> --}}
 
         <div class="contact-info" class="vcard">
 

@@ -22,6 +22,8 @@ class ManageMentorController extends Controller
     {
         $mentors = Mentor::all();
 
+        // dd($mentors->user->name);
+
         return view('tenant.manage_mentors.manage_mentors_index', [
             'mentors' => $mentors,
         ]);

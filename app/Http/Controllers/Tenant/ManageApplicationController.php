@@ -77,10 +77,10 @@ class ManageApplicationController extends Controller
     {
 
         $student_data = Student::find($student_id);
-
-        // dd($student_data);
+        $user_data = User::withoutGlobalScopes()->find($student_data->user_id);
 
         return view('tenant.manage_applications.manage_applications_student_profile', [
+            'user_data' => $user_data,
             'student_data' => $student_data,
             'academic_data' => $student_data->degree_information,
             'addresses_present' => $student_data->present_address,
@@ -100,8 +100,11 @@ class ManageApplicationController extends Controller
     {
 
         $student_data = Student::find($student_id);
+        $user_data = User::withoutGlobalScopes()->find($student_data->user_id);
+
 
         $pdf = PDF::setPaper('a4', 'portrait')->loadView('tenant.manage_applications.pdf_student_profile',[
+            'user_data' => $user_data,
             'student_data' => $student_data,
             'academic_data' => $student_data->degree_information,
             'addresses_present' => $student_data->present_address,
@@ -113,6 +116,7 @@ class ManageApplicationController extends Controller
 
         return $pdf->download($student_data->sid .' Student Profile.pdf');
         // return view('tenant.manage_applications.pdf_student_profile', [
+        //     'user_data' => $user_data,
         //     'student_data' => $student_data,
         //     'academic_data' => $student_data->degree_information,
         //     'addresses_present' => $student_data->present_address,
@@ -136,14 +140,14 @@ class ManageApplicationController extends Controller
         // $mentors = Mentor::with("mentor_accounts")->get();
         $mentors = Mentor::with("mentor_active_account")->get();
 
-        return $mentors;
+        // dd($mentors->first());
 
-        // return view('tenant.manage_applications.manage_applications_approve', [
-        //     'scholarship_data' => $scholarship_data,
-        //     'student_data' => $student_data,
-        //     'account_details' => $student_account_details,
-        //     'mentors' => $mentors,
-        // ]);
+        return view('tenant.manage_applications.manage_applications_approve', [
+            'scholarship_data' => $scholarship_data,
+            'student_data' => $student_data,
+            'account_details' => $student_account_details,
+            'mentors' => $mentors,
+        ]);
     }
 
     /**

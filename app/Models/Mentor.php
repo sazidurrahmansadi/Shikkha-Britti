@@ -27,8 +27,8 @@ class Mentor extends Model
 
     public function mentor_active_account()
     {
-        // return $this->mentor_accounts->first();
-        return $this->morphMany(Account::class, 'accountable')->first();
+        return $this->morphMany(Account::class, 'accountable')->where('account_status','ACTIVE');
+
 
     }
     
