@@ -44,7 +44,8 @@
                         <hr>
 
                         <h3>Basic Information</h3>
-                        <form class="basic-info needs-validation" action="{{ route('store_student_information') }}" method="POST">
+                        <form class="basic-info needs-validation" action="{{ route('store_student_information') }}"
+                            method="POST">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
@@ -86,7 +87,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Father's Profession <span class="text-danger font-weight-bold">*</span></label>
+                                        <label>Father's Profession <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="father_profession" class="form-control"
                                             placeholder="Your Father's Profession" required>
                                     </div>
@@ -100,7 +102,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mother's Profession <span class="text-danger font-weight-bold">*</span></label>
+                                        <label>Mother's Profession <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="mother_profession" class="form-control"
                                             placeholder="Your Mother's Name" required>
                                     </div>
@@ -108,20 +111,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Siblings and their status (if any)</label>
-                                        <textarea name="siblings" class="form-control" placeholder="Write details" maxlength="999"
-                                            style="max-height: 80px; height: 80px"></textarea>
+                                        <textarea name="siblings" class="form-control" placeholder="Write details"
+                                            maxlength="999" style="max-height: 80px; height: 80px"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Your Aim in Life <span class="text-danger font-weight-bold">*</span></label>
-                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999"
-                                            style="max-height: 80px; height: 80px" required></textarea>
+                                        <textarea name="aim_in_life" class="form-control" placeholder="Write details"
+                                            maxlength="999" style="max-height: 80px; height: 80px" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="gender">Gender <span class="text-danger font-weight-bold">*</span></label>
+                                        <label for="gender">Gender <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="gender" id="gender" required>
                                             <option value="">Select</option>
                                             <option value="Male">Male</option>
@@ -130,9 +134,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12">
-                                    <button type="submit" class="account-btn">Update</button>
-                                </div> --}}
                             </div>
 
                             <br>
@@ -143,9 +144,10 @@
                                         <label for="level">Level <span class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="level" id="level" required>
                                             {{-- <option value="">Select</option> --}}
-                                            <option value="School">School</option>
-                                            <option value="College">College</option>
-                                            <option value="University/Diploma">University / Diploma</option>
+                                            @forelse($degree_levels as $degree_level)
+                                                <option value="{{ $degree_level }}">{{ $degree_level }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
@@ -154,17 +156,11 @@
                                         <label for="class_degree_sch">Select Class<span
                                                 class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="class_degree_sch" id="class_degree_sch">
-                                            <option value="">Select</option>
-                                            <option value="Class-1">Class-1</option>
-                                            <option value="Class-2">Class-2</option>
-                                            <option value="Class-3">Class-3</option>
-                                            <option value="Class-4">Class-4</option>
-                                            <option value="Class-5">Class-5</option>
-                                            <option value="Class-6">Class-6</option>
-                                            <option value="Class-7">Class-7</option>
-                                            <option value="Class-8">Class-8</option>
-                                            <option value="Class-9">Class-9</option>
-                                            <option value="Class-10">Class-10</option>
+                                            {{-- <option value="">Select</option> --}}
+                                            @forelse($class_school as $class_school)
+                                                <option value="{{ $class_school }}">{{ $class_school }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
@@ -173,10 +169,13 @@
                                         <label for="class_degree_col">Select Class<span
                                                 class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="class_degree_col" id="class_degree_col">
-                                            <option value="">Select</option>
-                                            <option value="Class-11">Class-11</option>
-                                            <option value="Class-12">Class-12</option>
+                                            {{-- <option value="">Select</option> --}}
+                                            @forelse($class_college as $class_college)
+                                                <option value="{{ $class_college }}">{{ $class_college }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="university">
@@ -184,26 +183,27 @@
                                         <label for="class_degree_uni">Degree Year<span
                                                 class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="class_degree_uni" id="class_degree_uni">
-                                            <option value="">Select</option>
-                                            <option value="1st Year">1st Year</option>
-                                            <option value="2nd Year">2nd Year</option>
-                                            <option value="3rd Year">3rd Year</option>
-                                            <option value="4th Year">4th Year</option>
-                                            <option value="5th Year">5th Year</option>
+                                            {{-- <option value="">Select</option> --}}
+                                            @forelse($class_uni as $class_uni)
+                                                <option value="{{ $class_uni }}">{{ $class_uni }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="institution">Institution <span class="text-danger font-weight-bold">*</span></label>
+                                        <label for="institution">Institution <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="institution" class="form-control"
                                             placeholder="Your Institution" id="institution" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6" id="position">
                                     <div class="form-group">
-                                        <label>Class Position/Roll/ID <span class="text-danger font-weight-bold">*</span></label>
+                                        <label>Class Position/Roll/ID <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="position" class="form-control"
                                             placeholder="Your Class Position" required>
                                     </div>
@@ -224,7 +224,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Year <span class="text-danger font-weight-bold">*</span></label>
-                                        <input type="text" class="form-control" name="year" id="datepicker" required/>
+                                        <input type="text" class="form-control" name="year" id="datepicker" required />
                                     </div>
                                 </div>
 
@@ -281,7 +281,8 @@
                                     <div class="form-group">
                                         <label>Significant Achievement 1</label>
                                         <textarea name="achievement[]" class="form-control"
-                                            placeholder=" (e.g., athlete, debater, organizer, etc.)" maxlength="999"></textarea>
+                                            placeholder=" (e.g., athlete, debater, organizer, etc.)"
+                                            maxlength="999"></textarea>
                                     </div>
                                 </div>
 
@@ -309,8 +310,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Profession <span class="text-danger font-weight-bold">*</span></label>
-                                        <input type="text" name="reference_profession" class="form-control" maxlength="999"
-                                            placeholder="Enter profession" required>
+                                        <input type="text" name="reference_profession" class="form-control"
+                                            maxlength="999" placeholder="Enter profession" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -332,7 +333,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Family Income (Monthly) <span class="text-danger font-weight-bold">*</span></label>
+                                        <label>Family Income (Monthly) <span
+                                                class="text-danger font-weight-bold">*</span></label>
                                         <input type="number" name="family_income" class="form-control"
                                             placeholder="Enter monthly family income" required>
                                     </div>
@@ -354,9 +356,10 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Reason for Financial Support <span class="text-danger font-weight-bold">*</span></label>
-                                        <textarea name="reason" class="form-control" placeholder="Please write details" maxlength="999"
-                                            style="max-height: 80px; height: 80px" required></textarea>
+                                        <label>Reason for Financial Support <span
+                                                class="text-danger font-weight-bold">*</span></label>
+                                        <textarea name="reason" class="form-control" placeholder="Please write details"
+                                            maxlength="999" style="max-height: 80px; height: 80px" required></textarea>
                                     </div>
                                 </div>
 
@@ -484,19 +487,7 @@
 @section('custom_js')
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
     <script>
-        $("#datepicker").datepicker({
-            format: "yyyy",
-            viewMode: "years",
-            minViewMode: "years",
-            autoclose: true //to close picker once year is selected
-        });
-        $("#datepicker-1").datepicker({
-            format: "yyyy",
-            viewMode: "years",
-            minViewMode: "years",
-            autoclose: true //to close picker once year is selected
-        });
-        $("#datepicker-2").datepicker({
+        $("#datepicker, #datepicker-1, #datepicker-2").datepicker({
             format: "yyyy",
             viewMode: "years",
             minViewMode: "years",

@@ -26,7 +26,7 @@ class RegisterStudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         $student_data = User::FindOrFail(Auth::user()->id)->student_information;
 
         return view('web.student.student-dashboard', [
@@ -44,7 +44,11 @@ class RegisterStudentController extends Controller
         $student_data = User::find(Auth::user()->id)->student_information;
 
         return view('web.student.student-profile-create', [
-            'student_data' => $student_data
+            'student_data' => $student_data,
+            'degree_levels' => Degree::degree_levels,
+            'class_school' => Degree::class_school,
+            'class_college' => Degree::class_college,
+            'class_uni' => Degree::class_uni,
         ]);
     }
 
@@ -165,6 +169,8 @@ class RegisterStudentController extends Controller
             $degree_level = $request->class_degree_sch;
         } else if ($level == "College") {
             $degree_level = $request->class_degree_col;
+        } else if ($level == "Diploma") {
+            $degree_level = NULL;
         } else {
             $degree_level = $request->class_degree_uni;
         }
@@ -199,7 +205,7 @@ class RegisterStudentController extends Controller
         $user->assignRole($role);
 
 
-        return redirect()->route('student_profile', Auth::user()->id)->with('success','Congratulations! Profile created succesfully.');
+        return redirect()->route('student_profile', Auth::user()->id)->with('success', 'Congratulations! Profile created succesfully.');
     }
 
     /**
@@ -249,7 +255,7 @@ class RegisterStudentController extends Controller
         $academic_data = Student::find($student_data->id)->degree_information;
         $achievements = Student::find($student_data->id)->achievements;
 
-        // dd($addresses_present);
+        // dd($degree_levels);
 
         return view('web.student.student-profile-edit', [
             'student_data' => $student_data,
@@ -257,8 +263,11 @@ class RegisterStudentController extends Controller
             'addresses_present' => $addresses_present,
             'addresses_permanent' => $addresses_permanent,
             'achievements' => $achievements,
+            'degree_levels' => Degree::degree_levels,
+            'class_school' => Degree::class_school,
+            'class_college' => Degree::class_college,
+            'class_uni' => Degree::class_uni,
         ]);
-
     }
 
     /**
@@ -270,6 +279,8 @@ class RegisterStudentController extends Controller
      */
     public function update(Request $request)
     {
+
+        // dd($request->all());
 
         $this->validate($request, [
             'name' => 'required',
@@ -322,12 +333,15 @@ class RegisterStudentController extends Controller
             $degree_level = $request->class_degree_sch;
         } else if ($level == "College") {
             $degree_level = $request->class_degree_col;
-        } else if ($level == "University/Diploma") {
-            $degree_level = $request->class_degree_uni;
+        } else if ($level == "Diploma") {
+            $degree_level = NULL;
+        } else if ($level == "Bachelors" || $level == "Masters") {
+            $degree_level = $request->class_degree_uni;        
         }
 
 
-        $degrees_id = $request->input('degrees_id');
+        
+        $degrees_id = $request->degrees_id;
 
         $degree =  Degree::find($degrees_id);
         // $degree->student_id = $student->id;
@@ -345,7 +359,7 @@ class RegisterStudentController extends Controller
         $degree->hsc_year = $request->hsc_year;
         $degree->hsc_institution = $request->hsc_institution;
         $degree->hsc_gpa = $request->hsc_gpa;
-        
+
         $degree->save();
 
 
@@ -418,7 +432,7 @@ class RegisterStudentController extends Controller
         }
 
 
-        return redirect()->route('student_profile', ['student_id' => $student_id])->with('success','Profile updated succesfully');
+        return redirect()->route('student_profile', ['student_id' => $student_id])->with('success', 'Profile updated succesfully');
     }
 
     /**

@@ -11,6 +11,13 @@ $("#level").change(function () {
         $('#university').hide(); $('#ssc_year').show(); $('#ssc_institution').show(); $('#ssc_gpa').show();
         $('#hsc_year').hide(); $('#hsc_institution').hide(); $('#hsc_gpa').hide(); $('#ssc_next').show();
         $('#hsc_next').hide(); $('#sig_ach').show();
+
+    } else if ($(this).val() == "Diploma") {
+        $('#college').hide(); $('#marks_cgpa').show(); $('#school').hide(); $('#university').hide();
+        $('#university').hide(); $('#ssc_year').show(); $('#ssc_institution').show(); $('#ssc_gpa').show();
+        $('#hsc_year').hide(); $('#hsc_institution').hide(); $('#hsc_gpa').hide(); $('#ssc_next').show();
+        $('#hsc_next').hide(); $('#sig_ach').show(); 
+        
     } else {
         $('#university').show(); $('#marks_cgpa').show(); $('#college').hide(); $('#school').hide();
         $('#ssc_year').show(); $('#ssc_institution').show(); $('#ssc_gpa').show();
