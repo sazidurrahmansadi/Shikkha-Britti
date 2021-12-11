@@ -85,13 +85,9 @@
 
                             @forelse($account_details as $account_details)
                                 <div id="student">
-                                    <input type="hidden" name="account_id" id="account_id" value="{{ $account_details->id }}">
-
-                                    {{-- <div class="form-group">
-                                        <label>Account Title<span class="text-danger">*</span></label>
-                                        <input type="text" name="account_title" id="st_account_title" class="form-control"
-                                            value="{{ $account_details->account_title }}" disabled required>
-                                    </div> --}}
+                                    <input type="hidden" name="account_id_student" id="account_id"
+                                        value="{{ $account_details->id }}">
+                                        
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Account Name: </strong>
@@ -113,10 +109,10 @@
                         <div id="mentor">
                             <div class="form-group">
                                 <label>Mentor Name<span class="text-danger">*</span></label>
-                                <select class="form-control" name="mentor" id="mentor" required>
+                                <select class="form-control" name="account_id_mentor" id="mentor">
                                     <option value="">SELECT</option>
                                     @forelse($mentors as $mentor)
-                                    <option value=""></option>
+                                        <option value="{{$mentor->mentor_active_account->id??null}}">{{$mentor->user->name}}</option>
                                     @empty
                                     @endforelse
                                 </select>

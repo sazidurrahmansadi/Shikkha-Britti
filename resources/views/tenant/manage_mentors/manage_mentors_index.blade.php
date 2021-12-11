@@ -75,8 +75,8 @@
                                         <th>Mentor's Name</th>
                                         <th>Phone</th>
                                         <th>Address</th>
-                                        {{-- <th>Profession</th> --}}
-                                        <th>Account</th>
+                                        <th>Account Info</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,15 +87,23 @@
                                             <td>{{ $mentor->user->name }}</td>
                                             <td>{{ $mentor->user->phone }}</td>
                                             <td>{{ $mentor->address }}</td>
-                                            {{-- <td>{{ $mentor->profession }}</td>                                             --}}
+                                            <td>{{ $mentor->mentor_active_account !=null ? $mentor->mentor_active_account->account_type : "No Account Found"}}
+                                                @if($mentor->mentor_active_account)
+                                                <br>A/C: {{$mentor->mentor_active_account->account_number??null}}
+                                                @endif
+
+                                            </td>   
 
                                             
-                                            <td class="text-center align-top">
-                                                {{-- <a class="btn btn-sm btn-primary" href="{{ route('manage_scholarships_details', [$scholarship->id]) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View"><i class="fa fa-eye"></i></a> --}}
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-success" href="{{ route('manage_mentors.show',$mentor->id) }}" data-toggle="tooltip"
+                                                    data-placement="top" title="View"><i class="fa fa-eye"></i> View</a>
 
-                                                {{-- <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i></a> --}}
-                                                <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i></a>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i>  
+                                                    @if($mentor->mentor_active_account) Manage Account
+                                                    @else Create Account
+                                                    @endif
+                                                </a>
 
                                                 {{-- <span data-toggle="tooltip" data-placement="top" title="Delete"><button class="btn btn-sm btn-danger delete_warning_modal" type="button" data-toggle="modal" data-target="#delete_warning_modal" data-scholarship_id_d="{{ $scholarship->id }}"><i class="fa fa-trash"></i></button></span> --}}
                                             </td>

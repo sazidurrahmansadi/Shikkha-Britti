@@ -119,7 +119,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('manage_mentors.create') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-circle nav-icon text-success"></i>
                                 <p>Add New Mentor</p>
                             </a>
                         </li>
@@ -127,7 +127,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('manage_mentors.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-circle nav-icon text-success"></i>
                                 <p>Mentor List</p>
                             </a>
                         </li>

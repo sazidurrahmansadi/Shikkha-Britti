@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     <style>
         tr td:last-child {
@@ -79,6 +81,7 @@
                                         <th>Amount</th>
                                         <th>Deadline</th>
                                         <th>Status</th>
+                                        <th>Total Applicant</th>
                                         <th>View Applicantions</th>
                                         <th>Action</th>
                                     </tr>
@@ -107,8 +110,9 @@
                                                         title="Change Status">{{ $scholarship->status }}</button>
                                                 </td>
                                             @endif
+                                            <td>{{$scholarship->students->count()}}</td>
 
-                                            <td class="text-center"><a class="btn btn-primary btn-sm"
+                                            <td><a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_applications_index', [$scholarship->id]) }}"
                                                     role="button">View All</a>
                                             </td>
@@ -240,13 +244,13 @@
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
 
     <!-- Page specific script -->
     <script>
@@ -257,7 +261,8 @@
                 "scrollX": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "searching": false,
+                // "buttons": ["copy", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

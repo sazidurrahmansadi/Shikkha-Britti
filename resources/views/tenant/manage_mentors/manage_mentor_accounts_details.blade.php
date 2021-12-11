@@ -85,7 +85,7 @@
                     </div>
                     @empty
                     <div class="card card-body">
-                        <h4 class="text-danger d-flex mx-auto">No account found against this user</h4>
+                        <h4 class="text-danger d-flex mx-auto">No account found for this user</h4>
                     </div>
                 @endforelse
             </div>

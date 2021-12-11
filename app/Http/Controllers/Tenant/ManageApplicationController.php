@@ -138,9 +138,7 @@ class ManageApplicationController extends Controller
         $student_data = Student::find($student_id);
         $student_account_details = $student_data->student_accounts;
         // $mentors = Mentor::with("mentor_accounts")->get();
-        $mentors = Mentor::with("mentor_active_account")->get();
-
-        // dd($mentors->first());
+        $mentors = Mentor::with('mentor_active_account','user')->get();
 
         return view('tenant.manage_applications.manage_applications_approve', [
             'scholarship_data' => $scholarship_data,
@@ -166,6 +164,13 @@ class ManageApplicationController extends Controller
             'to_date' => 'required',
         ]);
 
+        $pay_to = $request->pay_to;
+        if ($pay_to == "STUDENT") {
+            $account_id = $request->account_id_student;
+        } else if ($pay_to == "MENTOR") {
+            $account_id = $request->account_id_mentor;
+        } 
+
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
@@ -174,7 +179,7 @@ class ManageApplicationController extends Controller
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
         $approve->approved_by = Auth::user()->name;
-        $approve->account_id = $request->account_id;
+        $approve->account_id = $account_id;
         $approve->save();
 
 
@@ -200,7 +205,6 @@ class ManageApplicationController extends Controller
 
         $student_data = Student::find($student_id)->name;
         $scholarship_data = Scholarship::find($scholarship_id)->scholarship_title;
-
 
         return view('tenant.manage_applications.manage_application_scholarship_details', [
             'approved_application_detail' => $approved_application_detail,

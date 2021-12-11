@@ -78,7 +78,9 @@ class ManageMentorController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('tenant.manage_mentors.manage_mentors_show',[
+            'mentor' => Mentor::find($id),
+        ]);
     }
 
     /**
@@ -89,7 +91,9 @@ class ManageMentorController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('tenant.manage_mentors.manage_mentors_edit',[
+            'mentor' => Mentor::find($id),
+        ]);
     }
 
     /**
@@ -101,7 +105,21 @@ class ManageMentorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+            'profession' => 'required',
+        ]);
+        $input = $request->all();
+
+        $user = User::find($request->user_id);
+        $user->update($input);
+        $mentor = Mentor::find($id);
+        $mentor->update($input);
+
+        return redirect()->route('manage_mentors.show',$id)
+        ->with('success','Mentor data updated successfully');
     }
 
     /**

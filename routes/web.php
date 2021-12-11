@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_tenants', ManageTenantsController::class);
     Route::resource('manage_mentors', ManageMentorController::class);
 });
+Route::POST('/manage-mentors-update/{id}', [ManageMentorController::class, 'update'])->name('manage_mentors_update')->middleware('auth');
 
 
 /*
