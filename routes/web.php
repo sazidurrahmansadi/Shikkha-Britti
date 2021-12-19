@@ -12,6 +12,7 @@ use App\Http\Controllers\Tenant\ManageApplicationController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
 use App\Http\Controllers\Tenant\ManageMentorController;
+use App\Http\Controllers\Tenant\ManageMonthlyStatementController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +94,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_tenants', ManageTenantsController::class);
     Route::resource('manage_mentors', ManageMentorController::class);
 });
+
+
 Route::POST('/manage-mentors-update/{id}', [ManageMentorController::class, 'update'])->name('manage_mentors_update')->middleware('auth');
 
 
@@ -145,5 +148,13 @@ Route::GET('/manage-mentor-accounts-details/{mentor_id}', [ManageMentorAccountCo
 Route::GET('/manage-mentor-accounts-edit/{account_id}', [ManageMentorAccountController::class, 'edit'])->name('manage_mentor_accounts_edit')->middleware('auth');
 Route::POST('/manage-mentor-accounts-update', [ManageMentorAccountController::class, 'update'])->name('manage_mentor_accounts_update')->middleware('auth');
 
-
+/*
+-----------------------------------------------------------
+ ==== Manage Monthly Statement Starts Here  ===
+-----------------------------------------------------------
+*/
+Route::GET('/manage-monthly-statement-create', [ManageMonthlyStatementController::class, 'create'])->name('manage_monthly_statement_create')->middleware('auth');
+Route::POST('/manage-monthly-statement-store', [ManageMonthlyStatementController::class, 'store'])->name('manage_monthly_statement_store')->middleware('auth');
+Route::GET('/manage-monthly-statement-index', [ManageMonthlyStatementController::class, 'index'])->name('manage_monthly_statement_index')->middleware('auth');
+Route::GET('/manage-monthly-statement-show/{scholarship_id}', [ManageMonthlyStatementController::class, 'show'])->name('manage_statement_show')->middleware('auth');
 

@@ -66,6 +66,11 @@ class Student extends Model
         return $this->morphMany(Account::class, 'accountable');
     }
 
+    public function monthly_statements()
+    {
+        return $this->hasMany(MonthlyStatement::class);
+    }
+
 
 
 

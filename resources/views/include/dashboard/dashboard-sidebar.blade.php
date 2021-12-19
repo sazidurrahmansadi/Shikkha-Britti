@@ -133,6 +133,31 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-address-card"></i>
+                        <p>
+                            Payment Statement
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('manage_monthly_statement_create') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Create New Statement</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('manage_monthly_statement_index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Statement List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endrole
                 {{-- @endcan --}}
                 @role('MENTOR')
