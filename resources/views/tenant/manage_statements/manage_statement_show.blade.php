@@ -74,8 +74,11 @@
                                         <th>Student ID</th>
                                         <th>Phone</th>
                                         <th>Approved Amount</th>
+                                        <th>Account Name</th>
+                                        <th>Payee (Mentor/Student)</th>
+                                        <th>Status</th>
                                         <th>Month</th>
-                                        <th class="text-center">View/Action</th>
+                                        <th class="text-center">Action</th>
                                         {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
@@ -87,13 +90,20 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
-                                            <td>{{(new DateTime($statement->month))->format("M-Y")}}</td>
+                                            <td>{{ $statement->account->account_title }}</td>
+                                            @php
+                                                $payee = explode('\\', $statement->account->accountable_type);
+                                            @endphp
+
+                                            <td>{{ $payee[2] }}</td>
+
+                                            <td>{{ $statement->status }}</td>
+                                            <td>{{ (new DateTime($statement->month))->format('M-Y') }}</td>
 
 
                                             <td class="text-center">
-                                                <a class="btn btn-primary btn-sm"
-                                                    href="#"
-                                                    target="_blank" role="button"><i class='far fa-edit'></i> Edit Data</a>
+                                                <a class="btn btn-primary btn-sm" href="#" target="_blank" role="button"><i
+                                                        class='far fa-edit'></i> Edit Data</a>
 
 
                                                 {{-- <a class="btn btn-success btn-sm"

@@ -12,7 +12,12 @@ class MonthlyStatement extends Model
     {
         return $this->belongsTo(Student::class);
     }
-    
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
     // protected static function booted()
     // {
     //     static::addGlobalScope(new TenantScope);

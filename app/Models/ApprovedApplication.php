@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\TenantScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ApprovedApplication extends Model
 {
+    use HasFactory;
+
     protected static function booted()
     {
         static::addGlobalScope(new TenantScope);

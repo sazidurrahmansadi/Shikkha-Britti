@@ -72,7 +72,7 @@ class ManageMonthlyStatementController extends Controller
                 $statement->scholarship_id = $approved_application->scholarship_id;
                 $statement->approved_amount = $approved_application->approved_amount;
                 $statement->month = $request->month;
-                $statement->account_id = $approved_application->id;
+                $statement->account_id = $approved_application->account_id;
                 // $achievement = $approved_applications[$i];
                 $statement ->save();
             }              
