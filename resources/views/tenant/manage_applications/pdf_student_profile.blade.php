@@ -171,7 +171,7 @@
                 <p><strong>Semester:</strong> {{ $academic_data->semester }}</p>
                 <p><strong>Marks/GPA/CGPA:</strong> {{ $academic_data->marks_cgpa }}</p>
                 <p><strong>Class Position/ID:</strong> {{ $academic_data->position }}</p>
-                <p><strong>Institution:</strong> {{ $academic_data->institution }}</p><br>
+                <p><strong>Institution Name:</strong> {{ $academic_data->institution }}</p><br>
 
                 @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year || $academic_data->bachelor_year || $academic_data->bachelor_cgpa)
 
@@ -188,7 +188,7 @@
                     @endif
                     <p><strong>SSC Passing Year:</strong> {{ $academic_data->ssc_year }}</p>
                     <p><strong>Institution Name:</strong> {{ $academic_data->ssc_institution }}</p>
-                    <p><strong>GPA:</strong> {{ $academic_data->ssc_gpa }}</p>
+                    <p><strong>GPA:</strong> {{ $academic_data->ssc_gpa }}</p><br>
                 @endif
                 @forelse ($achievements as $achievement)
                     @if ($achievement->achievement != null)
