@@ -135,37 +135,57 @@
                                 </table>
                             </div>
 
-                            @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year)
+                            @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year || $academic_data->bachelor_year || $academic_data->bachelor_cgpa)
                                 <div class="col-md-6">
                                     <table class="table table-borderless table-sm table-6">
 
                                         <tbody>
+                                            @if($academic_data->bachelor_year || $academic_data->bachelor_cgpa)
                                             <tr>
-                                                <th scope="row">SSC Passing Year:</th>
-                                                <td>{{ $academic_data->ssc_year }}</td>
+                                                <th scope="row">Bachelors Passing Year:</th>
+                                                <td>{{ $academic_data->bachelor_year }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">SSC GPA:</th>
-                                                <td>{{ $academic_data->ssc_gpa }}</td>
+                                                <th scope="row">Institution Name:</th>
+                                                <td>{{ $academic_data->bachelor_institution }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">SSC Institution Name:</th>
-                                                <td>{{ $academic_data->ssc_institution }}</td>
+                                                <th scope="row">Subject:</th>
+                                                <td>{{ $academic_data->bachelor_subject }}</td>
                                             </tr>
+                                            <tr>
+                                                <th scope="row">CGPA:</th>
+                                                <td>{{ $academic_data->bachelor_cgpa }}</td>
+                                            </tr>                                          
+                                            @endif
+
                                             @if($academic_data->hsc_gpa || $academic_data->hsc_year)
                                             <tr>
                                                 <th scope="row">HSC Passing Year:</th>
                                                 <td>{{ $academic_data->hsc_year }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">HSC GPA:</th>
-                                                <td>{{ $academic_data->hsc_gpa }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">HSC Institution Name:</th>
+                                                <th scope="row">Institution Name:</th>
                                                 <td>{{ $academic_data->hsc_institution }}</td>
                                             </tr>
+                                            <tr>
+                                                <th scope="row">GPA:</th>
+                                                <td>{{ $academic_data->hsc_gpa }}</td>
+                                            </tr>
                                             @endif
+                                            <tr>
+                                                <th scope="row">SSC Passing Year:</th>
+                                                <td>{{ $academic_data->ssc_year }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Institution Name:</th>
+                                                <td>{{ $academic_data->ssc_institution }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">GPA:</th>
+                                                <td>{{ $academic_data->ssc_gpa }}</td>
+                                            </tr>
+                                            
                                         </tbody>
 
                                     </table>

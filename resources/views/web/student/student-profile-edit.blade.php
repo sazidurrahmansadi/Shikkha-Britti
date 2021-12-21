@@ -167,10 +167,10 @@
                                                 {{ old('level', $academic_data->level) == 'Diploma' ? 'selected' : '' }}>
                                                 Diploma</option>
                                             <option value="Bachelors"
-                                                {{ old('level', $academic_data->level) == "Bachelors" ? 'selected' : '' }}>
+                                                {{ old('level', $academic_data->level) == 'Bachelors' ? 'selected' : '' }}>
                                                 Bachelors</option>
                                             <option value="Masters"
-                                                {{ old('level', $academic_data->level) == "Masters" ? 'selected' : "" }}>
+                                                {{ old('level', $academic_data->level) == 'Masters' ? 'selected' : '' }}>
                                                 Masters</option>
                                             {{-- @forelse($degree_levels as $degree_level)
                                                 <option value="{{ $degree_level }}">{{ $degree_level }}</option>
@@ -261,27 +261,40 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="ssc_year">
+
+                                <div class="" id="bachelor_next">
+                                    <hr style="height:2px;border-width:0;">
+                                </div>
+                                <div class="col-md-6" id="bachelor_year">
                                     <div class="form-group">
-                                        <label>SSC Passing Year</label>
-                                        <input type="text" class="form-control" name="ssc_year"
-                                            value="{{ $academic_data->ssc_year }}" id="datepicker-1" />
+                                        <label>Bachelors Passing Year</label>
+                                        <input type="text" class="form-control" name="bachelor_year" id="datepicker-3" value="{{ $academic_data->bachelor_year }}" />
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="ssc_institution">
+                                <div class="col-md-6" id="bachelor_institution">
                                     <div class="form-group">
-                                        <label>SSC Institution Name</label>
-                                        <input type="text" name="ssc_institution" class="form-control"
-                                            placeholder="SSC Institution Name" id="ssc_institution"
-                                            value="{{ $academic_data->ssc_institution }}">
+                                        <label>Institution Name</label>
+                                        <input type="text" name="bachelor_institution" class="form-control"
+                                            placeholder="Bachelors Institution Name" id="bachelor_institution" value="{{ $academic_data->bachelor_institution }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="ssc_gpa">
+                                <div class="col-md-6" id="bachelor_subject">
                                     <div class="form-group">
-                                        <label>SSC GPA</label>
-                                        <input type="number" step=0.01 name="ssc_gpa" class="form-control"
-                                            placeholder="SSC GPA" value="{{ $academic_data->ssc_gpa }}">
+                                        <label>Subject</label>
+                                        <input type="text" name="bachelor_subject" class="form-control"
+                                            placeholder="Bachelors Subject" id="bachelor_subject" value="{{ $academic_data->bachelor_subject }}">
                                     </div>
+                                </div>
+                                <div class="col-md-6" id="bachelor_cgpa">
+                                    <div class="form-group">
+                                        <label>CGPA</label>
+                                        <input type="number" step=0.01 name="bachelor_cgpa" class="form-control"
+                                            placeholder="Bachelors CGPA" value="{{ $academic_data->bachelor_cgpa }}">
+                                    </div>
+                                </div>
+                                
+                                <div class="" id="hsc_next">
+                                    <hr style="height:2px;border-width:0;">
                                 </div>
                                 <div class="col-md-6" id="hsc_year">
                                     <div class="form-group">
@@ -303,6 +316,32 @@
                                         <label>HSC GPA</label>
                                         <input type="number" step=0.01 name="hsc_gpa" class="form-control"
                                             placeholder="HSC GPA" value="{{ $academic_data->hsc_gpa }}">
+                                    </div>
+                                </div>
+
+                                <div class="" id="ssc_next">
+                                    <hr style="height:2px;border-width:0;">
+                                </div>
+                                <div class="col-md-6" id="ssc_year">
+                                    <div class="form-group">
+                                        <label>SSC Passing Year</label>
+                                        <input type="text" class="form-control" name="ssc_year"
+                                            value="{{ $academic_data->ssc_year }}" id="datepicker-1" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="ssc_institution">
+                                    <div class="form-group">
+                                        <label>SSC Institution Name</label>
+                                        <input type="text" name="ssc_institution" class="form-control"
+                                            placeholder="SSC Institution Name" id="ssc_institution"
+                                            value="{{ $academic_data->ssc_institution }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="ssc_gpa">
+                                    <div class="form-group">
+                                        <label>SSC GPA</label>
+                                        <input type="number" step=0.01 name="ssc_gpa" class="form-control"
+                                            placeholder="SSC GPA" value="{{ $academic_data->ssc_gpa }}">
                                     </div>
                                 </div>
 
@@ -583,7 +622,7 @@
     {{-- Bootstrap only YEAR picker --}}
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
     <script>
-        $("#datepicker, #datepicker-1, #datepicker-2").datepicker({
+        $("#datepicker, #datepicker-1, #datepicker-2, #datepicker-3").datepicker({
             format: "yyyy",
             viewMode: "years",
             minViewMode: "years",

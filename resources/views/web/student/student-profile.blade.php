@@ -229,27 +229,35 @@
                                     <p>{{ $academic_data->marks_cgpa }}</p>
                                 </div>
                             </div>
-                            @if ($academic_data->ssc_year)
+                            @if ($academic_data->bachelor_year)
                                 <div class="col-md-6">
                                     <div class="education-info">
-                                        <h4>SSC Passing Year</h4>
-                                        <p>{{ $academic_data->ssc_year }}</p>
+                                        <h4>Bachelors Passing Year</h4>
+                                        <p>{{ $academic_data->bachelor_year }}</p>
                                     </div>
                                 </div>
                             @endif
-                            @if ($academic_data->ssc_institution)
+                            @if ($academic_data->bachelor_institution)
                                 <div class="col-md-6">
                                     <div class="education-info">
-                                        <h4>SSC Institution Name</h4>
-                                        <p>{{ $academic_data->ssc_institution }}</p>
+                                        <h4>Bachelors Institution Name</h4>
+                                        <p>{{ $academic_data->bachelor_institution }}</p>
                                     </div>
                                 </div>
                             @endif
-                            @if ($academic_data->ssc_gpa)
+                            @if ($academic_data->bachelor_subject)
                                 <div class="col-md-6">
                                     <div class="education-info">
-                                        <h4>SSC GPA</h4>
-                                        <p>{{ $academic_data->ssc_gpa }}</p>
+                                        <h4>Bachelors Subject</h4>
+                                        <p>{{ $academic_data->bachelor_subject }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($academic_data->bachelor_cgpa)
+                                <div class="col-md-6">
+                                    <div class="education-info">
+                                        <h4>Bachelors CGPA</h4>
+                                        <p>{{ $academic_data->bachelor_cgpa }}</p>
                                     </div>
                                 </div>
                             @endif
@@ -277,6 +285,31 @@
                                     </div>
                                 </div>
                             @endif
+                            @if ($academic_data->ssc_year)
+                                <div class="col-md-6">
+                                    <div class="education-info">
+                                        <h4>SSC Passing Year</h4>
+                                        <p>{{ $academic_data->ssc_year }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($academic_data->ssc_institution)
+                                <div class="col-md-6">
+                                    <div class="education-info">
+                                        <h4>SSC Institution Name</h4>
+                                        <p>{{ $academic_data->ssc_institution }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($academic_data->ssc_gpa)
+                                <div class="col-md-6">
+                                    <div class="education-info">
+                                        <h4>SSC GPA</h4>
+                                        <p>{{ $academic_data->ssc_gpa }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                            
                             @forelse ($achievements as $achievement)
                                 <div class="col-md-6">
                                     <div class="education-info">

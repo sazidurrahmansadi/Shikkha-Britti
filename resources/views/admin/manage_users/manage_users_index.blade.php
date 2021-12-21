@@ -35,6 +35,7 @@
                             <tr class="text-white font-weight-bold" style="background: linear-gradient(to right, #ec2F4B, #009FFF);">
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Phone</th>
                                 <th>Email</th>
                                 <th>Roles</th>
                                 <th>Tenant</th>
@@ -47,6 +48,7 @@
                                 <tr>
                                     <td>{{ $loop -> index + 1}}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))

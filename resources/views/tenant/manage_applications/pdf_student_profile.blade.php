@@ -173,16 +173,22 @@
                 <p><strong>Class Position/ID:</strong> {{ $academic_data->position }}</p>
                 <p><strong>Institution:</strong> {{ $academic_data->institution }}</p><br>
 
-                @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year)
+                @if ($academic_data->ssc_gpa || $academic_data->ssc_year || $academic_data->hsc_gpa || $academic_data->hsc_year || $academic_data->bachelor_year || $academic_data->bachelor_cgpa)
 
-                    <p><strong>SSC Passing Year:</strong> {{ $academic_data->ssc_year }}</p>
-                    <p><strong>SSC GPA:</strong> {{ $academic_data->ssc_gpa }}</p>
-                    <p><strong>SSC Institution Name:</strong> {{ $academic_data->ssc_institution }}</p>
+                    @if ($academic_data->bachelor_year || $academic_data->bachelor_cgpa)
+                        <p><strong>Bachelors Passing Year:</strong> {{ $academic_data->bachelor_year }}</p>
+                        <p><strong>Institution Name:</strong> {{ $academic_data->bachelor_institution }}</p>
+                        <p><strong>Subject:</strong> {{ $academic_data->bachelor_subject }}</p>
+                        <p><strong>CGPA:</strong> {{ $academic_data->bachelor_cgpa }}</p><br>
+                    @endif
                     @if ($academic_data->hsc_gpa || $academic_data->hsc_year)
                         <p><strong>HSC Passing Year:</strong> {{ $academic_data->hsc_year }}</p>
-                        <p><strong>HSC GPA:</strong> {{ $academic_data->hsc_gpa }}</p>
-                        <p><strong>HSC Institution Name:</strong> {{ $academic_data->hsc_institution }}</p><br>
+                        <p><strong>Institution Name:</strong> {{ $academic_data->hsc_institution }}</p>
+                        <p><strong>GPA:</strong> {{ $academic_data->hsc_gpa }}</p><br>
                     @endif
+                    <p><strong>SSC Passing Year:</strong> {{ $academic_data->ssc_year }}</p>
+                    <p><strong>Institution Name:</strong> {{ $academic_data->ssc_institution }}</p>
+                    <p><strong>GPA:</strong> {{ $academic_data->ssc_gpa }}</p>
                 @endif
                 @forelse ($achievements as $achievement)
                     @if ($achievement->achievement != null)
@@ -260,7 +266,7 @@
 
     </div>
     <footer>
-        Copyright &copy; <?php echo date('Y'); ?>
+        Copyright &copy; <?php echo date('Y'); ?> | Shikkha Britti
     </footer>
 
 </body>

@@ -31,6 +31,10 @@ class CreateDegreesTable extends Migration
             $table->string('hsc_year')->nullable();
             $table->string('hsc_institution')->nullable();
             $table->string('hsc_gpa')->nullable();
+            $table->string('bachelor_year')->nullable();
+            $table->string('bachelor_institution')->nullable();
+            $table->string('bachelor_subject')->nullable();
+            $table->string('bachelor_cgpa')->nullable();
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');

@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    {{-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> --}}
 
     <style>
         tr td:last-child {
@@ -110,7 +111,7 @@
                                                         title="Change Status">{{ $scholarship->status }}</button>
                                                 </td>
                                             @endif
-                                            <td>{{$scholarship->students->count()}}</td>
+                                            <td>{{ $scholarship->students->count() }}</td>
 
                                             <td><a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_applications_index', [$scholarship->id]) }}"
@@ -118,12 +119,21 @@
                                             </td>
 
                                             <td class="text-center align-top">
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_scholarships_details', [$scholarship->id]) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('manage_scholarships_details', [$scholarship->id]) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="View"><i
+                                                        class="fa fa-eye"></i></a>
 
-                                                <a class="btn btn-sm btn-warning" href="{{ route('manage_scholarships_edit', $scholarship->id) }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-sm btn-warning"
+                                                    href="{{ route('manage_scholarships_edit', $scholarship->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                        class="fa fa-edit"></i></a>
 
-                                                <span data-toggle="tooltip" data-placement="top" title="Delete"><button class="btn btn-sm btn-danger delete_warning_modal" type="button" data-toggle="modal" data-target="#delete_warning_modal" data-scholarship_id_d="{{ $scholarship->id }}"><i class="fa fa-trash"></i></button></span>
+                                                <span data-toggle="tooltip" data-placement="top" title="Delete"><button
+                                                        class="btn btn-sm btn-danger delete_warning_modal" type="button"
+                                                        data-toggle="modal" data-target="#delete_warning_modal"
+                                                        data-scholarship_id_d="{{ $scholarship->id }}"><i
+                                                            class="fa fa-trash"></i></button></span>
                                             </td>
                                         </tr>
                                     @empty

@@ -205,14 +205,14 @@
                                         <label>Class Position/Roll/ID <span
                                                 class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" name="position" class="form-control"
-                                            placeholder="Your Class Position" required>
+                                            placeholder="Your Class Position/Roll/ID" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Marks/GPA/CGPA <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="number" step=0.01 name="marks_cgpa" class="form-control"
-                                            placeholder="CGPA" required>
+                                            placeholder="Current Marks/GPA/CGPA">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -225,6 +225,61 @@
                                     <div class="form-group">
                                         <label>Year <span class="text-danger font-weight-bold">*</span></label>
                                         <input type="text" class="form-control" name="year" id="datepicker" required />
+                                    </div>
+                                </div>
+
+                                <div class="" id="bachelor_next">
+                                    <hr style="height:2px;border-width:0;">
+                                </div>
+                                <div class="col-md-6" id="bachelor_year">
+                                    <div class="form-group">
+                                        <label>Bachelors Passing Year</label>
+                                        <input type="text" class="form-control" name="bachelor_year" id="datepicker-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="bachelor_institution">
+                                    <div class="form-group">
+                                        <label>Institution Name</label>
+                                        <input type="text" name="bachelor_institution" class="form-control"
+                                            placeholder="Bachelors Institution Name" id="bachelor_institution">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="bachelor_subject">
+                                    <div class="form-group">
+                                        <label>Subject</label>
+                                        <input type="text" name="bachelor_subject" class="form-control"
+                                            placeholder="Bachelors Subject" id="bachelor_subject">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="bachelor_cgpa">
+                                    <div class="form-group">
+                                        <label>CGPA</label>
+                                        <input type="number" step=0.01 name="bachelor_cgpa" class="form-control"
+                                            placeholder="Bachelors CGPA">
+                                    </div>
+                                </div>
+
+                                <div class="" id="hsc_next">
+                                    <hr style="height:2px;border-width:0;">
+                                </div>
+                                <div class="col-md-6" id="hsc_year">
+                                    <div class="form-group">
+                                        <label>HSC Passing Year</label>
+                                        <input type="text" class="form-control" name="hsc_year" id="datepicker-2" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="hsc_institution">
+                                    <div class="form-group">
+                                        <label>HSC Institution Name</label>
+                                        <input type="text" name="hsc_institution" class="form-control"
+                                            placeholder="HSC Institution Name" id="hsc_institution">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="hsc_gpa">
+                                    <div class="form-group">
+                                        <label>HSC GPA</label>
+                                        <input type="number" step=0.01 name="hsc_gpa" class="form-control"
+                                            placeholder="HSC GPA">
                                     </div>
                                 </div>
 
@@ -251,29 +306,7 @@
                                             placeholder="SSC GPA">
                                     </div>
                                 </div>
-                                <div class="" id="hsc_next">
-                                    <hr style="height:2px;border-width:0;">
-                                </div>
-                                <div class="col-md-6" id="hsc_year">
-                                    <div class="form-group">
-                                        <label>HSC Passing Year</label>
-                                        <input type="text" class="form-control" name="hsc_year" id="datepicker-2" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="hsc_institution">
-                                    <div class="form-group">
-                                        <label>HSC Institution Name</label>
-                                        <input type="text" name="hsc_institution" class="form-control"
-                                            placeholder="HSC Institution Name" id="hsc_institution">
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="hsc_gpa">
-                                    <div class="form-group">
-                                        <label>HSC GPA</label>
-                                        <input type="number" step=0.01 name="hsc_gpa" class="form-control"
-                                            placeholder="HSC GPA">
-                                    </div>
-                                </div>
+
                                 <div class="" id="sig_ach">
                                     <hr style="height:2px;border-width:0;">
                                 </div>
@@ -487,7 +520,7 @@
 @section('custom_js')
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
     <script>
-        $("#datepicker, #datepicker-1, #datepicker-2").datepicker({
+        $("#datepicker, #datepicker-1, #datepicker-2, #datepicker-3").datepicker({
             format: "yyyy",
             viewMode: "years",
             minViewMode: "years",

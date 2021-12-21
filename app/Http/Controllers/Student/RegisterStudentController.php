@@ -158,7 +158,6 @@ class RegisterStudentController extends Controller
         $this->validate($request, [
             'level' => 'required',
             'institution' => 'required',
-            'marks_cgpa' => 'required',
             'year' => 'required',
             'position' => 'required',
         ]);
@@ -193,6 +192,10 @@ class RegisterStudentController extends Controller
         $degree->hsc_year = $request->hsc_year;
         $degree->hsc_institution = $request->hsc_institution;
         $degree->hsc_gpa = $request->hsc_gpa;
+        $degree->bachelor_year = $request->bachelor_year;
+        $degree->bachelor_institution = $request->bachelor_institution;
+        $degree->bachelor_subject = $request->bachelor_subject;
+        $degree->bachelor_cgpa = $request->bachelor_cgpa;
 
         $degree->save();
 
@@ -228,7 +231,7 @@ class RegisterStudentController extends Controller
         $academic_data = Student::find($student_data->id)->degree_information;
         $achievements = Student::find($student_data->id)->achievements;
 
-        // dd($academic_data);
+        // dd($student_data);
 
         return view('web.student.student-profile', [
             'student_data' => $student_data,
@@ -322,7 +325,6 @@ class RegisterStudentController extends Controller
         $this->validate($request, [
             'level' => 'required',
             'institution' => 'required',
-            'marks_cgpa' => 'required',
             'year' => 'required',
             'position' => 'required',
         ]);
@@ -335,10 +337,22 @@ class RegisterStudentController extends Controller
             $degree_level = $request->class_degree_col;
         } else if ($level == "Diploma") {
             $degree_level = NULL;
-        } else if ($level == "Bachelors" || $level == "Masters") {
-            $degree_level = $request->class_degree_uni;        
+        } else if ($level == "Bachelors") {
+            $degree_level = $request->class_degree_uni;  
+            
+            $bachelor_year = NULL;
+            $bachelor_institution = NULL;
+            $bachelor_subject = NULL;
+            $bachelor_cgpa = NULL;
         }
-
+        else if ($level == "Masters") {
+            $degree_level = $request->class_degree_uni;  
+            
+            $bachelor_year = $request->bachelor_year;
+            $bachelor_institution = $request->bachelor_institution;
+            $bachelor_subject = $request->bachelor_subject;
+            $bachelor_cgpa = $request->bachelor_cgpa;
+        }
 
         
         $degrees_id = $request->degrees_id;
@@ -359,6 +373,10 @@ class RegisterStudentController extends Controller
         $degree->hsc_year = $request->hsc_year;
         $degree->hsc_institution = $request->hsc_institution;
         $degree->hsc_gpa = $request->hsc_gpa;
+        $degree->bachelor_year = $bachelor_year;
+        $degree->bachelor_institution = $bachelor_institution;
+        $degree->bachelor_subject = $bachelor_subject;
+        $degree->bachelor_cgpa = $bachelor_cgpa;
 
         $degree->save();
 
@@ -399,8 +417,6 @@ class RegisterStudentController extends Controller
         $address->same_as_present = $request->has('same_as_present');
         $address->status = "ACTIVE";
         $address->save();
-
-
 
 
         $permanent_address_id = $request->permanent_address_id;

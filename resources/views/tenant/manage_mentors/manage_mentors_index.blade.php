@@ -99,11 +99,11 @@
                                                 <a class="btn btn-sm btn-success" href="{{ route('manage_mentors.show',$mentor->id) }}" data-toggle="tooltip"
                                                     data-placement="top" title="View"><i class="fa fa-eye"></i> View</a>
 
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i>  
-                                                    @if($mentor->mentor_active_account) Manage Account
-                                                    @else Create Account
+                                                    @if($mentor->mentor_active_account)
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
+                                                    @else 
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
                                                     @endif
-                                                </a>
 
                                                 {{-- <span data-toggle="tooltip" data-placement="top" title="Delete"><button class="btn btn-sm btn-danger delete_warning_modal" type="button" data-toggle="modal" data-target="#delete_warning_modal" data-scholarship_id_d="{{ $scholarship->id }}"><i class="fa fa-trash"></i></button></span> --}}
                                             </td>

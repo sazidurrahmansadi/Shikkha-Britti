@@ -7,6 +7,7 @@ use App\Models\ApprovedApplication;
 use App\Models\Scholarship;
 use App\Models\MonthlyStatement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManageMonthlyStatementController extends Controller
 {
@@ -64,6 +65,9 @@ class ManageMonthlyStatementController extends Controller
         $approved_applications = ApprovedApplication::where('scholarship_id',$request->scholarship_id)->get();
 
         // dd($approved_applications);
+
+        DB::query('insert into monthly_statements (username, email, password) values ("johndoe", "john@johndoe.com", "password")');
+
 
         if ($approved_applications) {
             foreach ($approved_applications as $approved_application){
