@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Student\RegisterStudentController;
+use App\Http\Controllers\API\APIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,21 @@ use App\Http\Controllers\Student\RegisterStudentController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/products', function(){
-    return "Product route is working";
-});
 
-Route::GET('/manage-scholarships-index', [RegisterStudentController::class, 'index'])->name('manage_scholarships_index');
-
-Route::GET('/students', [TenantScholarshipController::class, 'index'])->name('students');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::GET('/test-students/{id?}',[APIController::class,'ShowTestStudents']);
+
+
+Route::POST('/add-test-student',[APIController::class,'addTestStudent']);
+
+Route::POST('/add-student-multiple',[APIController::class,'addStudentMultiple']);
+
+
+
+
+

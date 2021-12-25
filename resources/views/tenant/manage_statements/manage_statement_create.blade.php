@@ -63,7 +63,7 @@
                             <!-- select -->
                             <div class="form-group">
                                 <label>Month & Year<span class="text-danger">*</span></label>
-                                <input type="date" name="month" id="for_month" class="form-control"
+                                <input type="text" name="month_year" id="for_month" class="form-control"
                                     placeholder="Select Month & Year" required>
                             </div>
 
@@ -84,11 +84,11 @@
 @section('extra_js')
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
 
-    {{-- <script>
+    <script>
         $("#for_month").datepicker({
             format: "M-yyyy",
             startView: "months",
             minViewMode: "months"
         });
-    </script> --}}
+    </script>
 @endsection

@@ -56,17 +56,35 @@ class ManageMonthlyStatementController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $this->validate($request, [
             'scholarship_id' => 'required',
-            'month' => 'required|date',
+            'month_year' => 'required',
         ]);
+        $input_date_month = date('m', strtotime($request->month));
+        $input_date_year = date('Y', strtotime($request->month));
+        
 
-        $approved_applications = ApprovedApplication::where('scholarship_id',$request->scholarship_id)->get();
+        $monthly_statements = MonthlyStatement::whereMonth('month', $input_date_month)
+        ->whereYear('month', $input_date_year)
+        ->get();
+
+        // return $monthly_statements;
+
+        $approved_applications = ApprovedApplication::where('scholarship_id',$request->scholarship_id)->where('','')->get();
 
         // dd($approved_applications);
 
         DB::query('insert into monthly_statements (username, email, password) values ("johndoe", "john@johndoe.com", "password")');
+
+        DB::insert('insert into monthly_statements (student_id, scholarship_id, approved_amount, month_year, note, account_id, status) values(?)',[
+            $approved_applications->student_id,
+        $request->scholarship_id,
+        $approved_applications->approved_amount,
+        $approved_applications->approved_amount,
+        $approved_applications->account_id,
+
+        ]);
 
 
         if ($approved_applications) {
