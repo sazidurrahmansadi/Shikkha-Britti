@@ -4,9 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\TenantScope;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class MonthlyStatement extends Model
 {
+
+    protected $primaryKey = 'id';
+    // public $incrementing = false;
+
 
     public function student()
     {
@@ -18,14 +24,18 @@ class MonthlyStatement extends Model
         return $this->belongsTo(Account::class);
     }
 
-    // protected static function booted()
-    // {
-    //     static::addGlobalScope(new TenantScope);
+    protected static function booted()
+    {
+        static::creating(function ($model){
+            $id = MonthlyStatement::max('id');
 
-    //     static::creating(function ($model){
-    //         if (session()->has('tenant_id')) {
-    //             $model->tenant_id = session()->get('tenant_id');
-    //         }
-    //     });
-    // }
+            if (!$id){
+                $id = 1;
+            }
+            $model->id = $id+1;
+
+        });
+    }
+
+    
 }

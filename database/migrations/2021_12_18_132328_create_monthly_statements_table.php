@@ -14,15 +14,19 @@ class CreateMonthlyStatementsTable extends Migration
     public function up()
     {
         Schema::create('monthly_statements', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id');
             $table->foreignId('student_id')->references('id')->on('students');
             $table->foreignId('scholarship_id')->references('id')->on('scholarships');
             $table->double('approved_amount')->nullable();
-            $table->dateTime('month')->nullable();
+            $table->date('month_year')->nullable();
             $table->text('note')->nullable();
             $table->integer('account_id')->nullable();
             $table->string('status')->default("PENDING");
             $table->timestamps();
+
+            $table->index(['student_id', 'scholarship_id']);
+            $table->primary(['student_id', 'scholarship_id']);
+
         });
     }
 
