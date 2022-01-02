@@ -157,4 +157,6 @@ Route::GET('/manage-monthly-statement-create', [ManageMonthlyStatementController
 Route::POST('/manage-monthly-statement-store', [ManageMonthlyStatementController::class, 'store'])->name('manage_monthly_statement_store')->middleware('auth');
 Route::GET('/manage-monthly-statement-index', [ManageMonthlyStatementController::class, 'index'])->name('manage_monthly_statement_index')->middleware('auth');
 Route::GET('/manage-monthly-statement-show/{scholarship_id}', [ManageMonthlyStatementController::class, 'show'])->name('manage_statement_show')->middleware('auth');
+Route::GET('/manage-monthly-statement-search', [ManageMonthlyStatementController::class, 'search'])->name('manage_statement_search')->middleware('auth');
+Route::POST('/manage-monthly-statement-search-show', [ManageMonthlyStatementController::class, 'search_show'])->name('manage_statement_search_show')->middleware('auth');
 

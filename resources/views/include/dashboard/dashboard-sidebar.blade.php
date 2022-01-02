@@ -151,6 +151,14 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="{{ route('manage_statement_search') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Monthly Statement</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
                             <a href="{{ route('manage_monthly_statement_index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon text-success"></i>
                                 <p>Statement List</p>

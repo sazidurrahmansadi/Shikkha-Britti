@@ -24,8 +24,8 @@ class CreateMonthlyStatementsTable extends Migration
             $table->string('status')->default("PENDING");
             $table->timestamps();
 
-            $table->index(['student_id', 'scholarship_id']);
-            $table->primary(['student_id', 'scholarship_id']);
+            $table->index(['student_id', 'scholarship_id', 'month_year']);
+            $table->primary(['student_id', 'scholarship_id', 'month_year']);
 
         });
     }

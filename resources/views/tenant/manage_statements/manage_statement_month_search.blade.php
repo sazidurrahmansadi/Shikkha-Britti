@@ -29,7 +29,7 @@
                         <div class="col-md-12 mt-lg-4 mt-4">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement</h1>
+                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement Search</h1>
                                 <a href="{{ route('dashboard') }}"
                                     class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
@@ -45,7 +45,7 @@
             <!-- column -->
             <div class="col-md-12 mt-4">
                 <div class="card card-body">
-                    <form method="post" action="{{ route('manage_monthly_statement_store') }}">
+                    <form method="post" action="{{ route('manage_statement_search_show') }}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -69,9 +69,12 @@
                        
                         </div>
                         <!-- /.card-body -->
+                        {{-- <div class="card-footer">
+                            <a type="button" href="{{ route('manage_statement_search_show') }}" class="btn btn-primary">Continue</a>
+                        </div> --}}
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Generate</button>
+                            <button type="submit" class="btn btn-primary">Continue</button>
                         </div>
                     </form>
                 </div>
@@ -83,13 +86,6 @@
 
 @section('extra_js')
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
-    {{-- <script>
-        $("#for_month").datepicker({
-            format: "M-yyyy",
-            startView: "months",
-            minViewMode: "months"
-        });
-    </script> --}}
     <script>
         $("#for_month").datepicker({
             format: "yyyy-mm-dd",

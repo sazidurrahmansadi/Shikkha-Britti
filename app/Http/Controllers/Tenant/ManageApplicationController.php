@@ -46,7 +46,7 @@ class ManageApplicationController extends Controller
         ]);
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +63,7 @@ class ManageApplicationController extends Controller
         return view('tenant.manage_applications.manage_applications_approved_application_index', [
             'applied_students' => $applied_students,
             'scholarship_id' => $scholarship_id,
-            
+
         ]);
     }
 
@@ -103,7 +103,7 @@ class ManageApplicationController extends Controller
         $user_data = User::withoutGlobalScopes()->find($student_data->user_id);
 
 
-        $pdf = PDF::setPaper('a4', 'portrait')->loadView('tenant.manage_applications.pdf_student_profile',[
+        $pdf = PDF::setPaper('a4', 'portrait')->loadView('tenant.manage_applications.pdf_student_profile', [
             'user_data' => $user_data,
             'student_data' => $student_data,
             'academic_data' => $student_data->degree_information,
@@ -112,9 +112,9 @@ class ManageApplicationController extends Controller
             'achievements' => $student_data->achievements,
 
         ])->setOptions(['defaultFont' => 'sans-serif']);
-      
 
-        return $pdf->download($student_data->sid .' Student Profile.pdf');
+
+        return $pdf->download($student_data->sid . ' Student Profile.pdf');
         // return view('tenant.manage_applications.pdf_student_profile', [
         //     'user_data' => $user_data,
         //     'student_data' => $student_data,
@@ -138,7 +138,7 @@ class ManageApplicationController extends Controller
         $student_data = Student::find($student_id);
         $student_account_details = $student_data->student_accounts;
         // $mentors = Mentor::with("mentor_accounts")->get();
-        $mentors = Mentor::with('mentor_active_account','user')->get();
+        $mentors = Mentor::with('mentor_active_account', 'user')->get();
 
         return view('tenant.manage_applications.manage_applications_approve', [
             'scholarship_data' => $scholarship_data,
@@ -156,6 +156,7 @@ class ManageApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'student_id' => 'required',
             'scholarship_id' => 'required',
@@ -164,12 +165,23 @@ class ManageApplicationController extends Controller
             'to_date' => 'required',
         ]);
 
+
+        if (Carbon::createFromFormat('Y-m-d', $request->from_date)->gt(Carbon::createFromFormat('Y-m-d', $request->to_date))) {
+            return redirect()->back()->with('error', '`To Date` can not precede `From Date');
+        }
+
         $pay_to = $request->pay_to;
         if ($pay_to == "STUDENT") {
             $account_id = $request->account_id_student;
+            if ($request->account_id_student == NULL) {
+                return redirect()->back()->with('error', 'Sorry, Selected Payee does not have any active account!');
+            }
         } else if ($pay_to == "MENTOR") {
             $account_id = $request->account_id_mentor;
-        } 
+            if ($request->account_id_mentor == NULL) {
+                return redirect()->back()->with('error', 'Sorry, Selected Payee does not have any active account!');
+            }
+        }
 
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;

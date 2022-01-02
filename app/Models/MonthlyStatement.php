@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 class MonthlyStatement extends Model
 {
 
-    protected $primaryKey = 'id';
+    // protected $primaryKey = 'id';
     // public $incrementing = false;
 
 
@@ -28,12 +28,10 @@ class MonthlyStatement extends Model
     {
         static::creating(function ($model){
             $id = MonthlyStatement::max('id');
-
             if (!$id){
                 $id = 1;
             }
             $model->id = $id+1;
-
         });
     }
 

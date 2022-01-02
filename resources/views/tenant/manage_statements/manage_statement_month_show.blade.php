@@ -104,16 +104,10 @@
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm" href="#" target="_blank" role="button"><i
                                                         class='far fa-edit'></i> Edit Data</a>
-
-
-                                                {{-- <a class="btn btn-success btn-sm"
-                                                    href="#" role="button"><i class="fas fa-info"></i> Approval Details</a> --}}
-
-
-                                            </td>
                                             </td>
                                         </tr>
                                     @empty
+                                    <h4>no data found</h4>
                                     @endforelse
                                 </tbody>
                             </table>
