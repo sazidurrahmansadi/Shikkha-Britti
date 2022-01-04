@@ -50,7 +50,8 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Approved Application List</h1>
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Approved Application List
+                                    </h1>
                                 </div>
                             </div>
                             <!-- title -->
@@ -72,44 +73,37 @@
                                         <th>Applicant Name</th>
                                         <th>Student ID</th>
                                         <th>Phone</th>
-                                        <th>Email</th>
-                                        {{-- <th>Approval</th> --}}
+                                        <th>Approved Amount</th>
+                                        <th>Payee</th>
+                                        <th>Mentor/Student</th>
                                         <th class="text-center">View/Action</th>
-                                        {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($applied_students as $applied_student)
+                                    @forelse($approved_applications as $approved_application)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $applied_student->name }}</td>
-                                            <td>{{ $applied_student->sid }}</td>
-                                            <td>{{ $applied_student->phone }}</td>
-                                            <td>{{ $applied_student->email }}</td>
+                                            <td>{{ $approved_application->student->name }}</td>
+                                            <td>{{ $approved_application->student->sid }}</td>
+                                            <td>{{ $approved_application->student->phone }}</td>
+                                            <td>{{ $approved_application->approved_amount }}</td>
+                                            <td>{{ $approved_application->account->account_title }}</td>
+                                            @php
+                                                $payee = explode('\\', $approved_application->account->accountable_type);
+                                            @endphp
 
-                                            {{-- <td class="text-center">
-                                                @if ($applied_student->pivot->is_approve == 1)
-                                                    <h5><span class="badge badge-success">Approved</span></h5>
+                                            <td>{{ $payee[2] }}</td>
 
-                                                @else
-
-                                                    <a class="btn btn-info btn-sm"
-                                                        href="{{ route('manage_applications', [$scholarship_id, $applied_student->id]) }}"
-                                                        role="button">Approve</a>
-                                                @endif
-                                            </td> --}}
-
-
-                                            <td class="text-center">
+                                            <td class="">
                                                 <a class="btn btn-primary btn-sm"
-                                                    href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
-                                                    role="button"><i class='far fa-user'></i> Profile</a>
+                                                    href="{{ route('manage_applications_profile', [$approved_application->student_id]) }}"
+                                                    target="_blank" ><i class='far fa-user'></i> Profile</a>
 
+                                                <a class="btn btn-success btn-sm"
+                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i class="fas fa-info"></i> Details</a>
 
-                                                    <a class="btn btn-success btn-sm"
-                                                        href="{{ route('manage_applications_scholarship_details', [$applied_student->pivot->scholarship_id, $applied_student->id]) }}"
-                                                        role="button"><i class="fas fa-info"></i> Approval Details</a>
-
+                                                    <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}" class="btn btn-sm btn-warning" type="button"><i
+                                                        class="fas fa-edit"></i>Edit</a>
 
                                             </td>
                                             </td>

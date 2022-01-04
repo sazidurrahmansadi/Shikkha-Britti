@@ -31,7 +31,7 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement Search</h1>
                                 <a href="{{ route('dashboard') }}"
-                                    class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
+                                    class="d-sm-inline-block btn-sm btn-primary shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
                                     Dashboard
                                 </a>
@@ -64,14 +64,10 @@
                             <div class="form-group">
                                 <label>Month & Year<span class="text-danger">*</span></label>
                                 <input type="text" name="month_year" id="for_month" class="form-control"
-                                    placeholder="Select Month & Year" required>
+                                    placeholder="yyyy-mm-dd" required>
                             </div>
                        
                         </div>
-                        <!-- /.card-body -->
-                        {{-- <div class="card-footer">
-                            <a type="button" href="{{ route('manage_statement_search_show') }}" class="btn btn-primary">Continue</a>
-                        </div> --}}
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Continue</button>

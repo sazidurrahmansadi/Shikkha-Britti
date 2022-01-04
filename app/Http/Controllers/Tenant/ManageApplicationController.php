@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\ApprovedApplication;
 use App\Models\Mentor;
 use App\Models\Scholarship;
@@ -40,7 +41,7 @@ class ManageApplicationController extends Controller
      */
     public function scholarships_index()
     {
-        $scholarships = Scholarship::all()->where('is_delete', 0);
+        $scholarships = Scholarship::where('is_delete', 0)->get();
         return view('tenant.manage_applications.manage_applications_scholarship_index', [
             'scholarships' => $scholarships,
         ]);
@@ -54,16 +55,22 @@ class ManageApplicationController extends Controller
      */
     public function approved_applicaions($scholarship_id)
     {
-        $scholarship = Scholarship::find($scholarship_id);
-        // $applied_students = $scholarship->students;
-        $applied_students = $scholarship->approved_students;
+        // $scholarship = Scholarship::find($scholarship_id);
+        // $applied_students = $scholarship->approved_students;
 
         // dd($applied_students);
 
-        return view('tenant.manage_applications.manage_applications_approved_application_index', [
-            'applied_students' => $applied_students,
-            'scholarship_id' => $scholarship_id,
+        // return view('tenant.manage_applications.manage_applications_approved_application_index', [
+        //     'applied_students' => $applied_students,
+        //     'scholarship_id' => $scholarship_id,
 
+        // ]);
+
+        $approved_applications = ApprovedApplication::where('scholarship_id', $scholarship_id)->get();
+
+        // dd($approved_applications);
+        return view('tenant.manage_applications.manage_applications_approved_application_index', [
+            'approved_applications' => $approved_applications,
         ]);
     }
 
@@ -75,7 +82,6 @@ class ManageApplicationController extends Controller
      */
     public function show_profile(Request $request, $student_id)
     {
-
         $student_data = Student::find($student_id);
         $user_data = User::withoutGlobalScopes()->find($student_data->user_id);
 
@@ -136,7 +142,7 @@ class ManageApplicationController extends Controller
     {
         $scholarship_data = Scholarship::find($scholarship_id);
         $student_data = Student::find($student_id);
-        $student_account_details = $student_data->student_accounts;
+        $student_account_details = $student_data->student_active_account;
         // $mentors = Mentor::with("mentor_accounts")->get();
         $mentors = Mentor::with('mentor_active_account', 'user')->get();
 
@@ -241,9 +247,18 @@ class ManageApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($approved_app_id)
     {
-        //
+        $approved_application = ApprovedApplication::find($approved_app_id);
+        // $student_account  = Student::find($approved_application->student_id)->student_active_account;
+        // $mentor_accounts = Mentor::with('mentor_active_account', 'user')->get();
+        // $payees = Account::payees;
+        // $account = Account::findOrFail($approved_application->account_id);
+
+
+        return view('tenant.manage_applications.manage_applications_approved_application_edit', [
+            'approved_application' => $approved_application,
+        ]);
     }
     /**
      * Update the specified resource in storage.
@@ -254,7 +269,26 @@ class ManageApplicationController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            'approved_amount' => 'required',
+            'from_date' => 'required',
+            'to_date' => 'required',
+        ]);
+
+        if (Carbon::createFromFormat('Y-m-d', $request->from_date)->gt(Carbon::createFromFormat('Y-m-d', $request->to_date))) {
+            return redirect()->back()->with('error', '`To Date` can not precede `From Date');
+        }
+
+        // dd($request->all());
+        $approved_application = ApprovedApplication::find($request->approved_app_id);
+
+        $approved_application->approved_amount = $request->approved_amount;
+        $approved_application->from_date = $request->from_date;
+        $approved_application->to_date = $request->to_date;
+        $approved_application->save();
+
+        return redirect()->route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id])->with('success','Updated successfully');
+
     }
 
     /**

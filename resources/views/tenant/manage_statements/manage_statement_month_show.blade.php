@@ -50,10 +50,24 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement List
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">
+                                        {{ (new DateTime($month_year))->format('F-Y') }} : Statement List
                                     </h1>
+
+                                    <a href="{{ route('manage_statement_search') }}"
+                                        class="btn-sm btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
+                                        Search again
+                                    </a>
                                 </div>
                             </div>
+                            @if ($statements->count() != null)
+                                {{-- <a href="{{ route('manage_statement_search') }}" class="btn-sm btn-success float-right"><i
+                                        class="fa fa-check mr-2"></i>Mark all as PAID</a> --}}
+                                        <button type="button" class="btn-sm btn-success float-right"
+                                                        data-toggle="modal" data-target="#status_change_modal"
+                                                        data-scholarship_id_u="{{$statements->first()->scholarship_id}}" data-month_year_u="{{$statements->first()->month_year}}" ><i
+                                                        class="fa fa-check mr-2"></i>Mark all as PAID</button>
+                            @endif
                             <!-- title -->
                         </div>
                     </div>
@@ -70,16 +84,15 @@
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
-                                        <th>Applicant Name</th>
-                                        <th>Student ID</th>
+                                        <th>Name</th>
+                                        <th>ID</th>
                                         <th>Phone</th>
-                                        <th>Approved Amount</th>
-                                        <th>Account Name</th>
-                                        <th>Payee (Mentor/Student)</th>
+                                        <th>Amount</th>
+                                        <th>Payee - (Mentor/Student)</th>
                                         <th>Status</th>
                                         <th>Month</th>
+                                        <th>Note</th>
                                         <th class="text-center">Action</th>
-                                        {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,24 +103,31 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
-                                            <td>{{ $statement->account->account_title }}</td>
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
 
-                                            <td>{{ $payee[2] }}</td>
+                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
 
                                             <td>{{ $statement->status }}</td>
                                             <td>{{ (new DateTime($statement->month_year))->format('M-Y') }}</td>
-
-
-                                            <td class="text-center">
-                                                <a class="btn btn-primary btn-sm" href="#" target="_blank" role="button"><i
-                                                        class='far fa-edit'></i> Edit Data</a>
+                                            <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
+
+                                            <td>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('manage_statement_details', $statement->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="View Details"><i
+                                                        class="fa fa-eye"></i></a>
+
+                                                <a class="btn btn-sm btn-warning"
+                                                    href="{{ route('manage_statement_edit', $statement->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                        class="fa fa-edit"></i></a>
+                                            </td>
+
                                         </tr>
                                     @empty
-                                    <h4>no data found</h4>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -131,19 +151,20 @@
                     {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_status_change') }}" method="POST">
+                    <form action="{{ route('manage_statement_payment_status_change') }}" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-edit fa-4x text-warning" aria-hidden="true"></i>
                         </div>
                         <div class="text-center display-5 font-weight-bold">
-                            update Status ?
+                            Make payment status "PAID" for all ?
                         </div>
 
                         <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
+                        <input type="hidden" id="month_year_u" name="month_year_u" value="">
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-warning">update</button>
+                            <button type="submit" class="btn btn-warning">Continue</button>
                         </div>
                     </form>
                 </div>
@@ -191,9 +212,11 @@
         $('#status_change_modal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var scholarship_id = button.data('scholarship_id_u')
+            var month_year = button.data('month_year_u')
             console.log(scholarship_id);
             var modal = $(this)
             modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
+            modal.find('.modal-body #month_year_u').val(month_year)
         })
     </script>
 

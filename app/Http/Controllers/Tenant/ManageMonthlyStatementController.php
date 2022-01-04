@@ -24,16 +24,6 @@ class ManageMonthlyStatementController extends Controller
         ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function month_index()
-    {
-        //
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -56,36 +46,18 @@ class ManageMonthlyStatementController extends Controller
      */
     public function store(Request $request)
     {
-
         // dd($request->all());
         $this->validate($request, [
             'scholarship_id' => 'required',
             'month_year' => 'required',
         ]);
 
-        // $input_date_month = date('m', strtotime($request->month_year));
-        // $input_date_year = date('Y', strtotime($request->month_year));
-
-        // dd($input_date_year);
-
-
-        // $monthly_statements = MonthlyStatement::whereMonth('month_year', $input_date_month)->whereYear('month_year', $input_date_year)->get();
-
-        // return $monthly_statements;
-
         $approved_applications = ApprovedApplication::where('scholarship_id', $request->scholarship_id)->get();
-
-        // dd($approved_applications);
-
-        // $id = MonthlyStatement::max('id');
-        // if (!$id)
-        //     $id = 1;            
 
         if ($approved_applications) {
             foreach ($approved_applications as $approved_application) {
                 try {
                     $statement = new MonthlyStatement();
-                    // $statement->id = $id;
                     $statement->student_id = $approved_application->student_id;
                     $statement->scholarship_id = $approved_application->scholarship_id;
                     $statement->approved_amount = $approved_application->approved_amount;
@@ -93,12 +65,12 @@ class ManageMonthlyStatementController extends Controller
                     $statement->account_id = $approved_application->account_id;
                     $statement->save();
                 } catch (\Exception $exception) {
-                    return "not SUCCESS";
+                    // return "not SUCCESS";
                 }
             }
         }
 
-        return "SUCCESS";
+        return redirect()->back()->with('success', 'Statement generated successfully');
     }
 
     /**
@@ -109,8 +81,9 @@ class ManageMonthlyStatementController extends Controller
      */
     public function show($scholarship_id)
     {
-        // $scholarships = Scholarship::all()->where('is_delete', 0);
-        $statements = MonthlyStatement::all()->where('scholarship_id', $scholarship_id);
+        $statements = MonthlyStatement::where('scholarship_id', $scholarship_id)->orderBy('month_year', 'desc')->get();
+
+        // dd($statements);
         return view('tenant.manage_statements.manage_statement_show', [
             'statements' => $statements,
         ]);
@@ -122,9 +95,26 @@ class ManageMonthlyStatementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($statement_id)
     {
-        //
+        $statement = MonthlyStatement::find($statement_id);
+        $payment_status = MonthlyStatement::payment_status;
+
+        return view('tenant.manage_statements.manage_statement_edit', [
+            'statement' => $statement,
+            'payment_status' => $payment_status,
+        ]);
+    }
+
+
+    public function details($statement_id)
+    {
+        $statement = MonthlyStatement::find($statement_id);
+
+        // dd($statements);
+        return view('tenant.manage_statements.manage_statement_details', [
+            'statement' => $statement,
+        ]);
     }
 
     /**
@@ -134,9 +124,22 @@ class ManageMonthlyStatementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request, [
+            'approved_amount' => 'required',
+            'payment_status' => 'required',
+        ]);
+
+        $statement = MonthlyStatement::find($request->statement_id);
+
+        $statement->approved_amount = $request->approved_amount;
+        $statement->status = $request->payment_status;
+        $statement->note = $request->note;
+        $statement->save();
+
+        return redirect()->route('manage_statement_show', $statement->scholarship_id)->with('success', 'Statement data Update Successfully');
     }
 
     /**
@@ -167,12 +170,40 @@ class ManageMonthlyStatementController extends Controller
             'scholarship_id' => 'required',
             'month_year' => 'required',
         ]);
-        // return $statements = MonthlyStatement::all();
 
-        $statements = MonthlyStatement::all()->where('scholarship_id', $request->scholarship_id)->where('month_year', $request->month_year);
+        $statements = MonthlyStatement::where('scholarship_id', $request->scholarship_id)->where('month_year', $request->month_year)->orderBy('month_year', 'desc')->get();
 
         return view('tenant.manage_statements.manage_statement_month_show', [
             'statements' => $statements,
+            'month_year' => $request->month_year,
         ]);
+    }
+
+    public function payment_status_change(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            'scholarship_id_u' => 'required',
+            'month_year_u' => 'required',
+        ]);
+
+        $statements = MonthlyStatement::where('scholarship_id', $request->scholarship_id_u)->where('month_year', $request->month_year_u)->orderBy('month_year', 'desc')->get();
+
+        if ($statements) {
+            foreach ($statements as $statement) {
+                try {
+                    $statement = MonthlyStatement::find($statement->id);
+                    $statement->status = "PAID";
+                    $statement->save();
+                } catch (\Exception $exception) {
+                    // return "not SUCCESS";
+                }
+            }
+        }
+
+        return view('tenant.manage_statements.manage_statement_month_show', [
+            'statements' => $statements,
+            'month_year' => $request->month_year,
+        ])->with('success', 'Payment Status updated successfully');
     }
 }

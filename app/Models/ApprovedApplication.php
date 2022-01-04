@@ -9,6 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ApprovedApplication extends Model
 {
     use HasFactory;
+    
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 
     protected static function booted()
     {

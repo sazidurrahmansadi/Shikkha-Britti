@@ -51,9 +51,7 @@
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Mentor List</h1>
-                                    <a href="{{ URL::previous() }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
-                                        class="fa fa-backward"></i>
-                                    Back
+                                    <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i class="fa fa-backward"></i>Dashboard
                                 </a>
                                 </div>
                             </div>
@@ -102,10 +100,8 @@
                                                     @if($mentor->mentor_active_account)
                                                     <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
                                                     @else 
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
                                                     @endif
-
-                                                {{-- <span data-toggle="tooltip" data-placement="top" title="Delete"><button class="btn btn-sm btn-danger delete_warning_modal" type="button" data-toggle="modal" data-target="#delete_warning_modal" data-scholarship_id_d="{{ $scholarship->id }}"><i class="fa fa-trash"></i></button></span> --}}
                                             </td>
                                         </tr>
                                     @empty

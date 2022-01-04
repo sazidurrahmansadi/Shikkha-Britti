@@ -11,6 +11,7 @@ class Account extends Model
 
     use HasFactory;
 
+    const payees = array('STUDENT', 'MENTOR');
     const account_types = array('BANK', 'BKASH', 'NAGAD', 'ROCKET', 'UPAY');
 
     
@@ -19,15 +20,10 @@ class Account extends Model
         return $this->morphTo();
     }
 
-    public function monthly_statements()
-    {
-        return $this->hasMany(Account::class);
-    }
-
-
-
-
-
+    // public function monthly_statements()
+    // {
+    //     return $this->hasMany(Account::class);
+    // }
 
     // protected static function booted()
     // {

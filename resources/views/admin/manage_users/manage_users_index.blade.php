@@ -15,7 +15,7 @@
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">User Managements</h1>
-                                <a href="{{ route('manage_users.create') }}" class="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"><i class="fa fa-list"></i>
+                                <a href="{{ route('manage_users.create') }}" class="d-sm-inline-block btn-sm btn-primary shadow-sm"><i class="fa fa-list"></i>
                                     Create New User
                                 </a>
                             </div>

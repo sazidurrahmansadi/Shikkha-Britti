@@ -31,7 +31,7 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement</h1>
                                 <a href="{{ route('dashboard') }}"
-                                    class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
+                                    class="d-sm-inline-block btn-sm btn-primary shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
                                     Dashboard
                                 </a>

@@ -129,6 +129,8 @@ Route::GET('/manage-applications-scholarships-index', [ManageApplicationControll
 Route::GET('/manage-applications-approved-index/{scholarship_id}', [ManageApplicationController::class, 'approved_applicaions'])->name('manage_applications_approved_index')->middleware('auth');
 //Student Profile
 Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationController::class, 'show_profile'])->name('manage_applications_profile')->middleware('auth');
+Route::GET('/manage-applications-approved-edit/{approved_app_id}', [ManageApplicationController::class, 'edit'])->name('manage_applications_approved_edit')->middleware('auth');
+Route::POST('/manage-applications-approved-update', [ManageApplicationController::class, 'update'])->name('manage_applications_approved_update')->middleware('auth');
 
 /*
 -----------------------------------------------------------
@@ -157,6 +159,10 @@ Route::GET('/manage-monthly-statement-create', [ManageMonthlyStatementController
 Route::POST('/manage-monthly-statement-store', [ManageMonthlyStatementController::class, 'store'])->name('manage_monthly_statement_store')->middleware('auth');
 Route::GET('/manage-monthly-statement-index', [ManageMonthlyStatementController::class, 'index'])->name('manage_monthly_statement_index')->middleware('auth');
 Route::GET('/manage-monthly-statement-show/{scholarship_id}', [ManageMonthlyStatementController::class, 'show'])->name('manage_statement_show')->middleware('auth');
+Route::GET('/manage-monthly-statement/{statement_id}/edit', [ManageMonthlyStatementController::class, 'edit'])->name('manage_statement_edit')->middleware('auth');
+Route::GET('/manage-monthly-statement/{statement_id}/details', [ManageMonthlyStatementController::class, 'details'])->name('manage_statement_details')->middleware('auth');
+Route::POST('/manage-monthly-statement-update', [ManageMonthlyStatementController::class, 'update'])->name('manage_statement_update')->middleware('auth');
 Route::GET('/manage-monthly-statement-search', [ManageMonthlyStatementController::class, 'search'])->name('manage_statement_search')->middleware('auth');
 Route::POST('/manage-monthly-statement-search-show', [ManageMonthlyStatementController::class, 'search_show'])->name('manage_statement_search_show')->middleware('auth');
+Route::POST('/manage-monthly-statement-payment-status-change', [ManageMonthlyStatementController::class, 'payment_status_change'])->name('manage_statement_payment_status_change')->middleware('auth');
 

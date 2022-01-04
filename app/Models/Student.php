@@ -17,18 +17,13 @@ class Student extends Model
 
     public function present_address()
     {
-        return $this->morphOne(Address::class, 'addressable')->where('address_type','PRESENT');
+        return $this->morphOne(Address::class, 'addressable')->where('address_type', 'PRESENT');
     }
 
     public function permanent_address()
     {
-        return $this->morphOne(Address::class, 'addressable')->where('address_type','PERMANENT');
+        return $this->morphOne(Address::class, 'addressable')->where('address_type', 'PERMANENT');
     }
-
-//    public function student_address()
-//    {
-//        return  $this->address();
-//    }
 
     public function documents()
     {
@@ -66,22 +61,26 @@ class Student extends Model
         return $this->morphMany(Account::class, 'accountable');
     }
 
+    public function student_active_account()
+    {
+        return $this->morphMany(Account::class, 'accountable')->where('account_status','ACTIVE');
+
+    }
+
     public function monthly_statements()
     {
         return $this->hasMany(MonthlyStatement::class);
     }
 
 
-
-
-//    protected static function booted()
-//    {
-//        static::addGlobalScope(new TenantScope);
-//
-//        static::creating(function ($model){
-//            if (session()->has('tenant_id')) {
-//                $model->tenant_id = session()->get('tenant_id');
-//            }
-//        });
-//    }
+    //    protected static function booted()
+    //    {
+    //        static::addGlobalScope(new TenantScope);
+    //
+    //        static::creating(function ($model){
+    //            if (session()->has('tenant_id')) {
+    //                $model->tenant_id = session()->get('tenant_id');
+    //            }
+    //        });
+    //    }
 }

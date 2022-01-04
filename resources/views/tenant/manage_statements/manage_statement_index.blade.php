@@ -74,7 +74,7 @@
                                         <th>Scholarship Title</th>
                                         <th>Amount</th>
                                         <th>Deadline</th>
-                                        <th>Total Applicant</th>
+                                        {{-- <th>Total Applicant</th> --}}
                                         <th>View statement</th>
                                     </tr>
                                 </thead>
@@ -87,7 +87,7 @@
                                             <td>{{ $scholarship->amount }}</td>
                                             <td>{{ (new DateTime($scholarship->deadline))->format('d-M-Y') }}</td>
                                             
-                                            <td>{{$scholarship->students->count()}}</td>
+                                            {{-- <td>{{$scholarship->students->count()}}</td> --}}
 
                                             <td><a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_statement_show', [$scholarship->id]) }}"

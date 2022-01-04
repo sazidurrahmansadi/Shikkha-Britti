@@ -3,8 +3,8 @@
     {{-- <link href="{{ asset('/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet"> --}}
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
@@ -19,13 +19,6 @@
             color: white;
             font-weight: bold;
         }
-
-        /* table.dataTable td {
-                    font-size: em;
-                } */
-        /* table.dataTable tr {
-                    font-size: .95em;
-                } */
 
     </style>
 @endsection
@@ -57,12 +50,7 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement List
-                                    </h1>
-                                    <a href="{{ route('manage_statement_search') }}"
-                                        class="btn btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
-                                        Search by Month
-                                    </a>
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Approved Application List</h1>
                                 </div>
                             </div>
                             <!-- title -->
@@ -81,49 +69,50 @@
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
-                                        <th>Name</th>
-                                        <th>ID</th>
+                                        <th>Applicant Name</th>
+                                        <th>Student ID</th>
                                         <th>Phone</th>
-                                        <th>Amount</th>
-                                        <th>Payee - (Mentor/Student)</th>
-                                        {{-- <th>Mentor/Student</th> --}}
-                                        <th>Status</th>
-                                        <th>Month</th>
-                                        <th>Note</th>
-                                        <th class="text-center">Action</th>
+                                        <th>Email</th>
+                                        {{-- <th>Approval</th> --}}
+                                        <th class="text-center">View/Action</th>
                                         {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($statements as $statement)
+                                    @forelse($applied_students as $applied_student)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $statement->student->name }}</td>
-                                            <td>{{ $statement->student->sid }}</td>
-                                            <td>{{ $statement->student->phone }}</td>
-                                            <td>{{ $statement->approved_amount }}</td>
-                                            {{-- <td>{{ $statement->account->account_title }}</td> --}}
-                                            @php
-                                                $payee = explode('\\', $statement->account->accountable_type);
-                                            @endphp
+                                            <td>{{ $applied_student->name }}</td>
+                                            <td>{{ $applied_student->sid }}</td>
+                                            <td>{{ $applied_student->phone }}</td>
+                                            <td>{{ $applied_student->email }}</td>
 
-                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
+                                            {{-- <td class="text-center">
+                                                @if ($applied_student->pivot->is_approve == 1)
+                                                    <h5><span class="badge badge-success">Approved</span></h5>
 
-                                            <td>{{ $statement->status }}</td>
-                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y') }}</td>
-                                            <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
+                                                @else
+
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('manage_applications', [$scholarship_id, $applied_student->id]) }}"
+                                                        role="button">Approve</a>
+                                                @endif
+                                            </td> --}}
+
+
+                                            <td class="text-center">
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
+                                                    role="button"><i class='far fa-user'></i> Profile</a>
+
+
+                                                    <a class="btn btn-success btn-sm"
+                                                        href="{{ route('manage_applications_scholarship_details', [$applied_student->pivot->scholarship_id, $applied_student->id]) }}"
+                                                        role="button"><i class="fas fa-info"></i> Approval Details</a>
+
+
                                             </td>
-
-                                            <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_statement_details', $statement->id) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View Details"><i class="fa fa-eye"></i></a>
-
-                                                <a class="btn btn-sm btn-warning"
-                                                    href="{{ route('manage_statement_edit', $statement->id) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Edit"><i
-                                                        class="fa fa-edit"></i></a>
                                             </td>
-
                                         </tr>
                                     @empty
                                     @endforelse
@@ -169,6 +158,36 @@
             </div>
         </div>
     </div>
+    {{-- ------------------------Delete User Modal---------------------------- --}}
+    <div class="modal fade" id="delete_warning_modal" tabindex="-1" aria-labelledby="delete_warning_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="delete_warning_modal">ATTENTION!!</h5>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('manage_scholarships_delete') }}" method="POST">
+                        @csrf
+                        <div class="text-center my-3">
+                            <i class="fas fa-trash fa-4x text-danger" aria-hidden="true"></i>
+                        </div>
+                        <div class="text-center display-5 font-weight-bold">
+                            Are You Sure ?
+                        </div>
+
+                        <input type="hidden" id="scholarship_id_d" name="scholarship_id_d" value="">
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -182,6 +201,19 @@
             console.log(scholarship_id);
             var modal = $(this)
             modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
+        })
+    </script>
+
+
+    {{-- ------------Delete Script-------------- --}}
+
+    <script>
+        $('#delete_warning_modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var scholarship_id = button.data('scholarship_id_d')
+            console.log(scholarship_id);
+            var modal = $(this)
+            modal.find('.modal-body #scholarship_id_d').val(scholarship_id)
         })
     </script>
 

@@ -14,6 +14,8 @@ class MonthlyStatement extends Model
     // public $incrementing = false;
 
 
+    const payment_status = array('PENDING', 'PAID');
+
     public function student()
     {
         return $this->belongsTo(Student::class);
