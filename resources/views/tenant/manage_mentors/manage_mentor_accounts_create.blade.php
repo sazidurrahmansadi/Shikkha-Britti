@@ -27,7 +27,7 @@
                         <div class="col-md-12 mt-lg-4 mt-4">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Create New Account</h1>
+                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Create New Account for - {{$mentor}}</h1>
                                 <a href="{{ route('dashboard') }}"
                                     class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
@@ -47,6 +47,10 @@
                         @csrf
                         <input type="hidden" name="mentor_id" value="{{$mentor_id}}">
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="mentor_name">Mentor Name</label>
+                                <input type="text" class="form-control" value="{{$mentor}}" required disabled>
+                            </div>
                             <div class="form-group">
                                 <label for="account_title">Account Title<span
                                         class="text-danger">*</span></label>
@@ -85,7 +89,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note">Note</label><span class="text-danger">*</span></label>
+                                <label for="note">Note</label></label>
                                 <textarea type="textarea" class="form-control" id="note" name="note"
                                     placeholder="Self/ Father's account/ Mother's account..." maxlength="999"></textarea>
                             </div>

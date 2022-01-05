@@ -143,7 +143,7 @@ class ManageApplicationController extends Controller
         $scholarship_data = Scholarship::find($scholarship_id);
         $student_data = Student::find($student_id);
         $student_account_details = $student_data->student_active_account;
-        // $mentors = Mentor::with("mentor_accounts")->get();
+        $payees = Account::payees;
         $mentors = Mentor::with('mentor_active_account', 'user')->get();
 
         return view('tenant.manage_applications.manage_applications_approve', [
@@ -151,6 +151,7 @@ class ManageApplicationController extends Controller
             'student_data' => $student_data,
             'account_details' => $student_account_details,
             'mentors' => $mentors,
+            'payees' => $payees,
         ]);
     }
 
@@ -169,6 +170,7 @@ class ManageApplicationController extends Controller
             'approved_amount' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
+            'pay_to' => 'required',
         ]);
 
 
@@ -297,8 +299,24 @@ class ManageApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function approved_applicaion_delete(Request $request)
     {
-        //
+        $this->validate($request, [
+            'scholarship_id_u' => 'required',
+            'student_id_u' => 'required',
+            'approved_app_id_u' => 'required',
+        ]);
+
+        $approved_application = ApprovedApplication::find($request->approved_app_id_u);
+        $approved_application->delete();
+
+        $student = Student::find($request->student_id_u);
+        $student->scholarships()->detach($request->scholarship_id_u);
+        $student->scholarships()->attach($request->scholarship_id_u, [
+            'is_approve' => 0
+        ]);
+
+        return redirect()->back()->with('success', 'Deleted successfully');
+
     }
 }

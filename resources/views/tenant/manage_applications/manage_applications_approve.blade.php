@@ -78,8 +78,11 @@
                                 <label>Pay To<span class="text-danger">*</span></label>
                                 <select class="form-control" name="pay_to" id="pay_to" required>
                                     <option value="">SELECT</option>
-                                    <option value="STUDENT">Student Account</option>
-                                    <option value="MENTOR">Mentor Account</option>
+                                    @forelse ($payees as $payee)
+                                        <option value={{ $payee }}>{{ $payee }}</option>
+                                        {{-- <option value="MENTOR">Mentor Account</option> --}}
+                                    @empty
+                                    @endforelse
                                 </select>
                             </div>
 
@@ -87,7 +90,7 @@
                                 <div id="student">
                                     <input type="hidden" name="account_id_student" id="account_id"
                                         value="{{ $account_details->id }}">
-                                        
+
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Account Name: </strong>
@@ -101,34 +104,35 @@
                                             {{ $account_details->account_number }}
                                         </div>
                                     </div>
-                                @empty
+                                </div>
+                            @empty
                             @endforelse
-                        </div>
 
 
-                        <div id="mentor">
-                            <div class="form-group">
-                                <label>Mentor Name<span class="text-danger">*</span></label>
-                                <select class="form-control" name="account_id_mentor" id="mentor">
-                                    <option value="">SELECT</option>
-                                    @forelse($mentors as $mentor)
-                                        <option value="{{$mentor->mentor_active_account->id??null}}">{{$mentor->user->name}}</option>
-                                    @empty
-                                    @endforelse
-                                </select>
+                            <div id="mentor">
+                                <div class="form-group">
+                                    <label>Mentor Name<span class="text-danger">*</span></label>
+                                    <select class="form-control" name="account_id_mentor" id="mentor">
+                                        <option value="">SELECT</option>
+                                        @forelse($mentors as $mentor)
+                                            <option value="{{ $mentor->mentor_active_account->id ?? null }}">
+                                                {{ $mentor->user->name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                </div>
-                <!-- /.card-body -->
+                        <!-- /.card-body -->
 
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Approve</button>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </div>
+                    </form>
                 </div>
-                </form>
+
             </div>
-
         </div>
-    </div>
     </div>
 @endsection
 

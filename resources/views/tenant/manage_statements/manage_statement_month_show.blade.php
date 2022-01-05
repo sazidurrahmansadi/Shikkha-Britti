@@ -61,12 +61,11 @@
                                 </div>
                             </div>
                             @if ($statements->count() != null)
-                                {{-- <a href="{{ route('manage_statement_search') }}" class="btn-sm btn-success float-right"><i
-                                        class="fa fa-check mr-2"></i>Mark all as PAID</a> --}}
-                                        <button type="button" class="btn-sm btn-success float-right"
-                                                        data-toggle="modal" data-target="#status_change_modal"
-                                                        data-scholarship_id_u="{{$statements->first()->scholarship_id}}" data-month_year_u="{{$statements->first()->month_year}}" ><i
-                                                        class="fa fa-check mr-2"></i>Mark all as PAID</button>
+                                <a type="button" class="btn-sm btn-success float-right" data-toggle="modal"
+                                    data-target="#status_change_modal"
+                                    data-scholarship_id_u="{{ $statements->first()->scholarship_id }}"
+                                    data-month_year_u="{{ $statements->first()->month_year }}"><i
+                                        class="fa fa-check mr-2"></i>Mark all as PAID</a>
                             @endif
                             <!-- title -->
                         </div>
@@ -156,8 +155,10 @@
                         <div class="text-center my-3">
                             <i class="fas fa-edit fa-4x text-warning" aria-hidden="true"></i>
                         </div>
-                        <div class="text-center display-5 font-weight-bold">
-                            Make payment status "PAID" for all ?
+                        <div class="text-center">
+                            <h5 class=" font-weight-bold text-danger">{{ (new DateTime($month_year))->format('F-Y') }}
+                            </h5>
+                            <h5 class=" font-weight-bold">Make payment status "PAID" for all for ?</h5>
                         </div>
 
                         <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">

@@ -14,6 +14,11 @@
             white-space: nowrap;
         }
 
+        .no-wrap {
+            /* width: 9%; */
+            white-space: nowrap;
+        }
+
         .color {
             background: linear-gradient(to right, #ec2F4B, #009FFF);
             color: white;
@@ -76,7 +81,8 @@
                                         <th>Approved Amount</th>
                                         <th>Payee</th>
                                         <th>Mentor/Student</th>
-                                        <th class="text-center">View/Action</th>
+                                        <th class="text-center">View</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,18 +100,26 @@
 
                                             <td>{{ $payee[2] }}</td>
 
-                                            <td class="">
-                                                <a class="btn btn-primary btn-sm"
+                                            <td class="no-wrap">
+                                                <a class="btn btn-primary btn-sm mb-2"
                                                     href="{{ route('manage_applications_profile', [$approved_application->student_id]) }}"
-                                                    target="_blank" ><i class='far fa-user'></i> Profile</a>
+                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
 
                                                 <a class="btn btn-success btn-sm"
-                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i class="fas fa-info"></i> Details</a>
-
-                                                    <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}" class="btn btn-sm btn-warning" type="button"><i
-                                                        class="fas fa-edit"></i>Edit</a>
+                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i
+                                                        class="fas fa-info"></i> Details</a>
 
                                             </td>
+                                            <td class="">
+                                                <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
+                                                    class="btn btn-sm btn-warning mb-2" type="button"><i
+                                                        class="fas fa-edit"></i>Edit</a><br>
+
+                                                <a type="button" class="btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#delete_warning_modal"
+                                                    data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
+                                                    data-student_id_u="{{ $approved_application->student_id }}" data-approved_app_id_u="{{ $approved_application->id }}"><i
+                                                        class="fa fa-trash"></i> Delete</a>
                                             </td>
                                         </tr>
                                     @empty
@@ -122,36 +136,6 @@
     </section>
 
 
-    {{-- ------------------------change status Modal---------------------------- --}}
-    <div class="modal fade" id="status_change_modal" tabindex="-1" aria-labelledby="status_change_modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-secondary" id="status_change_modal">ATTENTION!!</h5>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_status_change') }}" method="POST">
-                        @csrf
-                        <div class="text-center my-3">
-                            <i class="fas fa-edit fa-4x text-warning" aria-hidden="true"></i>
-                        </div>
-                        <div class="text-center display-5 font-weight-bold">
-                            update Status ?
-                        </div>
-
-                        <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-warning">update</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
     {{-- ------------------------Delete User Modal---------------------------- --}}
     <div class="modal fade" id="delete_warning_modal" tabindex="-1" aria-labelledby="delete_warning_modal"
         aria-hidden="true">
@@ -159,19 +143,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-danger" id="delete_warning_modal">ATTENTION!!</h5>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_delete') }}" method="POST">
+                    <form action="{{ route('manage_applications_approved_delete') }}" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-trash fa-4x text-danger" aria-hidden="true"></i>
                         </div>
-                        <div class="text-center display-5 font-weight-bold">
-                            Are You Sure ?
+                        <div class="text-center display-5">
+                            <h5 class="font-weight-bold">Are You Sure ?</h5>
                         </div>
 
-                        <input type="hidden" id="scholarship_id_d" name="scholarship_id_d" value="">
+                        <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
+                        <input type="hidden" id="student_id_u" name="student_id_u" value="">
+                        <input type="hidden" id="approved_app_id_u" name="approved_app_id_u" value="">
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -189,12 +174,18 @@
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
     {{-- ------------Change STATUS Script-------------- --}}
     <script>
-        $('#status_change_modal').on('show.bs.modal', function(event) {
+        $('#delete_warning_modal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var scholarship_id = button.data('scholarship_id_u')
-            console.log(scholarship_id);
+            var student_id = button.data('student_id_u')
+            var approved_app_id = button.data('approved_app_id_u')
+            // console.log(scholarship_id);
+            // console.log(student_id);
+            // console.log(approved_app_id);
             var modal = $(this)
             modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
+            modal.find('.modal-body #student_id_u').val(student_id)
+            modal.find('.modal-body #approved_app_id_u').val(approved_app_id)
         })
     </script>
 

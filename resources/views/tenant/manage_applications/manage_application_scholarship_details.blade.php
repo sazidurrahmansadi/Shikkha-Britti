@@ -77,7 +77,23 @@
                         <div class="form-group">
                             <strong>Approval Date:</strong>
                             {{ (new DateTime($approved_application_detail->approval_date))->format('d-M-Y') }}
-
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Pay to:</strong>
+                            {{$approved_application_detail->account->account_title}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Account info:</strong>
+                            {{$approved_application_detail->account->account_type}}<br>
+                            Account no.:{{$approved_application_detail->account->account_number}}<br>
+                            @if($approved_application_detail->account->account_type == "BANK")
+                            Bank name:{{$approved_application_detail->account->bank_name}}<br>
+                            Branch name:{{$approved_application_detail->account->branch_name}}<br>
+                            @endif
                         </div>
                     </div>
                 </div>

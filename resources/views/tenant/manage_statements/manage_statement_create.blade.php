@@ -83,13 +83,7 @@
 
 @section('extra_js')
     <script src="{{ asset('assets/js/bs-datepicker.min.js') }}"></script>
-    {{-- <script>
-        $("#for_month").datepicker({
-            format: "M-yyyy",
-            startView: "months",
-            minViewMode: "months"
-        });
-    </script> --}}
+
     <script>
         $("#for_month").datepicker({
             format: "yyyy-mm-dd",

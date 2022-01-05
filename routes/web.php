@@ -127,6 +127,8 @@ Route::GET('/manage-applications-scholarship-details/{scholarship_id}/{student_i
 //Approved Scholarship Applications
 Route::GET('/manage-applications-scholarships-index', [ManageApplicationController::class, 'scholarships_index'])->name('manage_applications_scholarships_index')->middleware('auth');
 Route::GET('/manage-applications-approved-index/{scholarship_id}', [ManageApplicationController::class, 'approved_applicaions'])->name('manage_applications_approved_index')->middleware('auth');
+Route::POST('/manage-applications-approved-delete', [ManageApplicationController::class, 'approved_applicaion_delete'])->name('manage_applications_approved_delete')->middleware('auth');
+
 //Student Profile
 Route::GET('/manage-applications-profile/{student_id}', [ManageApplicationController::class, 'show_profile'])->name('manage_applications_profile')->middleware('auth');
 Route::GET('/manage-applications-approved-edit/{approved_app_id}', [ManageApplicationController::class, 'edit'])->name('manage_applications_approved_edit')->middleware('auth');

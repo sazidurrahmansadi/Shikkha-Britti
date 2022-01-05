@@ -10,7 +10,6 @@
 
     <style>
         tr td:last-child {
-            /* width: 9%; */
             white-space: nowrap;
         }
 
@@ -19,13 +18,6 @@
             color: white;
             font-weight: bold;
         }
-
-        /* table.dataTable td {
-                    font-size: em;
-                } */
-        /* table.dataTable tr {
-                    font-size: .95em;
-                } */
 
     </style>
 @endsection

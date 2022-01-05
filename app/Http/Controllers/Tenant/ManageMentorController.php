@@ -67,7 +67,8 @@ class ManageMentorController extends Controller
         $role->givePermissionTo($permission);
         $user->assignRole($role);
 
-        return redirect()->route('manage_mentors.index')->with('success','Mentor created successfully');
+        // return redirect()->route('manage_mentors.index')->with('success','Mentor created successfully');
+        return redirect()->route('manage_mentor_accounts_create',$mentor->id)->with('success','Mentor created successfully');
     }
 
     /**

@@ -27,9 +27,11 @@ class ManageMentorAccountController extends Controller
     public function create($mentor_id)
     {
         $account_types = Account::account_types;
+        $mentor = Mentor::find($mentor_id)->user->name;
         return view('tenant.manage_mentors.manage_mentor_accounts_create', [
             'account_types' => $account_types,
             'mentor_id' => $mentor_id,
+            'mentor' => $mentor,
         ]);
     }
 

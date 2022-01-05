@@ -270,11 +270,6 @@
                                     <th scope="row">Reference Contact No.</th>
                                     <td>{{ $student_data->reference_phone }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Reason:</th>
-                                    <td>{{ $student_data->reason }}</td>
-                                </tr>
-
                             </tbody>
 
                         </table>
