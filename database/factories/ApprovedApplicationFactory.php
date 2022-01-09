@@ -32,7 +32,11 @@ class ApprovedApplicationFactory extends Factory
 
             'approved_amount' => '2000',
             'approved_by' => 'HB ADMIN',
+            'from_date' => '2021-12-31',
+            'to_date' => '2021-12-31',
+            'approval_date' => '2022-01-05',
             'account_id' => Account::pluck('id')->random(),
+            // 'account_id' => Account::find(5)
 
         ];
     }

@@ -89,10 +89,10 @@
                         <div class="form-group">
                             <strong>Account info:</strong>
                             {{$approved_application_detail->account->account_type}}<br>
-                            Account no.:{{$approved_application_detail->account->account_number}}<br>
+                            Account no.: {{$approved_application_detail->account->account_number}}<br>
                             @if($approved_application_detail->account->account_type == "BANK")
-                            Bank name:{{$approved_application_detail->account->bank_name}}<br>
-                            Branch name:{{$approved_application_detail->account->branch_name}}<br>
+                            Bank name: {{$approved_application_detail->account->bank_name}}<br>
+                            Branch name: {{$approved_application_detail->account->branch_name}}<br>
                             @endif
                         </div>
                     </div>

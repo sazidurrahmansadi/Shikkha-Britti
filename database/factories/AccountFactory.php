@@ -24,9 +24,8 @@ class AccountFactory extends Factory
     {
         return [
             'accountable_id' => Student::pluck('id')->random(),
-
             'account_title' => $this->faker->name,
-            'account_type' => '$BKASH',
+            'account_type' => 'BKASH',
             'accountable_type' => 'App\Models\Student',
             'account_status' => 'ACTIVE',
         ];
