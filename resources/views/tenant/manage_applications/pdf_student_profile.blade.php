@@ -17,6 +17,7 @@
             font: 16px Helvetica, Sans-Serif;
             line-height: 24px;
             background: url(images/noise.jpg);
+            margin-right:5px;
         }
 
         .clear {
@@ -60,7 +61,7 @@
         }
 
         p {
-            font-size: 14px;
+            font-size: 13px;
             margin: 0 0 2px 0;
         }
 

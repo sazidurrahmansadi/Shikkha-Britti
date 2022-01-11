@@ -8,7 +8,6 @@ ID : superadmin@gmail.com
 phone : 01700000000
 pass : 1234
 
-
 ==================================
 TENANT Creation Steps =>
 # Login as Super Admin

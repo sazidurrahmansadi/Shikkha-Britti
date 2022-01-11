@@ -22,14 +22,20 @@ use App\Http\Controllers\API\APIController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//GET API to fetch data
 Route::GET('/test-students/{id?}',[APIController::class,'ShowTestStudents']);
-
-
+//POST API to ADD data
 Route::POST('/add-test-student',[APIController::class,'addTestStudent']);
-
+//POST API to add MULTIPLE data
 Route::POST('/add-student-multiple',[APIController::class,'addStudentMultiple']);
-
+//PUT API to udpate details
+Route::PUT('/update-student-details/{id}',[APIController::class,'updateTestStudent']);
+//PATCH API to update single FIELD
+Route::PATCH('/update-single-student-details/{id}',[APIController::class,'updateSingleTestStudent']);
+//DELETE API to delete with ID
+Route::DELETE('/delete-test-student/{id?}',[APIController::class,'deleteTestStudent']);
+//DELETE with JSON data
+Route::DELETE('/delete-test-student-json',[APIController::class,'deleteTestStudentjson']);
 
 
 

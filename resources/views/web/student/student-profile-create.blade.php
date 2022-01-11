@@ -137,7 +137,7 @@
                             </div>
 
                             <br>
-                            <h3>Academic information</h3>
+                            <h3>Current Academic information</h3>
                             <div class="row dynm_field">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -224,7 +224,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Year <span class="text-danger font-weight-bold">*</span></label>
-                                        <input type="text" class="form-control" name="year" id="datepicker" required />
+                                        <input type="text" class="form-control" name="year" id="datepicker" required value="{{ date('Y') }}"/>
                                     </div>
                                 </div>
 

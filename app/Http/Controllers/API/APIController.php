@@ -72,13 +72,13 @@ class APIController extends Controller
                 'profession' => 'required',
                 'age' => 'required',
             ];
-            $customMessage =[
-                'name.required' =>'Name is required',
+            $customMessage = [
+                'name.required' => 'Name field is required',
             ];
             $validator = Validator::make($data, $rules, $customMessage);
 
-            if($validator->fails()){
-                return response()->json($validator->errors(),422);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
             }
 
             $testUser = new TestStudent();
@@ -89,7 +89,7 @@ class APIController extends Controller
             $testUser->save();
 
             return response()->json([
-                'message'=>'Test Student Successfully Added'
+                'message' => 'Test Student Successfully Added'
             ], 201);
         }
     }
@@ -107,27 +107,26 @@ class APIController extends Controller
                 'students.*.age' => 'required',
             ];
             $customMessage = [
-                'students.*.name.required' =>'Name is required',
+                'students.*.name.required' => 'Name is required',
             ];
             $validator = Validator::make($data, $rules, $customMessage);
 
-            if($validator->fails()){
-                return response()->json($validator->errors(),422);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
             }
 
-            foreach($data['students'] as $add_student){
+            foreach ($data['students'] as $add_student) {
 
                 $student = new TestStudent();
                 $student->name = $add_student['name'];
                 $student->profession = $add_student['profession'];
                 $student->age = $add_student['age'];
-    
-                $student->save();   
+
+                $student->save();
             }
             return response()->json([
-                'message'=>'Test Student Successfully Added'
+                'message' => 'Test Student Successfully Added'
             ], 201);
-            
         }
     }
 
@@ -151,9 +150,65 @@ class APIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateTestStudent(Request $request, $id)
     {
-        //
+        if ($request->ismethod('PUT')) {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'required|unique:test_students',
+                'profession' => 'required',
+                'age' => 'required',
+            ];
+            $customMessage = [
+                'name.required' => 'Name field is required',
+            ];
+            $validator = Validator::make($data, $rules, $customMessage);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $testUser = TestStudent::findOrFail($id);
+            $testUser->name = $request->name;
+            $testUser->profession = $request->profession;
+            $testUser->age = $request->age;
+
+            $testUser->save();
+
+            return response()->json([
+                'message' => 'Test Student Successfully UPDATED'
+            ], 202);
+        }
+    }
+
+
+    public function updateSingleTestStudent(Request $request, $id)
+    {
+        if ($request->ismethod('PATCH')) {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'required|unique:test_students',
+            ];
+            $customMessage = [
+                'name.required' => 'Name field is required',
+            ];
+            $validator = Validator::make($data, $rules, $customMessage);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $testUser = TestStudent::findOrFail($id);
+            $testUser->name = $request->name;
+
+            $testUser->save();
+
+            return response()->json([
+                'message' => 'Test Student Successfully UPDATED'
+            ], 202);
+        }
     }
 
     /**
@@ -162,8 +217,26 @@ class APIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteTestStudent($id = null)
     {
-        //
+        TestStudent::findOrFail($id)->delete();
+        $messages = "Student Successfully Deleted";
+        return response()->json(['message' => $messages], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteTestStudentjson(Request $request)
+    {
+        if ($request->ismethod('DELETE')) {
+            $data = $request->all();
+            TestStudent::where('id', $data['id'])->delete();
+            $messages = "Student Successfully Deleted";
+            return response()->json(['message' => $messages], 200);
+        }
     }
 }

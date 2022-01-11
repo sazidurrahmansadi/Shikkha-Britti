@@ -331,30 +331,56 @@ class RegisterStudentController extends Controller
 
 
         $level = $request->level;
-        if ($level == "School") {
-            $degree_level = $request->class_degree_sch;
-        } else if ($level == "College") {
-            $degree_level = $request->class_degree_col;
-        } else if ($level == "Diploma") {
-            $degree_level = NULL;
-        } else if ($level == "Bachelors") {
-            $degree_level = $request->class_degree_uni;  
+        if ($level == "School" || $level == "College" || $level == "Diploma" || $level == "Bachelors") {
+            $bachelor_year = NULL; $bachelor_institution = NULL; $bachelor_subject = NULL; $bachelor_cgpa = NULL;
             
-            $bachelor_year = NULL;
-            $bachelor_institution = NULL;
-            $bachelor_subject = NULL;
-            $bachelor_cgpa = NULL;
-        }
-        else if ($level == "Masters") {
-            $degree_level = $request->class_degree_uni;  
-            
+            if ($level == "School") {
+                $this->validate($request, [
+                    'class_degree_sch' => 'required'
+                ],[
+                    'class_degree_sch.required' => 'The "Class" field is mandatory!',
+                ]);
+                $degree_level = $request->class_degree_sch;
+                $ssc_year = NULL; $ssc_institution = NULL; $ssc_gpa = NULL; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+            } else if ($level == "College") {
+                $this->validate($request, [
+                    'class_degree_col' => 'required'
+                ],[
+                    'class_degree_col.required' => 'The "Class" field is mandatory!',
+                ]);
+                $degree_level = $request->class_degree_col;
+                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+            } else if ($level == "Diploma") {
+                $degree_level = NULL;
+                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+            } else if ($level == "Bachelors") {
+                $this->validate($request, [
+                    'class_degree_uni' => 'required'
+                ],[
+                    'class_degree_uni.required' => 'The "Degree Year" field is mandatory!',
+                ]);
+                $degree_level = $request->class_degree_uni;
+                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; 
+                $hsc_year = $request->hsc_year; $hsc_institution = $request->hsc_institution; $hsc_gpa = $request->hsc_gpa;
+            }
+
+        } else {
+            $this->validate($request, [
+                'class_degree_uni' => 'required'
+            ],[
+                'class_degree_uni.required' => 'The "Degree Year" field is mandatory!',
+            ]);
+            $degree_level = $request->class_degree_uni;
+            $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; 
+            $hsc_year = $request->hsc_year; $hsc_institution = $request->hsc_institution; $hsc_gpa = $request->hsc_gpa;
+
             $bachelor_year = $request->bachelor_year;
             $bachelor_institution = $request->bachelor_institution;
             $bachelor_subject = $request->bachelor_subject;
             $bachelor_cgpa = $request->bachelor_cgpa;
         }
 
-        
+
         $degrees_id = $request->degrees_id;
 
         $degree =  Degree::find($degrees_id);
@@ -367,12 +393,12 @@ class RegisterStudentController extends Controller
         $degree->semester = $request->semester;
         $degree->year = $request->year;
 
-        $degree->ssc_year = $request->ssc_year;
-        $degree->ssc_institution = $request->ssc_institution;
-        $degree->ssc_gpa = $request->ssc_gpa;
-        $degree->hsc_year = $request->hsc_year;
-        $degree->hsc_institution = $request->hsc_institution;
-        $degree->hsc_gpa = $request->hsc_gpa;
+        $degree->ssc_year = $ssc_year;
+        $degree->ssc_institution = $ssc_institution;
+        $degree->ssc_gpa = $ssc_gpa;
+        $degree->hsc_year = $hsc_year;
+        $degree->hsc_institution = $hsc_institution;
+        $degree->hsc_gpa = $hsc_gpa;
         $degree->bachelor_year = $bachelor_year;
         $degree->bachelor_institution = $bachelor_institution;
         $degree->bachelor_subject = $bachelor_subject;

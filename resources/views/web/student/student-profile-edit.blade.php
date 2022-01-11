@@ -150,7 +150,7 @@
                             </div>
 
                             <br>
-                            <h3>Academic information</h3>
+                            <h3>Current Academic information</h3>
                             <div class="row dynm_field">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -176,6 +176,7 @@
                                                 <option value="{{ $degree_level }}">{{ $degree_level }}</option>
                                             @empty
                                             @endforelse --}}
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -198,7 +199,7 @@
                                         <label for="class_degree">Select Class<span
                                                 class="text-danger font-weight-bold">*</span></label>
                                         <select class="form-control" name="class_degree_col" id="class_degree_col">
-                                            <option value="">Select</option>
+                                            {{-- <option value="">Select</option> --}}
                                             {{-- <option value="Class-11">Class-11</option>
                                             <option value="Class-12">Class-12</option> --}}
                                             @forelse($class_college as $class_college)
@@ -637,6 +638,11 @@
         }).change();
     </script>
     {{-- Alternative JS for picking OLD VALUES in dropdown --}}
+    <script>
+        $(window).on('load', function() {
+            document.getElementById("level").value = "{{ $academic_data->level }}";
+        });
+    </script>
     <script>
         $(window).on('load', function() {
             document.getElementById("class_degree_sch").value = "{{ $academic_data->class_degree }}";
