@@ -239,4 +239,55 @@ class APIController extends Controller
             return response()->json(['message' => $messages], 200);
         }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteTestStudentMultiple($ids)
+    {
+        $ids = explode(',', $ids);
+        TestStudent::whereIn('id', $ids)->delete();
+        $messages = "Student Successfully Deleted";
+        return response()->json(['message' => $messages], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteTestStudentMultipleJSON(Request $request)
+    {
+        if ($request->ismethod('DELETE')) {
+            $data = $request->all();
+            TestStudent::whereIn('id', $data['ids'])->delete();
+            $messages = "Student Successfully Deleted";
+            return response()->json(['message' => $messages], 200);
+        }
+    }
+
+    public function deleteMultipleJSON_jwt_token(Request $request)
+    {
+        $header = $request->header('Authorization');
+        if ($header == '') {
+            $messages = "Permission Denied";
+            return response()->json(['message' => $messages], 422);
+        } else {
+            if ($header == 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNhemlkdXIgUmFobWFuIiwiaWF0IjoxNTE2MjM5MDIyfQ.3-VImiqLMvdTg86_9odSadK07QXkATt0jSYqJFjibP0') {
+                if ($request->ismethod('DELETE')) {
+                    $data = $request->all();
+                    TestStudent::whereIn('id', $data['ids'])->delete();
+                    $messages = "Student Successfully Deleted";
+                    return response()->json(['message' => $messages], 200);
+                }
+            } else {
+                $messages = "Something wrong";
+                return response()->json(['message' => $messages], 422);
+            }
+        }
+    }
 }

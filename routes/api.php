@@ -36,6 +36,12 @@ Route::PATCH('/update-single-student-details/{id}',[APIController::class,'update
 Route::DELETE('/delete-test-student/{id?}',[APIController::class,'deleteTestStudent']);
 //DELETE with JSON data
 Route::DELETE('/delete-test-student-json',[APIController::class,'deleteTestStudentjson']);
+//DELETE withmultiple user
+Route::DELETE('/delete-test-student-multiple/{ids}',[APIController::class,'deleteTestStudentMultiple']);
+//DELETE withmultiple user JSON
+Route::DELETE('/delete-test-student-multiple-json',[APIController::class,'deleteTestStudentMultipleJSON']);
+//DELETE withmultiple user with JWT
+Route::DELETE('/delete-test-student-multiple-jwt',[APIController::class,'deleteMultipleJSON_jwt_token']);
 
 
 
