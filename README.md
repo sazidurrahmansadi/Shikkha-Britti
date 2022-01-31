@@ -1,2 +1,2 @@
 # Scholarship-Portal
- A scholarship portal application for Hridoye Bangladesh Organization
+ A scholarship portal application for an Organization
