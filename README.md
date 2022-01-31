@@ -1,2 +1,2 @@
 # Scholarship-Portal
- A scholarship portal application for an Organization
+ A smart scholarship application portal for an Organization
