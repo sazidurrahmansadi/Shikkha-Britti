@@ -50,7 +50,7 @@ class TenantScholarshipController extends Controller
         ]);
 
         $scholarship = new Scholarship();
-
+        $sadi = "sadi";
         // $scholarship->tenant_id = session()->get('tenant_id');
         $scholarship->scholarship_title = $request->scholarship_title;
         $scholarship->level = $request->level;
