@@ -64,6 +64,13 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+
+                            <div class="create-btn">
+                                <a href="{{route('password.request')}}" class="float-right">
+                                    Forgot Password?
+                                    <i class='bx bx-chevrons-right bx-fade-right'></i>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="signin-btn text-center">
@@ -109,7 +116,7 @@
     </div>
 
 
-    <section class="subscribe-section">
+    {{-- <section class="subscribe-section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -129,7 +136,7 @@
                     </form>
                 </div>
             </div>
-    </section>
+    </section> --}}
 
 @endsection
 
