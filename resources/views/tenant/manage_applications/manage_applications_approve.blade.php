@@ -63,6 +63,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="cost">Charge(Tk.)</label>
+                                <input type="number" class="form-control" id="approved_cost" name="approved_cost"
+                                    placeholder="Enter Charge Tk." value="{{ $scholarship_data->cost }}">
+                            </div>
+
+                            <div class="form-group">
                                 <label>From date<span class="text-danger">*</span></label>
                                 <input type="date" name="from_date" class="form-control"
                                     value="{{ (new DateTime($scholarship_data->deadline))->format('Y-m-d') }}" required>

@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 // Route::view('/','home');
 Route::GET('/', [HomeController::class,'index'])->name('home');
+Route::GET('/contact_us', [HomeController::class,'contact_us'])->name('contact_us');
 
 
 require base_path('/routes/web/all.php');

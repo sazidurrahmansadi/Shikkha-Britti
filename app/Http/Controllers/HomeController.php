@@ -30,4 +30,9 @@ class HomeController extends Controller
             'scholarships' => $scholarships,
         ]);
     }
+
+    public function contact_us()
+    {
+        return view("contact_us");
+    }
 }

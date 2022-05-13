@@ -295,6 +295,14 @@
                         </form>
                     </div>
 
+
+                    <div class="contact map">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111239.729762746!2d90.42243546382743!3d23.82359779597969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fce7d991f%3A0xacfaf1ac8e944c05!2sBasundhara%20Residential%20Area%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1649259192946!5m2!1sen!2sbd"
+                            style="border: 0" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
                     <div class="contact info">
                         <h3>Contact Info</h3>
                         <div class="infoBox">
@@ -330,13 +338,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-
-                    <div class="contact map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111239.729762746!2d90.42243546382743!3d23.82359779597969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fce7d991f%3A0xacfaf1ac8e944c05!2sBasundhara%20Residential%20Area%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1649259192946!5m2!1sen!2sbd"
-                            style="border: 0" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

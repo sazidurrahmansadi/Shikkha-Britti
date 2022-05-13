@@ -99,41 +99,7 @@
                                     <span class="">{{ Auth::user()->email }}</span>
                                 </a>
                             </li>
-                        </ul><br><br>
-
-                        <div class="col-lg-8">
-                            @include('include.messages')
-
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-info" data-toggle="modal"
-                                data-target="#exampleModalLong">
-                                Apply Scholarship Rules and Instruction
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        </ul>
 
                         @cannot('student-can')
                             <div class="candidate-social blink_me">
@@ -142,7 +108,40 @@
                                         Profile</button></a>
                             </div>
                         @endcannot
+                        <br><br>
 
+                            <div class="col-lg-8">
+                                @include('include.messages')
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                    data-target="#exampleModalLong">
+                                    Apply Scholarship Rules and Instruction
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Shikkhabritti</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
