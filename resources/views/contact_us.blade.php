@@ -256,39 +256,39 @@
             <div class="contactUs">
                 <div class="box">
                     <div class="contact form">
-                        <h3>Send a Message</h3>
-                        <form action="" method="POST">
+                        <h3>Contact Us</h3>
+                        <form class="basic-info needs-validation" action="{{ route('contact_us') }}" method="POST">
                             <div class="formBox">
                                 <div class="row50">
                                     <div class="inputBox">
                                         <span>First Name</span>
-                                        <input type="text" placeholder="First Name." required/>
+                                        <input type="text" placeholder="First Name" name="fname" required/>
                                     </div>
                                     <div class="inputBox">
                                         <span>Last Name</span>
-                                        <input type="text" placeholder="Last Name." required/>
+                                        <input type="text" placeholder="Last Name" name="lname" required/>
                                     </div>
                                 </div>
                                 <div class="row50">
                                     <div class="inputBox">
                                         <span>Email</span>
-                                        <input type="email" placeholder="example@mail.com" required/>
+                                        <input type="email" placeholder="example@mail.com" name="email" required/>
                                     </div>
                                     <div class="inputBox">
                                         <span>Mobile</span>
-                                        <input type="text" placeholder="+880 1X1235678" required/>
+                                        <input type="text" placeholder="+880 1X1235678" name="phone" required/>
                                     </div>
                                 </div>
                                 <div class="row100">
                                     <div class="inputBox">
                                         <span>Message</span>
-                                        <textarea placeholder="Write Your Message....." required></textarea>
+                                        <textarea placeholder="Write Your Message....." name="message" required></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row100">
                                     <div class="inputBox">
-                                        <input type="submit" value="Send" />
+                                        <input type="submit" name="submit" value="Send" />
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Scholarship;
-
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -31,8 +31,27 @@ class HomeController extends Controller
         ]);
     }
 
-    public function contact_us()
+    public function contact_us(Request $request)
     {
-        return view("contact_us");
+
+        // $this->validate($request, [
+        //     'fname' => 'required',
+        //     'lname' => 'required',
+        //     'email' => 'required',
+        //     'phone' => 'required',
+        //     'message' => 'required',
+        // ]);
+
+        $data = new Contact;
+        $data->fname=$request->fname;
+        $data->lname=$request->lname;
+        $data->email=$request->email;
+        $data->phone=$request->phone;
+        $data->message=$request->message;
+        $data->save();
+
+        // return redirect("contact_us");
+        return redirect()->route('contact_us')->with('success', 'Account created successfully and all the process completed. We will contact with you soon.');
+
     }
 }
