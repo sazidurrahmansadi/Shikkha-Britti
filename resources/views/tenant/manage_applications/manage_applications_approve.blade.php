@@ -62,11 +62,7 @@
                                     placeholder="Enter amountin Tk." value="{{ $scholarship_data->amount }}">
                             </div>
 
-                            <div class="form-group">
-                                <label for="cost">Charge(Tk.)</label>
-                                <input type="number" class="form-control" id="approved_cost" name="approved_cost"
-                                    placeholder="Enter Charge Tk." value="{{ $scholarship_data->cost }}">
-                            </div>
+                            
 
                             <div class="form-group">
                                 <label>From date<span class="text-danger">*</span></label>
@@ -129,6 +125,14 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label for="cost">Charge(Tk.)</label>
+                            <input type="number" class="form-control" id="approved_cost" name="approved_cost"
+                                placeholder="Enter Charge Tk." value="{{ $scholarship_data->approved_cost }}">
+                        </div>
+
                         <!-- /.card-body -->
 
                         <div class="card-footer">

@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label for="cost">Charge(Tk.)</label>
                                 <input type="number" class="form-control" id="approved_cost" name="approved_cost"
-                                    placeholder="Enter cost Tk." value="{{ $approved_application->approved_cost }}">
+                                    placeholder="Enter charge Tk." value="{{ $approved_application->approved_cost }}">
                             </div>
 
 

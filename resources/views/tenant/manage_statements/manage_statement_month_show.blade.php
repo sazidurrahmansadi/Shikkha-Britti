@@ -87,6 +87,8 @@
                                         <th>ID</th>
                                         <th>Phone</th>
                                         <th>Amount</th>
+                                        <th>Charge</th>
+                                        <th>Total</th>
                                         <th>Payee - (Mentor/Student)</th>
                                         <th>Status</th>
                                         <th>Month</th>
@@ -102,6 +104,9 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
+                                            <td>{{ $statement->approved_cost }}</td>
+                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount}}</td>
+                                       
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
@@ -129,6 +134,13 @@
                                     @empty
                                     @endforelse
                                 </tbody>
+                                <tbody>
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <th colspan="5">Total Amount (Monthly):</th>
+                                    <th scope="row"> {{$totalAmount=DB::table('monthly_statements')->where('month_year',$month_year)->get()->sum('approved_amount') + DB::table('monthly_statements')->where('month_year',$month_year)->get()->sum('approved_cost')}}</th>
+                                </tr>
+                               </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
