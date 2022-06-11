@@ -119,8 +119,10 @@
                                         @forelse($mentors as $mentor)
                                             <option value="{{ $mentor->mentor_active_account->id ?? null }}">
                                                 {{ $mentor->user->name }}</option>
+                                        
                                         @empty
                                         @endforelse
+                                        <input type="hidden" id="mentor_id" name="mentor_id" value="{{ $mentor->id }}">
                                     </select>
                                 </div>
                             </div>

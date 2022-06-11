@@ -171,6 +171,7 @@ class ManageApplicationController extends Controller
             'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
+            'mentor_id'=> 'required',
             'pay_to' => 'required',
         ]);
 
@@ -195,6 +196,7 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
+        $approve->mentor_id = $request->mentor_id;
         $approve->approved_amount = $request->approved_amount;
         $approve->approved_cost = $request->approved_cost;
         $approve->from_date = $request->from_date;

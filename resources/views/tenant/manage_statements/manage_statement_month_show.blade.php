@@ -19,7 +19,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -105,8 +104,9 @@
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
                                             <td>{{ $statement->approved_cost }}</td>
-                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount}}</td>
-                                       
+                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount }}
+                                            </td>
+
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
@@ -134,13 +134,22 @@
                                     @empty
                                     @endforelse
                                 </tbody>
-                                <tbody>
-                                    <tr>
-                                    <th scope="row"></th>
-                                    <th colspan="5">Total Amount (Monthly):</th>
-                                    <th scope="row"> {{$totalAmount=DB::table('monthly_statements')->where('month_year',$month_year)->get()->sum('approved_amount') + DB::table('monthly_statements')->where('month_year',$month_year)->get()->sum('approved_cost')}}</th>
-                                </tr>
-                               </tbody>
+                                <tfoot>
+                                    <tr style="color: blueviolet">
+                                        <td colspan="3"></td>
+                                        <td>Total Amount (Monthly):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_amount') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->get()->sum('approved_amount') + DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot>    
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -215,7 +224,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -272,8 +280,28 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "autoWidth": true,
+                "buttons": [{
+                        extend: 'copy',
+                        footer: true
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true
+                    },
+                    {
+                        extend: 'csv',
+                        footer: true
+                    },
+                    {
+                        extend: 'print',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true
+                    }
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

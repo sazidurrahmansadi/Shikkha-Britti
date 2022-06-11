@@ -18,7 +18,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -51,8 +50,8 @@
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement List
                                     </h1>
-                                    <a href="{{ route('manage_statement_search') }}"
-                                        class="btn btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
+                                    <a href="{{ route('manage_statement_search') }}" class="btn btn-primary shadow-sm"><i
+                                            class="fa fa-search mr-2"></i>
                                         Search by Month
                                     </a>
                                 </div>
@@ -111,8 +110,10 @@
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_statement_details', $statement->id) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View Details"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('manage_statement_details', $statement->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="View Details"><i
+                                                        class="fa fa-eye"></i></a>
 
                                                 <a class="btn btn-sm btn-warning"
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
@@ -125,13 +126,22 @@
                                     @endforelse
                                 </tbody>
 
-                                <tbody>
-                                    <tr>
-                                    <th scope="row"></th>
-                                    <th colspan="5">Total Amount (Monthly):</th>
-                                    <th scope="row"> {{$totalAmount=DB::table('monthly_statements')->get()->sum('approved_amount') + DB::table('monthly_statements')->get()->sum('approved_cost')}}</th>
-                                </tr>
-                               </tbody>
+                                {{-- <tfoot>
+                                    <tr style="color: blueviolet">
+                                        <td colspan="3"></td>
+                                        <td>Total Amount (Monthly):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_amount') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->get()->sum('approved_amount') +DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot> --}}
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -173,7 +183,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -215,11 +224,30 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "autoWidth": true,
+                "buttons": [{
+                        extend: 'copy',
+                        footer: true
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true
+                    },
+                    {
+                        extend: 'csv',
+                        footer: true
+                    },
+                    {
+                        extend: 'print',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true
+                    }
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });
     </script>
 @endsection
-    
