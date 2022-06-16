@@ -56,6 +56,35 @@
                                     </a>
                                 </div>
                             </div>
+
+
+                            <form action="{{ route('manage_monthly_statement_date_search') }}" method="POST">
+                                @csrf
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="container-fluid">
+                                            <div class="form-group row">
+                                                <label for="month_year" class="col-form-label col-sm-2">From</label>
+                                                <div class="col-sm">
+                                                    <input type="date" class="form-control input-sm" id="fromDate" name="fromDate" required>
+                                                </div>
+                                                <label for="month_year" class="col-form-label col-sm">To</label>
+                                                <div class="col-sm">
+                                                    <input type="date" class="form-control input-sm-2" id="toDate" name="toDate" required>
+                                                </div>
+                                                
+
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+
                             <!-- title -->
                         </div>
                     </div>
@@ -105,7 +134,7 @@
                                             <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
 
                                             <td>{{ $statement->status }}</td>
-                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y') }}</td>
+                                            <td>{{ $statement->month_year }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
