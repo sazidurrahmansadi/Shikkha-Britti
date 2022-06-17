@@ -95,6 +95,23 @@
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr style="color: blueviolet" id="total">
+                                        <td colspan="3"></td>
+
+                                        <td>Total Amount (Monthly):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @forelse($statements as $statement)
                                         <tr>
@@ -134,22 +151,7 @@
                                     @empty
                                     @endforelse
                                 </tbody>
-                                <tfoot>
-                                    <tr style="color: blueviolet">
-                                        <td colspan="3"></td>
-                                        <td>Total Amount (Monthly):</td>
-                                        <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_amount') }}/-
-                                        </td>
-                                        <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
-                                        </td>
-                                        <td>
-                                            {{ $totalAmount =DB::table('monthly_statements')->get()->sum('approved_amount') + DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
-                                        </td>
-                                        <td colspan="5"></td>
-                                    </tr>
-                                </tfoot>    
+                                
                             </table>
                         </div>
                         <!-- /.card-body -->

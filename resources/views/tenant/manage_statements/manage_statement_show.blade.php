@@ -64,7 +64,7 @@
                                     <div class="row">
                                         <div class="container-fluid">
                                             <div class="form-group row">
-                                                <label for="month_year" class="col-form-label col-sm-2">From</label>
+                                                <label for="month_year" class="col-form-label col-sm-2" value="">From</label>
                                                 <div class="col-sm">
                                                     <input type="date" class="form-control input-sm" id="fromDate" name="fromDate" required>
                                                 </div>
@@ -155,7 +155,7 @@
                                     @endforelse
                                 </tbody>
 
-                                {{-- <tfoot>
+                                <tfoot>
                                     <tr style="color: blueviolet">
                                         <td colspan="3"></td>
                                         <td>Total Amount (Monthly):</td>
@@ -170,7 +170,7 @@
                                         </td>
                                         <td colspan="5"></td>
                                     </tr>
-                                </tfoot> --}}
+                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
