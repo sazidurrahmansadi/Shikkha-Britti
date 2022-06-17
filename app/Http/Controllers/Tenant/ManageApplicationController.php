@@ -168,8 +168,10 @@ class ManageApplicationController extends Controller
             'student_id' => 'required',
             'scholarship_id' => 'required',
             'approved_amount' => 'required',
+            'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
+            'mentor_id'=> 'required',
             'pay_to' => 'required',
         ]);
 
@@ -194,7 +196,9 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
+        $approve->mentor_id = $request->mentor_id;
         $approve->approved_amount = $request->approved_amount;
+        $approve->approved_cost = $request->approved_cost;
         $approve->from_date = $request->from_date;
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
@@ -273,6 +277,7 @@ class ManageApplicationController extends Controller
     {
         $this->validate($request, [
             'approved_amount' => 'required',
+            'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
         ]);
@@ -285,6 +290,7 @@ class ManageApplicationController extends Controller
         $approved_application = ApprovedApplication::find($request->approved_app_id);
 
         $approved_application->approved_amount = $request->approved_amount;
+        $approved_application->approved_cost = $request->approved_cost;
         $approved_application->from_date = $request->from_date;
         $approved_application->to_date = $request->to_date;
         $approved_application->save();

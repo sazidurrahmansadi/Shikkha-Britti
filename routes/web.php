@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 // Route::view('/','home');
 Route::GET('/', [HomeController::class,'index'])->name('home');
+Route::GET('/contact_us', [HomeController::class,'contact_us'])->name('contact_us');
 
 
 require base_path('/routes/web/all.php');
@@ -168,3 +169,7 @@ Route::GET('/manage-monthly-statement-search', [ManageMonthlyStatementController
 Route::POST('/manage-monthly-statement-search-show', [ManageMonthlyStatementController::class, 'search_show'])->name('manage_statement_search_show')->middleware('auth');
 Route::POST('/manage-monthly-statement-payment-status-change', [ManageMonthlyStatementController::class, 'payment_status_change'])->name('manage_statement_payment_status_change')->middleware('auth');
 
+Route::POST('/manage-monthly-statement-date-search', [ManageMonthlyStatementController::class, 'date_range_search'])->name('manage_monthly_statement_date_search')->middleware('auth');
+
+
+// hii
