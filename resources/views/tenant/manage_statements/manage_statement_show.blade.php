@@ -18,7 +18,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -51,12 +50,41 @@
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement List
                                     </h1>
-                                    <a href="{{ route('manage_statement_search') }}"
-                                        class="btn btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
+                                    <a href="{{ route('manage_statement_search') }}" class="btn btn-primary shadow-sm"><i
+                                            class="fa fa-search mr-2"></i>
                                         Search by Month
                                     </a>
                                 </div>
                             </div>
+
+
+                            <form action="{{ route('manage_monthly_statement_date_search') }}" method="POST">
+                                @csrf
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="container-fluid">
+                                            <div class="form-group row">
+                                                <label for="month_year" class="col-form-label col-sm-2" value="">From</label>
+                                                <div class="col-sm">
+                                                    <input type="date" class="form-control input-sm" id="fromDate" name="fromDate" required>
+                                                </div>
+                                                <label for="month_year" class="col-form-label col-sm">To</label>
+                                                <div class="col-sm">
+                                                    <input type="date" class="form-control input-sm-2" id="toDate" name="toDate" required>
+                                                </div>
+                                                
+
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+
                             <!-- title -->
                         </div>
                     </div>
@@ -77,6 +105,8 @@
                                         <th>ID</th>
                                         <th>Phone</th>
                                         <th>Amount</th>
+                                        <th>Charge</th>
+                                        <th>Total</th>
                                         <th>Payee - (Mentor/Student)</th>
                                         {{-- <th>Mentor/Student</th> --}}
                                         <th>Status</th>
@@ -94,6 +124,8 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
+                                            <td>{{ $statement->approved_cost }}</td>
+                                            <td>{{ $statement->approved_amount + $statement->approved_cost }}</td>
                                             {{-- <td>{{ $statement->account->account_title }}</td> --}}
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
@@ -102,13 +134,15 @@
                                             <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
 
                                             <td>{{ $statement->status }}</td>
-                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y') }}</td>
+                                            <td>{{ $statement->month_year }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_statement_details', $statement->id) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View Details"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('manage_statement_details', $statement->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="View Details"><i
+                                                        class="fa fa-eye"></i></a>
 
                                                 <a class="btn btn-sm btn-warning"
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
@@ -120,6 +154,23 @@
                                     @empty
                                     @endforelse
                                 </tbody>
+
+                                {{-- <tfoot>
+                                    <tr style="color: blueviolet">
+                                        <td colspan="3"></td>
+                                        <td>Total Amount (Monthly):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_amount') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->get()->sum('approved_amount') +DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot> --}}
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -161,7 +212,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -203,8 +253,28 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "autoWidth": true,
+                "buttons": [{
+                        extend: 'copy',
+                        footer: true
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true
+                    },
+                    {
+                        extend: 'csv',
+                        footer: true
+                    },
+                    {
+                        extend: 'print',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true
+                    }
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

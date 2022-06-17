@@ -169,8 +169,10 @@ class ManageApplicationController extends Controller
             'student_id' => 'required',
             'scholarship_id' => 'required',
             'approved_amount' => 'required',
+            'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
+            'mentor_id' => 'required',
             'pay_to' => 'required',
         ]);
 
@@ -195,7 +197,9 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
+        $approve->mentor_id = $request->mentor_id;
         $approve->approved_amount = $request->approved_amount;
+        $approve->approved_cost = $request->approved_cost;
         $approve->from_date = $request->from_date;
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
@@ -274,6 +278,7 @@ class ManageApplicationController extends Controller
     {
         $this->validate($request, [
             'approved_amount' => 'required',
+            'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
         ]);
@@ -286,12 +291,12 @@ class ManageApplicationController extends Controller
         $approved_application = ApprovedApplication::find($request->approved_app_id);
 
         $approved_application->approved_amount = $request->approved_amount;
+        $approved_application->approved_cost = $request->approved_cost;
         $approved_application->from_date = $request->from_date;
         $approved_application->to_date = $request->to_date;
         $approved_application->save();
 
-        return redirect()->route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id])->with('success','Updated successfully');
-
+        return redirect()->route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id])->with('success', 'Updated successfully');
     }
 
     /**
@@ -318,7 +323,37 @@ class ManageApplicationController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Deleted successfully');
+    }
 
+
+    public function sendSMStest(Request $request)
+    {
+
+        // dd($request ->all());
+
+
+        $this->validate($request, [
+            'recipient_phone' => ['required', 'min:11'],
+        ]);
+
+        // $phone = $request->input('recipient_phone');
+        $number = "01674084133";
+        $phone_code = substr($number, 0, 3);
+        if ($phone_code != "+88") {
+            $contracts = "+88" . $number;
+        } else {
+            $contracts = $number;
+        }
+        // dd($contracts);
+
+
+        $messageBody = $request->input('message_text');
+
+        $smsResponse = Helper::singleSms($contracts, $messageBody);
+        // dd($smsResponse);
+
+
+        return "SMS Sent successfully!";
     }
 
 

@@ -19,7 +19,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -87,6 +86,8 @@
                                         <th>ID</th>
                                         <th>Phone</th>
                                         <th>Amount</th>
+                                        <th>Charge</th>
+                                        <th>Total</th>
                                         <th>Payee - (Mentor/Student)</th>
                                         <th>Status</th>
                                         <th>Month</th>
@@ -94,6 +95,23 @@
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr style="color: blueviolet" id="total">
+                                        <td colspan="3"></td>
+
+                                        <td>Total Amount (Monthly):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @forelse($statements as $statement)
                                         <tr>
@@ -102,6 +120,10 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
+                                            <td>{{ $statement->approved_cost }}</td>
+                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount }}
+                                            </td>
+
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
@@ -129,6 +151,7 @@
                                     @empty
                                     @endforelse
                                 </tbody>
+                                
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -203,7 +226,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -260,8 +282,28 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "autoWidth": true,
+                "buttons": [{
+                        extend: 'copy',
+                        footer: true
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true
+                    },
+                    {
+                        extend: 'csv',
+                        footer: true
+                    },
+                    {
+                        extend: 'print',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true
+                    }
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

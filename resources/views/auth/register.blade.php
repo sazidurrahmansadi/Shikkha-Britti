@@ -128,7 +128,7 @@
     </div>
 
 
-    <section class="subscribe-section">
+    {{-- <section class="subscribe-section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -149,7 +149,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 @endsection
 
