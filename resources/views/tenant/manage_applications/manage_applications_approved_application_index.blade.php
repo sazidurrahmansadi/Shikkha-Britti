@@ -24,7 +24,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -132,18 +131,10 @@
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
-
-                                                {{-- <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
-                                                    <span class="iconify-inline" data-icon="codicon:mail" style="color: blue" data-width="30"></span>
-                                                  </button> --}}
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                                <button type="submit" class="btn btn-success" data-toggle="modal"
                                                     data-target="#exampleModalCenter">Send SMS <span class="iconify-inline"
                                                         data-icon="codicon:mail" style="color: rgb(255, 255, 255)"
                                                         data-width="16"></span></button>
-
-
-
-                                                {{-- <button type="button" class="btn btn-success">Send SMS <span class="iconify-inline" data-icon="codicon:mail" style="color: rgb(255, 255, 255)" data-width="16"></span></button> --}}
                                             </td>
                                         </tr>
                                     @empty
@@ -161,45 +152,50 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Send Message To
-                        <strong>{{ $approved_application->student->name }}</strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('send_sms_test') }}" method="POST">
-                        @csrf
+            <form method="post" action="{{ route('send_sms_test') }}">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Send
+                            Message To
+                            <strong>{{ $approved_application->student->name }}</strong>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{-- <form> --}}
                         <div class="form-group row">
-                            <label for="inputPhone3" class="col-sm-2 col-form-label">To</label>
+                            <label for="inputPhone3" class="col-sm-1 col-form-label">To</label>
                             <div class="col-sm-10">
                                 <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
-                                    value="{{ $approved_application->student->phone }}">
+                                    name="phone" value="{{ $approved_application->student->phone }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Message</label>
+                            <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Message
+                            </label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
                             </div>
 
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        Discard
-                    </button>
-                    <button type="submit" class="btn btn-success">
-                        Send Message
-                    </button>
-                </div>
-            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            Discard
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Send Message
+                        </button>
+                    </div>
+            </form>
         </div>
     </div>
 
