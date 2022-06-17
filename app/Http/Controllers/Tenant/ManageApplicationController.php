@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
@@ -318,5 +319,36 @@ class ManageApplicationController extends Controller
 
         return redirect()->back()->with('success', 'Deleted successfully');
 
+    }
+
+
+    public function sendSMStest(Request $request)
+    {
+
+        // dd($request ->all());
+        
+
+        $this->validate($request, [
+            'recipient_name' => ['required', 'min:11'],
+        ]);
+
+        $phone = $request->input('recipient_name');
+        $phone_code = substr($phone,0,3);
+        if ($phone_code != "+88") {
+            $contracts = "+88".$phone;
+        }
+        else{   
+            $contracts = $phone;
+        }
+        // dd($contracts);
+
+
+        $message = $request->input('message_text');
+
+        $smsResponse = Helper::sendSMS($contracts,$message);
+        // dd($smsResponse);
+
+
+        return "SMS Sent successfully!";
     }
 }

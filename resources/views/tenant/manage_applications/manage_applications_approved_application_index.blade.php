@@ -103,10 +103,18 @@
                                             <td class="no-wrap">
                                                 <a class="btn btn-primary btn-sm mb-2"
                                                     href="{{ route('manage_applications_profile', [$approved_application->student_id]) }}"
-                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
+                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>                                                
+                                                
+                                                
+                                                    <button type="button" class="btn btn-success btn-sm align-top"
+                                                        data-toggle="modal" data-target="#status_change_modal"
+                                                        data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
+                                                        data-placement="top"
+                                                        title="Change Status">SMS</button>
+
 
                                                 <a class="btn btn-success btn-sm"
-                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i
+                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id,$approved_application->student_id]) }}"><i
                                                         class="fas fa-info"></i> Details</a>
 
                                             </td>
@@ -118,7 +126,8 @@
                                                 <a type="button" class="btn-sm btn-danger" data-toggle="modal"
                                                     data-target="#delete_warning_modal"
                                                     data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
-                                                    data-student_id_u="{{ $approved_application->student_id }}" data-approved_app_id_u="{{ $approved_application->id }}"><i
+                                                    data-student_id_u="{{ $approved_application->student_id }}"
+                                                    data-approved_app_id_u="{{ $approved_application->id }}"><i
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                         </tr>
@@ -134,6 +143,38 @@
             </div>
         </div>
     </section>
+
+    {{-- ------------------------change status Modal---------------------------- --}}
+    <div class="modal fade" id="status_change_modal" tabindex="-1" aria-labelledby="status_change_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-secondary" id="status_change_modal">ATTENTION!!</h5>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('send.sms.test') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient_name" name="recipient_name">
+                          </div>
+                          <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message_text" name="message_text"></textarea>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send message</button>
+                          </div>
+                    </form>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
 
 
     {{-- ------------------------Delete User Modal---------------------------- --}}
@@ -167,10 +208,25 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
+
+<script>
+    $('#status_change_modal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var recipient_name = button.data('recipient_name')
+        var message_text = button.data('message_text')
+        console.log(recipient_name);
+        // console.log(student_id);
+        // console.log(approved_app_id);
+        var modal = $(this)
+        modal.find('.modal-body #recipient_name').val(recipient_name)
+        modal.find('.modal-body #message_text').val(message_text)
+    })
+</script>
+
+
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
     {{-- ------------Change STATUS Script-------------- --}}
     <script>

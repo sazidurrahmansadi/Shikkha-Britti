@@ -74,6 +74,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Approval</th>
+                                        {{-- <th>Reference</th> --}}
                                         <th class="text-center">View/Action</th>
                                         {{-- <th>Action</th> --}}
                                     </tr>
@@ -98,15 +99,16 @@
                                                         role="button">Approve</a>
                                                 @endif
                                             </td>
+                                            {{-- <td class="text-center">
+                                            {{ $applied_student->reference_name }}
+                                            </td> --}}
 
 
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm"
                                                     href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
                                                     role="button"><i class='far fa-user'></i> Student Profile</a>
-                                                {{-- <a class="btn btn-primary btn-sm"
-                                                    href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
-                                                    role="button"><i class='far fa-user'></i> Profile</a> --}}
+                                                
 
                                                 @if ($applied_student->pivot->is_approve == 1)
 
