@@ -173,4 +173,5 @@ Route::POST('/manage-monthly-statement-payment-status-change', [ManageMonthlySta
 Route::POST('/manage-monthly-statement-date-search', [ManageMonthlyStatementController::class, 'date_range_search'])->name('manage_monthly_statement_date_search')->middleware('auth');
 
 
-// hii
+// send sms test
+Route::POST('/sendSMStest', [ManageApplicationController::class, 'sendSMStest'])->name('send_sms_test')->middleware('auth');

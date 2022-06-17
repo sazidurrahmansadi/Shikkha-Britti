@@ -171,7 +171,7 @@ class ManageApplicationController extends Controller
             'approved_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
-            'mentor_id'=> 'required',
+            'mentor_id' => 'required',
             'pay_to' => 'required',
         ]);
 
@@ -295,8 +295,7 @@ class ManageApplicationController extends Controller
         $approved_application->to_date = $request->to_date;
         $approved_application->save();
 
-        return redirect()->route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id])->with('success','Updated successfully');
-
+        return redirect()->route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id])->with('success', 'Updated successfully');
     }
 
     /**
@@ -323,6 +322,35 @@ class ManageApplicationController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Deleted successfully');
+    }
 
+
+    public function sendSMStest(Request $request)
+    {
+
+        // dd($request ->all());
+
+
+        $this->validate($request, [
+            'recipient_name' => ['required', 'min:11'],
+        ]);
+
+        $phone = $request->input('recipient_name');
+        $phone_code = substr($phone, 0, 3);
+        if ($phone_code != "+88") {
+            $contracts = "+88" . $phone;
+        } else {
+            $contracts = $phone;
+        }
+        // dd($contracts);
+
+
+        $message = $request->input('message_text');
+
+        $smsResponse = Helper::sendSMS($contracts, $message);
+        // dd($smsResponse);
+
+
+        return "SMS Sent successfully!";
     }
 }
