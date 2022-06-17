@@ -85,8 +85,7 @@
                                         <th>Mentor/Student</th>
                                         <th class="text-center">View</th>
                                         <th class="text-center">Action</th>
-                                        <th class="text-center">SMS<span class="iconify-inline" data-icon="codicon:mail"
-                                                style="color: rgb(255, 255, 255)" data-width="16"></span></th>
+                                        <th class="text-center">SMS</th>
 
                                     </tr>
                                 </thead>
@@ -131,10 +130,10 @@
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-success" data-toggle="modal"
+                                                {{-- <button type="submit" class="btn btn-success" data-toggle="modal"
                                                     data-target="#exampleModalCenter">Send SMS <span class="iconify-inline"
                                                         data-icon="codicon:mail" style="color: rgb(255, 255, 255)"
-                                                        data-width="16"></span></button>
+                                                        data-width="16"></span></button> --}}
                                             </td>
                                         </tr>
                                     @empty
