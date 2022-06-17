@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
@@ -332,10 +333,10 @@ class ManageApplicationController extends Controller
 
 
         $this->validate($request, [
-            'recipient_name' => ['required', 'min:11'],
+            'recipient_phone' => ['required', 'min:11'],
         ]);
 
-        $phone = $request->input('recipient_name');
+        $phone = $request->input('recipient_phone');
         $phone_code = substr($phone, 0, 3);
         if ($phone_code != "+88") {
             $contracts = "+88" . $phone;
