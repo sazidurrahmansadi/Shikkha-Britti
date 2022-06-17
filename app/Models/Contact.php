@@ -8,13 +8,10 @@ use App\Scopes\TenantScope;
 class Contact extends Model
 {
 
-    protected $fillable = [
-        'fname',
-        'lname',
-        'email',
-        'phone',
-        'message',
-    ];
+    use HasFactory;
+
+        protected $table = 'contact';
+        protected $primarykey = 'id';
 
     // protected static function booted()
     // {

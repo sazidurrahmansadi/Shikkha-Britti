@@ -31,27 +31,23 @@ class HomeController extends Controller
         ]);
     }
 
-    public function contact_us(Request $request)
+    public function contact_us()
     {
+        return view("contact_us");
+    
+    }
 
-        // $this->validate($request, [
-        //     'fname' => 'required',
-        //     'lname' => 'required',
-        //     'email' => 'required',
-        //     'phone' => 'required',
-        //     'message' => 'required',
-        // ]);
+    public function store(Request $request){
 
-        $data = new Contact;
-        $data->fname=$request->fname;
-        $data->lname=$request->lname;
-        $data->email=$request->email;
-        $data->phone=$request->phone;
-        $data->message=$request->message;
-        $data->save();
-
-        // return redirect("contact_us");
-        return redirect()->route('contact_us')->with('success', 'Account created successfully and all the process completed. We will contact with you soon.');
+        $contact = new Contact;
+        $contact->fname=$request->fname;
+        $contact->lname=$request->lname;
+        $contact->email=$request->email;
+        $contact->phone=$request->phone;
+        $contact->message=$request->message;
+        $contact->save();
+        return redirect()->route('contact_us')
+            ->with('success', 'Send successfully');
 
     }
 }

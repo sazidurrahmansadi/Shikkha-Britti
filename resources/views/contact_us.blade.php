@@ -237,7 +237,7 @@
 
 
 <body>
-    <section class="page-title title-bg13">
+    {{-- <section class="page-title title-bg13">
                 <h2>Contact Us</h2>
                 <ul>
                     <li>
@@ -250,7 +250,7 @@
             <div class="line"></div>
             <div class="line"></div>
         </div>
-    </section>
+    </section> --}}
     <div class="signup-section ptb-100">
         <div class="container">
             <div class="contactUs">
@@ -258,6 +258,8 @@
                     <div class="contact form">
                         <h3>Contact Us</h3>
                         <form class="basic-info needs-validation" action="{{ route('contact_us') }}" method="POST">
+                            
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="formBox">
                                 <div class="row50">
                                     <div class="inputBox">
@@ -287,8 +289,8 @@
                                 </div>
 
                                 <div class="row100">
-                                    <div class="inputBox">
-                                        <input type="submit" name="submit" value="Send" />
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Send</button>
                                     </div>
                                 </div>
                             </div>
