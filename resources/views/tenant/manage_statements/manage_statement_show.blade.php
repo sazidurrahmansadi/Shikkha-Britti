@@ -155,7 +155,7 @@
                                     @endforelse
                                 </tbody>
 
-                                <tfoot>
+                                {{-- <tfoot>
                                     <tr style="color: blueviolet">
                                         <td colspan="3"></td>
                                         <td>Total Amount (Monthly):</td>
@@ -170,7 +170,7 @@
                                         </td>
                                         <td colspan="5"></td>
                                     </tr>
-                                </tfoot>
+                                </tfoot> --}}
                             </table>
                         </div>
                         <!-- /.card-body -->
