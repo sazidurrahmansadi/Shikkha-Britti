@@ -66,7 +66,6 @@
                             </div>
 
 
-
                             <div class="form-group">
                                 <label>From date<span class="text-danger">*</span></label>
                                 <input type="date" name="from_date" class="form-control"
@@ -122,8 +121,10 @@
                                         @forelse($mentors as $mentor)
                                             <option value="{{ $mentor->mentor_active_account->id ?? null }}">
                                                 {{ $mentor->user->name }}</option>
+                                        
                                         @empty
                                         @endforelse
+                                        <input type="hidden" id="mentor_id" name="mentor_id" value="{{ $mentor->id }}">
                                     </select>
                                 </div>
                             </div>
