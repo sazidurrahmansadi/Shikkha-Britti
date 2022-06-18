@@ -85,8 +85,7 @@
                                         <th>Mentor/Student</th>
                                         <th class="text-center">View</th>
                                         <th class="text-center">Action</th>
-                                        <th class="text-center">SMS<span class="iconify-inline" data-icon="codicon:mail"
-                                                style="color: rgb(255, 255, 255)" data-width="16"></span></th>
+                                        <th class="text-center">SMS</th>
 
                                     </tr>
                                 </thead>
@@ -131,10 +130,10 @@
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-success" data-toggle="modal"
+                                                {{-- <button type="submit" class="btn btn-success" data-toggle="modal"
                                                     data-target="#exampleModalCenter">Send SMS <span class="iconify-inline"
                                                         data-icon="codicon:mail" style="color: rgb(255, 255, 255)"
-                                                        data-width="16"></span></button>
+                                                        data-width="16"></span></button> --}}
                                             </td>
                                         </tr>
                                     @empty
@@ -174,14 +173,14 @@
                             <label for="inputPhone3" class="col-sm-1 col-form-label">To</label>
                             <div class="col-sm-10">
                                 <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
-                                    name="phone" value="{{ $approved_application->student->phone }}">
+                                    name="recipient_phone" value="{{ $approved_application->student->phone }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Message
                             </label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message_text" rows="3"></textarea>
                             </div>
 
                         </div>
