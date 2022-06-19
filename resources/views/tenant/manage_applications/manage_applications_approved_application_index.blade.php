@@ -20,7 +20,7 @@
         }
 
         .color {
-            background: linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right, #21ba2b, #1244b0);
             color: white;
             font-weight: bold;
         }
@@ -127,7 +127,7 @@
                                                     data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
                                                     data-student_id_u="{{ $approved_application->student_id }}"
                                                     data-approved_app_id_u="{{ $approved_application->id }}"><i
-                                                        class="fa fa-trash"></i> Delete</a>
+                                                        class="fa fa-trash">Delete</i></a>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm align-top"

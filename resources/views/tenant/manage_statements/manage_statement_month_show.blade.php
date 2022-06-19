@@ -15,7 +15,7 @@
         }
 
         .color {
-            background: linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right,#21ba2b, #1244b0);
             color: white;
             font-weight: bold;
         }
@@ -93,6 +93,7 @@
                                         <th>Month</th>
                                         <th>Note</th>
                                         <th class="text-center">Action</th>
+                                        <th class="text-center">SMS</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -145,6 +146,14 @@
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                         class="fa fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm align-top"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModalCenter{{ $statement->student->id }}"
+                                                    data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
+
+                                                @include('tenant.manage_statements.send_sms_modal')
                                             </td>
 
                                         </tr>
