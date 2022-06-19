@@ -114,10 +114,10 @@
                                 @include('include.messages')
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                {{-- <button type="button" class="btn btn-info" data-toggle="modal"
                                     data-target="#exampleModalLong">
                                     Apply Scholarship Rules and Instruction
-                                </button>
+                                </button> --}}
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"

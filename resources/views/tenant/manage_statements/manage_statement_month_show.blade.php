@@ -12,10 +12,13 @@
         tr td:last-child {
             /* width: 9%; */
             white-space: nowrap;
+        },
+        .no-wrap {
+            /* width: 9%; */
+            white-space: nowrap;
         }
-
         .color {
-            background: linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right,#21ba2b, #1244b0);
             color: white;
             font-weight: bold;
         }
@@ -93,6 +96,7 @@
                                         <th>Month</th>
                                         <th>Note</th>
                                         <th class="text-center">Action</th>
+                                        <th class="text-center">SMS</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -104,10 +108,10 @@
                                             {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') }}
                                         </td>
                                         <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approval_cost') }}
                                         </td>
                                         <td>
-                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approval_cost') }}
                                         </td>
                                         <td colspan="5"></td>
                                     </tr>
@@ -120,8 +124,8 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
-                                            <td>{{ $statement->approved_cost }}</td>
-                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount }}
+                                            <td>{{ $statement->approval_cost }}</td>
+                                            <td>{{ $statement->total = $statement->approval_cost + $statement->approved_amount }}
                                             </td>
 
                                             @php
@@ -135,7 +139,7 @@
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
-                                            <td>
+                                            <td class="no-wrap">
                                                 <a class="btn btn-sm btn-primary"
                                                     href="{{ route('manage_statement_details', $statement->id) }}"
                                                     data-toggle="tooltip" data-placement="top" title="View Details"><i
@@ -145,6 +149,14 @@
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                         class="fa fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm align-top"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModalCenter{{ $statement->student->id }}"
+                                                    data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
+
+                                                {{-- @include('tenant.manage_statements.send_sms_modal') --}}
                                             </td>
 
                                         </tr>
@@ -297,11 +309,17 @@
                     },
                     {
                         extend: 'print',
-                        footer: true
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8,9]
+                        }
                     },
                     {
                         extend: 'pdf',
-                        footer: true
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8,9]
+                        }
                     }
                 ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

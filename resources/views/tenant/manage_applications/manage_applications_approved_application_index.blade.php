@@ -20,7 +20,7 @@
         }
 
         .color {
-            background: linear-gradient(to right, #ec2F4B, #009FFF);
+            background: linear-gradient(to right, #21ba2b, #1244b0);
             color: white;
             font-weight: bold;
         }
@@ -97,8 +97,8 @@
                                             <td>{{ $approved_application->student->sid }}</td>
                                             <td>{{ $approved_application->student->phone }}</td>
                                             <td>{{ $approved_application->approved_amount }}</td>
-                                            <td>{{ $approved_application->approved_cost }}</td>
-                                            <td>{{ $approved_application->approved_amount + $approved_application->approved_cost }}
+                                            <td>{{ $approved_application->approval_cost }}</td>
+                                            <td>{{ $approved_application->approved_amount + $approved_application->approval_cost }}
                                             </td>
                                             <td>{{ $approved_application->account->account_title }}</td>
                                             @php
@@ -110,22 +110,14 @@
                                             <td class="no-wrap">
                                                 <a class="btn btn-primary btn-sm mb-2"
                                                     href="{{ route('manage_applications_profile', [$approved_application->student_id]) }}"
-                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>                                                
-                                                
-                                                
-                                                    <button type="button" class="btn btn-success btn-sm align-top"
-                                                        data-toggle="modal" data-target="#status_change_modal"
-                                                        data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
-                                                        data-placement="top"
-                                                        title="Change Status">SMS</button>
-
+                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
 
                                                 <a class="btn btn-success btn-sm"
-                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id,$approved_application->student_id]) }}"><i
+                                                    href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i
                                                         class="fas fa-info"></i> Details</a>
 
                                             </td>
-                                            <td class="">
+                                            <td class="no-wrap">
                                                 <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
                                                     class="btn btn-sm btn-warning mb-2" type="button"><i
                                                         class="fas fa-edit"></i>Edit</a><br>
@@ -138,10 +130,12 @@
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
-                                                {{-- <button type="submit" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#exampleModalCenter">Send SMS <span class="iconify-inline"
-                                                        data-icon="codicon:mail" style="color: rgb(255, 255, 255)"
-                                                        data-width="16"></span></button> --}}
+                                                <button type="button" class="btn btn-success btn-sm align-top"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModalCenter{{ $approved_application->student_id }}"
+                                                    data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
+
+                                                {{-- @include('tenant.manage_applications.send_sms_modal') --}}
                                             </td>
                                         </tr>
                                     @empty
@@ -157,86 +151,8 @@
         </div>
     </section>
 
-    {{-- ------------------------change status Modal---------------------------- --}}
-    <div class="modal fade" id="status_change_modal" tabindex="-1" aria-labelledby="status_change_modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-secondary" id="status_change_modal">ATTENTION!!</h5>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('send.sms.test') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient_name" name="recipient_name">
-                          </div>
-                          <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message_text" name="message_text"></textarea>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Send message</button>
-                          </div>
-                    </form>
-                </div>
-                
-
-            </div>
-        </div>
-    </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form method="post" action="{{ route('send_sms_test') }}">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            Send
-                            Message To
-                            <strong>{{ $approved_application->student->name }}</strong>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {{-- <form> --}}
-                        <div class="form-group row">
-                            <label for="inputPhone3" class="col-sm-1 col-form-label">To</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
-                                    name="recipient_phone" value="{{ $approved_application->student->phone }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Message
-                            </label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message_text" rows="3"></textarea>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            Discard
-                        </button>
-                        <button type="submit" class="btn btn-success">
-                            Send Message
-                        </button>
-                    </div>
-            </form>
-        </div>
-    </div>
 
 
 
@@ -274,22 +190,6 @@
 @endsection
 
 @section('extra_js')
-
-<script>
-    $('#status_change_modal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var recipient_name = button.data('recipient_name')
-        var message_text = button.data('message_text')
-        console.log(recipient_name);
-        // console.log(student_id);
-        // console.log(approved_app_id);
-        var modal = $(this)
-        modal.find('.modal-body #recipient_name').val(recipient_name)
-        modal.find('.modal-body #message_text').val(message_text)
-    })
-</script>
-
-
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
     {{-- ------------Change STATUS Script-------------- --}}
     <script>
@@ -349,7 +249,34 @@
                 "scrollX": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                // "buttons": ["copy", "excel", "pdf", "print"],
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },                    
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },
+                    // 'colvis'
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

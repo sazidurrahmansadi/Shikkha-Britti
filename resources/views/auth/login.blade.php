@@ -65,12 +65,12 @@
                                 </span>
                             @enderror
 
-                            <div class="create-btn">
+                            {{-- <div class="create-btn">
                                 <a href="{{route('password.request')}}" class="float-right">
                                     Forgot Password?
                                     <i class='bx bx-chevrons-right bx-fade-right'></i>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="signin-btn text-center">

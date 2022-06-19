@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Helpers\Helper;
+use App\Helpers\SMSHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
@@ -169,10 +170,10 @@ class ManageApplicationController extends Controller
             'student_id' => 'required',
             'scholarship_id' => 'required',
             'approved_amount' => 'required',
-            'approved_cost' => 'required',
+            'approval_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
-            'mentor_id' => 'required',
+            // 'mentor_id' => 'required',
             'pay_to' => 'required',
         ]);
 
@@ -197,9 +198,9 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
-        $approve->mentor_id = $request->mentor_id;
+        // $approve->mentor_id = $request->mentor_id;
         $approve->approved_amount = $request->approved_amount;
-        $approve->approved_cost = $request->approved_cost;
+        $approve->approval_cost = $request->approval_cost;
         $approve->from_date = $request->from_date;
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
@@ -326,5 +327,31 @@ class ManageApplicationController extends Controller
     }
 
 
-    
+    public function sendSingleSMS(Request $request)
+    {
+        // dd($request ->all());
+
+        $this->validate($request, [
+            // 'recipient_phone' => ['required', 'min:11'],
+            'message_text' => ['required'],
+        ]);
+
+        $number = $request->input('recipient_phone');
+        // $number = "1674084133";
+        // $phone_code = substr($recipient_phone, 0, 3);
+        // if ($phone_code != "+88") {
+        //     $number = "+88" . $recipient_phone;
+        // } else {
+        //     $number = $recipient_phone;
+        // }
+
+
+        $messageBody = $request->input('message_text');
+
+        $smsResponse = SMSHelper::singleSms($number, $messageBody);
+        // dd($smsResponse);
+
+        // return "SMS Sent successfully!";
+        return redirect()->back()->with('success', 'SMS has been sent successfully!');
+    }
 }
