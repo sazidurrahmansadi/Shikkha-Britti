@@ -22,6 +22,7 @@
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
                                 name="recipient_phone" value="{{ $statement->student->phone }}">
+                            <input type="hidden" name="page_from" value="monthly_statement">
                         </div>
                     </div>
                     <div class="form-group row">

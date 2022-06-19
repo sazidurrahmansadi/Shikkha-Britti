@@ -156,7 +156,7 @@
                                                     data-target="#exampleModalCenter{{ $statement->student->id }}"
                                                     data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
 
-                                                {{-- @include('tenant.manage_statements.send_sms_modal') --}}
+                                                @include('tenant.manage_statements.send_sms_modal')
                                             </td>
 
                                         </tr>

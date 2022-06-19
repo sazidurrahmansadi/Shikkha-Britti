@@ -352,6 +352,9 @@ class ManageApplicationController extends Controller
         // dd($smsResponse);
 
         // return "SMS Sent successfully!";
-        return redirect()->back()->with('success', 'SMS has been sent successfully!');
+        if ($request->page_from == "approved_page") {
+            return redirect()->back()->with('success', 'SMS has been sent successfully!');
+        } else
+            return redirect()->route('manage_monthly_statement_index')->with('success', 'SMS has been sent successfully!');
     }
 }
