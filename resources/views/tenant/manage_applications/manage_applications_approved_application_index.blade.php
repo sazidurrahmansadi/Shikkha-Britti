@@ -135,7 +135,7 @@
                                                     data-target="#exampleModalCenter{{ $approved_application->student_id }}"
                                                     data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
 
-                                                @include('tenant.manage_applications.send_sms_modal')
+                                                {{-- @include('tenant.manage_applications.send_sms_modal') --}}
                                             </td>
                                         </tr>
                                     @empty

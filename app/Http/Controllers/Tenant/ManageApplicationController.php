@@ -327,7 +327,7 @@ class ManageApplicationController extends Controller
     }
 
 
-    public function sendSMStest(Request $request)
+    public function sendSingleSMS(Request $request)
     {
         // dd($request ->all());
 

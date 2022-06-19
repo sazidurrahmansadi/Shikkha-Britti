@@ -2,7 +2,7 @@
  <div class="modal fade" id="exampleModalCenter{{ $approved_application->student_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <form method="post" action="{{ route('send_sms_test') }}">
+        <form method="post" action="{{ route('send_single_sms') }}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
