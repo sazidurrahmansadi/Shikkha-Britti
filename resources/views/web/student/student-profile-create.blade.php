@@ -587,7 +587,6 @@
                                         {{-- <button type="submit" class="account-btn">Edit</button> --}}
                                         {{-- <button type="submit" class="account-btn">Save</button> --}}
                                     </div>
-                                </div>
 
                                 <a href="javascript:void(0);" class="add_button" title="Add Achievements"><i
                                         class="bx bx-plus">Add Achievements</i></a>
