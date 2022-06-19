@@ -22,6 +22,7 @@
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
                                 name="recipient_phone" value="{{ $approved_application->student->phone }}">
+                            <input type="hidden" name="page_from" value="approved_page">
                         </div>
                     </div>
                     <div class="form-group row">
