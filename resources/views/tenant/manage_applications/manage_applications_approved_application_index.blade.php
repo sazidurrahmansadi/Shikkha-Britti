@@ -130,10 +130,10 @@
                                                         class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
-                                                {{-- <button type="submit" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#exampleModalCenter">Send SMS <span class="iconify-inline"
+                                                <button type="submit" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#exampleModalCenter{{ $approved_application->student_id }}">Send SMS <span class="iconify-inline"
                                                         data-icon="codicon:mail" style="color: rgb(255, 255, 255)"
-                                                        data-width="16"></span></button> --}}
+                                                        data-width="16"></span></button>
                                             </td>
                                         </tr>
                                     @empty
@@ -151,7 +151,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    <div class="modal fade" id="exampleModalCenter{{ $approved_application->student_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form method="post" action="{{ route('send_sms_test') }}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Helpers\Helper;
+use App\Helpers\SMSHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
@@ -328,29 +329,27 @@ class ManageApplicationController extends Controller
 
     public function sendSMStest(Request $request)
     {
-
         // dd($request ->all());
 
-
         $this->validate($request, [
-            'recipient_phone' => ['required', 'min:11'],
+            // 'recipient_phone' => ['required', 'min:11'],
+            'message_text' => ['required'],
         ]);
 
-        // $phone = $request->input('recipient_phone');
-        $number = "01674084133";
-        $phone_code = substr($number, 0, 3);
-        if ($phone_code != "+88") {
-            $contracts = "+88" . $number;
-        } else {
-            $contracts = $number;
-        }
-        // dd($contracts);
+        $number = $request->input('recipient_phone');
+        // $number = "1674084133";
+        // $phone_code = substr($recipient_phone, 0, 3);
+        // if ($phone_code != "+88") {
+        //     $number = "+88" . $recipient_phone;
+        // } else {
+        //     $number = $recipient_phone;
+        // }
 
 
         $messageBody = $request->input('message_text');
 
-        $smsResponse = Helper::singleSms($contracts, $messageBody);
-        // dd($smsResponse);
+        $smsResponse = SMSHelper::singleSms($number, $messageBody);
+        dd($smsResponse);
 
 
         return "SMS Sent successfully!";
