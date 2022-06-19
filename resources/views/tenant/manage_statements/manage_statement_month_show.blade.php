@@ -104,10 +104,10 @@
                                             {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') }}
                                         </td>
                                         <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                            {{ $totalAmount = DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approval_cost') }}
                                         </td>
                                         <td>
-                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_cost') }}
+                                            {{ $totalAmount =DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approved_amount') +DB::table('monthly_statements')->where('month_year', $month_year)->get()->sum('approval_cost') }}
                                         </td>
                                         <td colspan="5"></td>
                                     </tr>
@@ -120,8 +120,8 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
-                                            <td>{{ $statement->approved_cost }}</td>
-                                            <td>{{ $statement->total = $statement->approved_cost + $statement->approved_amount }}
+                                            <td>{{ $statement->approval_cost }}</td>
+                                            <td>{{ $statement->total = $statement->approval_cost + $statement->approved_amount }}
                                             </td>
 
                                             @php

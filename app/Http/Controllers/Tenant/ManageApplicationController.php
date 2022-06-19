@@ -170,10 +170,10 @@ class ManageApplicationController extends Controller
             'student_id' => 'required',
             'scholarship_id' => 'required',
             'approved_amount' => 'required',
-            'approved_cost' => 'required',
+            'approval_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
-            'mentor_id' => 'required',
+            // 'mentor_id' => 'required',
             'pay_to' => 'required',
         ]);
 
@@ -198,9 +198,9 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
-        $approve->mentor_id = $request->mentor_id;
+        // $approve->mentor_id = $request->mentor_id;
         $approve->approved_amount = $request->approved_amount;
-        $approve->approved_cost = $request->approved_cost;
+        $approve->approval_cost = $request->approval_cost;
         $approve->from_date = $request->from_date;
         $approve->to_date = $request->to_date;
         $approve->approval_date = now();
@@ -349,9 +349,9 @@ class ManageApplicationController extends Controller
         $messageBody = $request->input('message_text');
 
         $smsResponse = SMSHelper::singleSms($number, $messageBody);
-        dd($smsResponse);
+        // dd($smsResponse);
 
-
-        return "SMS Sent successfully!";
+        // return "SMS Sent successfully!";
+        return redirect()->back()->with('success', 'SMS has been sent successfully!');
     }
 }

@@ -124,8 +124,8 @@
                                             <td>{{ $statement->student->sid }}</td>
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
-                                            <td>{{ $statement->approved_cost }}</td>
-                                            <td>{{ $statement->approved_amount + $statement->approved_cost }}</td>
+                                            <td>{{ $statement->approval_cost }}</td>
+                                            <td>{{ $statement->approved_amount + $statement->approval_cost }}</td>
                                             {{-- <td>{{ $statement->account->account_title }}</td> --}}
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
