@@ -117,7 +117,7 @@
                                                         class="fas fa-info"></i> Details</a>
 
                                             </td>
-                                            <td class="">
+                                            <td class="no-wrap">
                                                 <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
                                                     class="btn btn-sm btn-warning mb-2" type="button"><i
                                                         class="fas fa-edit"></i>Edit</a><br>
@@ -127,7 +127,7 @@
                                                     data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
                                                     data-student_id_u="{{ $approved_application->student_id }}"
                                                     data-approved_app_id_u="{{ $approved_application->id }}"><i
-                                                        class="fa fa-trash">Delete</i></a>
+                                                        class="fa fa-trash"></i> Delete</a>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm align-top"
@@ -249,7 +249,34 @@
                 "scrollX": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                // "buttons": ["copy", "excel", "pdf", "print"],
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },                    
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },
+                    // 'colvis'
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });
