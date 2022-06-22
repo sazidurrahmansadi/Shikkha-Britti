@@ -2,7 +2,7 @@
  <div class="modal fade" id="exampleModalCenter{{ $approved_application->student_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <form method="post" action="{{ route('send_sms_test') }}">
+        <form method="post" action="{{ route('send_single_sms') }}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -22,6 +22,7 @@
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
                                 name="recipient_phone" value="{{ $approved_application->student->phone }}">
+                            <input type="hidden" name="page_from" value="approved_page">
                         </div>
                     </div>
                     <div class="form-group row">

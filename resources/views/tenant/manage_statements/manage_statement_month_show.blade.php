@@ -12,8 +12,11 @@
         tr td:last-child {
             /* width: 9%; */
             white-space: nowrap;
+        },
+        .no-wrap {
+            /* width: 9%; */
+            white-space: nowrap;
         }
-
         .color {
             background: linear-gradient(to right,#21ba2b, #1244b0);
             color: white;
@@ -136,7 +139,7 @@
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
-                                            <td>
+                                            <td class="no-wrap">
                                                 <a class="btn btn-sm btn-primary"
                                                     href="{{ route('manage_statement_details', $statement->id) }}"
                                                     data-toggle="tooltip" data-placement="top" title="View Details"><i
@@ -306,11 +309,17 @@
                     },
                     {
                         extend: 'print',
-                        footer: true
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8,9]
+                        }
                     },
                     {
                         extend: 'pdf',
-                        footer: true
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8,9]
+                        }
                     }
                 ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

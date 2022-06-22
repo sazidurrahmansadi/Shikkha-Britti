@@ -174,4 +174,4 @@ Route::POST('/manage-monthly-statement-date-search', [ManageMonthlyStatementCont
 
 
 // send sms test
-Route::POST('/sendSMStest', [ManageApplicationController::class, 'sendSMStest'])->name('send_sms_test')->middleware('auth');
+Route::POST('/sendSingleSMS', [ManageApplicationController::class, 'sendSingleSMS'])->name('send_single_sms')->middleware('auth');
