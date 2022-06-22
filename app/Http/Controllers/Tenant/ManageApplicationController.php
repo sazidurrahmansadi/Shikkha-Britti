@@ -279,7 +279,7 @@ class ManageApplicationController extends Controller
     {
         $this->validate($request, [
             'approved_amount' => 'required',
-            'approved_cost' => 'required',
+            'approval_cost' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
         ]);
@@ -292,7 +292,7 @@ class ManageApplicationController extends Controller
         $approved_application = ApprovedApplication::find($request->approved_app_id);
 
         $approved_application->approved_amount = $request->approved_amount;
-        $approved_application->approved_cost = $request->approved_cost;
+        $approved_application->approval_cost = $request->approval_cost;
         $approved_application->from_date = $request->from_date;
         $approved_application->to_date = $request->to_date;
         $approved_application->save();
@@ -349,7 +349,7 @@ class ManageApplicationController extends Controller
         $messageBody = $request->input('message_text');
 
         $smsResponse = SMSHelper::singleSms($number, $messageBody);
-        // dd($smsResponse);
+        dd($smsResponse);
 
         // return "SMS Sent successfully!";
         if ($request->page_from == "approved_page") {
