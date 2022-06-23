@@ -45,7 +45,8 @@
                 <div class="card card-body">
                     <form method="post" action="{{ route('manage_applications_approved_update') }}">
                         @csrf
-                        <input type="hidden" class="form-control" name="approved_app_id" value="{{ $approved_application->id }}">
+                        <input type="hidden" class="form-control" name="approved_app_id"
+                            value="{{ $approved_application->id }}">
 
                         <div class="card-body">
                             <div class="form-group">
@@ -62,8 +63,7 @@
 
                             <div class="form-group">
                                 <label for="cost">Charge(Tk.)</label>
-                                <input type="number" class="form-control" id="approved_cost" name="approved_cost"
-                                    placeholder="Enter charge Tk." value="{{ $approved_application->approved_cost }}">
+                                <input type="number" class="form-control" id="approval_cost" name="approval_cost" placeholder="Enter charge Tk." value="{{ $approved_application->approval_cost }}">
                             </div>
 
 
