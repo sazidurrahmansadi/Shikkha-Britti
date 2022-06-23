@@ -92,6 +92,7 @@ class ManageMonthlyStatementController extends Controller
         ]);
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -132,12 +133,14 @@ class ManageMonthlyStatementController extends Controller
         // dd($request->all());
         $this->validate($request, [
             'approved_amount' => 'required',
+            'approval_cost' => 'required',
             'payment_status' => 'required',
         ]);
 
         $statement = MonthlyStatement::find($request->statement_id);
 
         $statement->approved_amount = $request->approved_amount;
+        $statement->approval_cost = $request->approval_cost;
         $statement->status = $request->payment_status;
         $statement->note = $request->note;
         $statement->save();
@@ -209,4 +212,67 @@ class ManageMonthlyStatementController extends Controller
             'month_year' => $request->month_year,
         ])->with('success', 'Payment Status updated successfully');
     }
+
+
+    public function date_range_search(){
+      
+
+        $students = Account::all();
+
+        $account_details = Account::all();
+       
+        $mentors = Mentor::with('mentor_active_account', 'user')->get();
+        $payees = Account::payees;
+        $scholarships = Scholarship::all()->where('is_delete', 0);
+        return view('tenant.manage_statements.manage_statement_date_search', [
+            'scholarships' => $scholarships,
+            'payees' => $payees,
+            'students' => $students,
+            'mentors' => $mentors,
+            'account_details' => $account_details,
+        ]);
+    
+    }
+
+    public function date_range_search_show(Request $request){
+
+        $scholarship_id = $request->input('scholarship_id');
+        $fromDate = $request->input('fromDate');
+        $toDate = $request->input('toDate');
+
+        $query = DB::table('monthly_statements')->select()
+            ->where('month_year', '>=', $fromDate)
+            ->where('month_year', '<=', $toDate)
+            ->get();
+
+        $scholarships=Scholarship::all();
+        $statements = MonthlyStatement::where('scholarship_id', $scholarship_id)->where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
+        return view('tenant.manage_statements.manage_statement_date_search_show', compact('statements','toDate', 'fromDate'));
+        
+    }
+
+
+    // public function date_range_search(Request $request){
+
+    //     $scholarship_id = $request->input('scholarship_id');
+
+    //     $fromDate = $request->input('fromDate');
+    //     $toDate = $request->input('toDate');
+       
+    //     $query = DB::table('monthly_statements')->select()
+    //         ->where('month_year', '>=', $fromDate)
+    //         ->where('month_year', '<=', $toDate)
+    //         ->get();
+
+    //     // $query = DB::select("SELECT * FROM monthly_statements WHERE month_year BETWEEN '$fromDate' AND '$toDate'");
+
+    //     // dd($query);
+        
+        
+       
+    //     // $mentors = Mentor::with('mentor_active_account', 'user')->get();
+    //     $statements = MonthlyStatement::where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
+    //     return view('tenant.manage_statements.manage_statement_show', compact('statements',  'query'));
+    
+    // }
 }

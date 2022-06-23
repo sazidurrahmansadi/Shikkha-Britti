@@ -45,7 +45,8 @@
                 <div class="card card-body">
                     <form method="post" action="{{ route('manage_applications_approved_update') }}">
                         @csrf
-                        <input type="hidden" class="form-control" name="approved_app_id" value="{{ $approved_application->id }}">
+                        <input type="hidden" class="form-control" name="approved_app_id"
+                            value="{{ $approved_application->id }}">
 
                         <div class="card-body">
                             <div class="form-group">
