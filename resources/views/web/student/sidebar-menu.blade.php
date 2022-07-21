@@ -246,6 +246,17 @@
                         Accounts
                     </a>
                 </li>
+
+                <li>
+                  <div>
+                  <a href="{{ route('student_statement_view_index', ['student_id' => $student_data->id]) }}"
+                      class="{{ \Request::route()->getName() == 'student_statement_view_index' ? 'active' : '' }}">
+                      <i class='nav-icon fas fa-address-card'></i>
+                      Statement View
+                  </a>
+                  </div>
+                </li>
+                
                 {{-- @endif --}}
             @endrole
 

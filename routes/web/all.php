@@ -5,6 +5,7 @@ use App\Http\Controllers\Student\RegisterStudentController;
 use App\Http\Controllers\Student\StudentDocumentController;
 use App\Http\Controllers\Student\StudentApplicationController;
 use App\Http\Controllers\Student\StudentAccountController;
+use App\Http\Controllers\Student\StudentStatementController;
 use App\Http\Controllers\Web\ScholarshipApplicationController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -51,3 +52,5 @@ Route::POST('/student/student-account-store', [StudentAccountController::class, 
 Route::GET('/student/student-account-edit/{account_id}', [StudentAccountController::class, 'edit'])->name('student_account_edit');
 Route::POST('/student/student-account-update', [StudentAccountController::class, 'update'])->name('student_account_update')->middleware('auth');
 
+Route::GET('/student/student-statement-view-index/{student_id}',[StudentStatementController::class, 'index'])->name('student_statement_view_index')->middleware('auth');
+Route::GET('/student/student-statement-view-show/{student_id}/{scholarship_id}',[StudentStatementController::class, 'show'])->name('student_statement_view_show')->middleware('auth');

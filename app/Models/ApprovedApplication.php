@@ -15,6 +15,11 @@ class ApprovedApplication extends Model
         return $this->belongsTo(Student::class);
     }
 
+    public function scholarship()
+    {
+        return $this->belongsTo(Scholarship::class);
+    }
+
     public function account()
     {
         return $this->belongsTo(Account::class);
