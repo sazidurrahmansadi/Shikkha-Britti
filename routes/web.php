@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommonControllers\DashboardController;
 use App\Http\Controllers\CommonControllers\EditProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ManageDonorController;
 use App\Http\Controllers\Tenant\ManageApplicationController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
@@ -142,6 +143,19 @@ Route::POST('/manage-applications-approved-update', [ManageApplicationController
 -----------------------------------------------------------
 */
 Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
+
+
+
+/*
+-----------------------------------------------------------
+ ==== Manage Donor Account Here  ===
+-----------------------------------------------------------
+*/
+
+Route::GET('/donor_reg', [ManageDonorController::class,'donor_reg'])->name('donor_reg');
+Route::POST('/manage-donor-accounts-store', [ManageDonorController::class, 'store'])->name('manage_donor_accounts_store')->middleware('auth');
+
+
 
 /*
 -----------------------------------------------------------
