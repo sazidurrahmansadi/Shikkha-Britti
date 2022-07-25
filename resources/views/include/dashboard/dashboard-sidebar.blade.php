@@ -52,14 +52,55 @@
                         </a>
                     </li>
                 @endcan
+                <li class="nav-item">
+                    <a href="{{ route('manage_students.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>
+                            Student List
+                        </p>
+                    </a>
+                </li>
                 @can('superadmin-can')
                     <li class="nav-item">
                         <a href="{{ route('manage_tenants.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-user-check"></i>
+                            <i class="nav-icon fas fa-building"></i>
                             <p>
                                 Manage Tenants
                             </p>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Manage Grantors
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('manage_grantors.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Add New Grantor</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Grantor List</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Grantor Request</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 @endcan
                 @can('role-list')
