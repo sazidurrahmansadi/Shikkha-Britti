@@ -60,7 +60,7 @@ class ManageDonorController extends Controller
         // $role->givePermissionTo($permission);
         // $user->assignRole($role);
 
-        return redirect()->route('manage_donor_registration')
+        return redirect()->route('donor_reg')
             ->with('success', 'Registration successfully done');
     }
 

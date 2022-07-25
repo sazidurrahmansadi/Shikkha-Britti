@@ -143,9 +143,9 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Register as a Donor</h3>
-                        <form action="" method="POST">
+                        <form action="{{ route('manage_donor_accounts_store') }}" method="POST">
 
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            @csrf
                             <div class="row register-form">
                                 <div class="col-md-6">
                                     <div class="form-group">
