@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApprovedApplication;
 use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class ManageMentorController extends Controller
 {
@@ -122,6 +123,24 @@ class ManageMentorController extends Controller
         return redirect()->route('manage_mentors.show',$id)
         ->with('success','Mentor data updated successfully');
     }
+
+
+    public function students(Request $request)
+    {
+
+        $mentor_id = $request->mentor_id
+;
+        $query = DB::table('approved_applications')->select()
+            ->where('mentor_id', '=', $mentor_id)
+            ->get();
+
+        // $students = ApprovedApplication::where('mentor_id', '=',  $mentor_id)->get();
+
+        
+        dd($query);
+        return view('tenant.manage_mentors.manage_student_list', compact('students','query'));
+    }
+
 
     /**
      * Remove the specified resource from storage.

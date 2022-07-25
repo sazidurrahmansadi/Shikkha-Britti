@@ -50,7 +50,7 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Mentor List</h1>
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Grantor List</h1>
                                     <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i class="fa fa-backward"></i>Dashboard
                                 </a>
                                 </div>
@@ -70,44 +70,44 @@
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
-                                        <th>Mentor's Name</th>
+                                        <th>Grantor's Name</th>
                                         <th>Phone</th>
                                         <th>Address</th>
-                                        <th>Account Info</th>
-                                        <th>Action</th>
-                                        <th>View Student</th>
+                                        {{-- <th>Account Info</th> --}}
+                                        {{-- <th>Action</th>
+                                        <th>View Student</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($mentors as $mentor)
+                                    @forelse($grantors as $grantor)
 
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $mentor->user->name }}</td>
-                                            <td>{{ $mentor->user->phone }}</td>
-                                            <td>{{ $mentor->address }}</td>
-                                            <td>{{ $mentor->mentor_active_account !=null ? $mentor->mentor_active_account->account_type : "No Account Found"}}
-                                                @if($mentor->mentor_active_account)
-                                                <br>A/C: {{$mentor->mentor_active_account->account_number??null}}
+                                            <td>{{ $grantor->user->name }}</td>
+                                            <td>{{ $grantor->user->phone }}</td>
+                                            <td>{{ $grantor->address }}</td>
+                                            {{-- <td>{{ $grantor->grantor_active_account !=null ? $grantor->grantor_active_account->account_type : "No Account Found"}}
+                                                @if($grantor->grantor_active_account)
+                                                <br>A/C: {{$grantor->grantor_active_account->account_number??null}}
                                                 @endif
 
-                                            </td>   
+                                            </td>    --}}
 
                                             
-                                            <td class="text-center">
-                                                <a class="btn btn-sm btn-success" href="{{ route('manage_mentors.show',$mentor->id) }}" data-toggle="tooltip"
+                                            {{-- <td class="text-center">
+                                                <a class="btn btn-sm btn-success" href="{{ route('manage_grantors.show',$grantor->id) }}" data-toggle="tooltip"
                                                     data-placement="top" title="View"><i class="fa fa-eye"></i> View</a>
 
-                                                    @if($mentor->mentor_active_account)
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_mentor_accounts_details',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
+                                                    @if($grantor->grantor_active_account)
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_grantor_accounts_details',$grantor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
                                                     @else 
-                                                    <a class="btn btn-sm btn-warning" href="{{ route('manage_mentor_accounts_create',$mentor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('manage_grantor_accounts_create',$grantor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
                                                     @endif
                                             </td>
                                             <td><a class="btn btn-primary btn-sm"
                                                 href="{{ route('manage_student_list') }}"
                                                 role="button">View All</a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @empty
                                     @endforelse
@@ -133,7 +133,7 @@
                     {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_status_change') }}" method="POST">
+                    <form action="#" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-edit fa-4x text-warning" aria-hidden="true"></i>
@@ -163,7 +163,7 @@
                     {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_delete') }}" method="POST">
+                    <form action="#" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-trash fa-4x text-danger" aria-hidden="true"></i>
