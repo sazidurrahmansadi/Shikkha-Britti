@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateApprovedApplicationsTable extends Migration
+class CreateGrantorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class UpdateApprovedApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('approved_applications', function (Blueprint $table) {
-            $table->double('approval_cost')->nullable()->after('approved_amount');
-            $table->integer('mentor_id')->nullable()->after('student_id');
-
+        Schema::create('grantors', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('tenant_id')->nullable()->constrained();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +27,6 @@ class UpdateApprovedApplicationsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('grantors');
     }
 }

@@ -10,8 +10,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommonControllers\DashboardController;
 use App\Http\Controllers\CommonControllers\EditProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ManageDonorController;
 use App\Http\Controllers\Tenant\ManageApplicationController;
+use App\Http\Controllers\Tenant\ManageDonorController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
 use App\Http\Controllers\Tenant\ManageMentorController;
@@ -99,7 +99,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_permissions', ManagePermissionsController::class);
     Route::resource('manage_tenants', ManageTenantsController::class);
     Route::resource('manage_mentors', ManageMentorController::class);
-    Route::resource('manage_grantors', ManageGrantorsController::class);
+    Route::resource('manage_donors', ManageDonorController::class);
 });
 
 Route::POST('/manage-students-index', [ManageStudentsController::class, 'manage_students_info'])->name('manage_students_index')->middleware('auth');
@@ -158,7 +158,8 @@ Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::cl
 
 Route::GET('/donor_reg', [ManageDonorController::class,'donor_reg'])->name('donor_reg');
 Route::POST('/manage-donor-accounts-store', [ManageDonorController::class, 'store'])->name('manage_donor_accounts_store')->middleware('auth');
-
+Route::GET('/manage-donors-create', [ManageDonorController::class,'create'])->name('manage_donors_create')->middleware('auth');
+Route::POST('/manage-donor-store', [ManageDonorController::class, 'store'])->name('manage_donor_store')->middleware('auth');
 
 
 /*

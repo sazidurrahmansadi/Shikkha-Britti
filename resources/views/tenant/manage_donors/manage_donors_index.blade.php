@@ -50,7 +50,7 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Grantor List</h1>
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Donor List</h1>
                                     <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i class="fa fa-backward"></i>Dashboard
                                 </a>
                                 </div>
@@ -70,7 +70,7 @@
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
-                                        <th>Grantor's Name</th>
+                                        <th>Donor's Name</th>
                                         <th>Phone</th>
                                         <th>Address</th>
                                         {{-- <th>Account Info</th> --}}
@@ -79,29 +79,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($grantors as $grantor)
+                                    @forelse($donors as $donor)
 
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $grantor->user->name }}</td>
-                                            <td>{{ $grantor->user->phone }}</td>
-                                            <td>{{ $grantor->address }}</td>
-                                            {{-- <td>{{ $grantor->grantor_active_account !=null ? $grantor->grantor_active_account->account_type : "No Account Found"}}
-                                                @if($grantor->grantor_active_account)
-                                                <br>A/C: {{$grantor->grantor_active_account->account_number??null}}
+                                            <td>{{ $donor->user->name }}</td>
+                                            <td>{{ $donor->user->phone }}</td>
+                                            <td>{{ $donor->address }}</td>
+                                            {{-- <td>{{ $donor->donor_active_account !=null ? $donor->donor_active_account->account_type : "No Account Found"}}
+                                                @if($donor->donor_active_account)
+                                                <br>A/C: {{$donor->donor_active_account->account_number??null}}
                                                 @endif
 
                                             </td>    --}}
 
                                             
                                             {{-- <td class="text-center">
-                                                <a class="btn btn-sm btn-success" href="{{ route('manage_grantors.show',$grantor->id) }}" data-toggle="tooltip"
+                                                <a class="btn btn-sm btn-success" href="{{ route('manage_donors.show',$donor->id) }}" data-toggle="tooltip"
                                                     data-placement="top" title="View"><i class="fa fa-eye"></i> View</a>
 
-                                                    @if($grantor->grantor_active_account)
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_grantor_accounts_details',$grantor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
+                                                    @if($donor->donor_active_account)
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('manage_donor_accounts_details',$donor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Manage Account</a>
                                                     @else 
-                                                    <a class="btn btn-sm btn-warning" href="{{ route('manage_grantor_accounts_create',$grantor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('manage_donor_accounts_create',$donor->id) }}" data-toggle="tooltip" data-placement="top" title="Account"><i class="fas fa-university"></i> Create Account</a>
                                                     @endif
                                             </td>
                                             <td><a class="btn btn-primary btn-sm"

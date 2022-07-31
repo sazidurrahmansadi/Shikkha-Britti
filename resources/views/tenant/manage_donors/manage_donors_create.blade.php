@@ -27,7 +27,7 @@
                         <div class="col-md-12 mt-lg-4 mt-4">
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Add New Grantor</h1>
+                                <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Add New Donor</h1>
                                 <a href="{{ route('dashboard') }}"
                                     class="d-sm-inline-block btn-sm btn-danger shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
@@ -43,15 +43,14 @@
             <!-- column -->
             <div class="col-md-12 mt-4">
                 <div class="card card-body">
-                    <form method="post" action="#">  
-                        {{-- {{ route('manage_grantors.store')}} --}}
+                    <form method="post" action="{{ route('manage_donor_store')}}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Grantor Name<span
+                                <label for="name">Donor Name<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter Grantor Name" required>
+                                    placeholder="Enter Donor Name" required>
                             </div>
 
                             <!-- select -->
@@ -60,6 +59,21 @@
                                 <input type="phone" pattern="[0]+[1]+[7/8/9/6/5/4/3]+[0-9]{8}" name="phone"
                                             class="form-control" placeholder="Enter Valid Phone Number" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="email">Email<span
+                                        class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter Email Address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">Country of Residence<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="country" name="country"
+                                    placeholder="Enter Country Name" required>
+                            </div>
+                            
 
                             <div class="form-group">
                                 <label for="password">Password <span class="text-danger font-weight-bold">*</span></label>
