@@ -17,14 +17,12 @@ class CreateDonorsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreignId('tenant_id')->nullable()->constrained();
-            $table->string('dob')->nullable();
             $table->string('address')->nullable();
             $table->string('occupation')->nullable();
             $table->string('company')->nullable();
             $table->string('position')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
