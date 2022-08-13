@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ManageGrantorsController;
 use App\Http\Controllers\Admin\ManagePermissionsController;
 use App\Http\Controllers\Admin\ManageRolesController;
+use App\Http\Controllers\Admin\ManageStudentsController;
 use App\Http\Controllers\Admin\ManageTenantsController;
 use App\Http\Controllers\Admin\ManageUsersController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\CommonControllers\DashboardController;
 use App\Http\Controllers\CommonControllers\EditProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Tenant\ManageApplicationController;
+use App\Http\Controllers\Tenant\ManageDonorController;
 use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
 use App\Http\Controllers\Tenant\ManageMentorController;
@@ -92,12 +95,14 @@ Route::POST('/update-user-other-info',[EditProfileController::class, 'update_use
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('manage_roles', ManageRolesController::class);
     Route::resource('manage_users', ManageUsersController::class);
+    Route::resource('manage_students', ManageStudentsController::class);
     Route::resource('manage_permissions', ManagePermissionsController::class);
     Route::resource('manage_tenants', ManageTenantsController::class);
     Route::resource('manage_mentors', ManageMentorController::class);
+    Route::resource('manage_donors', ManageDonorController::class);
 });
 
-
+Route::POST('/manage-students-index', [ManageStudentsController::class, 'manage_students_info'])->name('manage_students_index')->middleware('auth');
 Route::POST('/manage-mentors-update/{id}', [ManageMentorController::class, 'update'])->name('manage_mentors_update')->middleware('auth');
 
 
@@ -143,6 +148,20 @@ Route::POST('/manage-applications-approved-update', [ManageApplicationController
 */
 Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
 
+
+
+/*
+-----------------------------------------------------------
+ ==== Manage Donor Account Here  ===
+-----------------------------------------------------------
+*/
+
+Route::GET('/donor_reg', [ManageDonorController::class,'donor_reg'])->name('donor_reg');
+Route::POST('/manage-donor-accounts-store', [ManageDonorController::class, 'store'])->name('manage_donor_accounts_store')->middleware('auth');
+Route::GET('/manage-donors-create', [ManageDonorController::class,'create'])->name('manage_donors_create')->middleware('auth');
+Route::POST('/manage-donor-store', [ManageDonorController::class, 'store'])->name('manage_donor_store')->middleware('auth');
+
+
 /*
 -----------------------------------------------------------
  ==== Manage Mentor Account Here  ===
@@ -153,6 +172,8 @@ Route::POST('/manage-mentor-accounts-store', [ManageMentorAccountController::cla
 Route::GET('/manage-mentor-accounts-details/{mentor_id}', [ManageMentorAccountController::class, 'show'])->name('manage_mentor_accounts_details')->middleware('auth');
 Route::GET('/manage-mentor-accounts-edit/{account_id}', [ManageMentorAccountController::class, 'edit'])->name('manage_mentor_accounts_edit')->middleware('auth');
 Route::POST('/manage-mentor-accounts-update', [ManageMentorAccountController::class, 'update'])->name('manage_mentor_accounts_update')->middleware('auth');
+Route::GET('/manage-student-list', [ManageMentorController::class, 'students'])->name('manage_student_list')->middleware('auth');
+
 
 /*
 -----------------------------------------------------------

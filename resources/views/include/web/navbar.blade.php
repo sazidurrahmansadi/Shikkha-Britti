@@ -39,7 +39,13 @@
                             class="{{ \Request::route()->getName() == 'contact_us' ? 'nav-link active' : 'nav-link' }}">Contact Us</a>
                         </li>
 
+
                         @guest
+                        <li class="nav-item">
+                            <a href="{{ route('donor_reg') }}"
+                            class="{{ \Request::route()->getName() == 'donor_reg' ? 'nav-link active' : 'nav-link' }}">Donor</a>
+                        </li>
+                        
                         <li class="nav-item d-md-block d-lg-none">
                             <a href="#" class="nav-link dropdown-toggle"><b>Account</b></a>
                             <ul class="dropdown-menu">

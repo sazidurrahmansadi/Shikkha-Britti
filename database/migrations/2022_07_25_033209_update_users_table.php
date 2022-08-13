@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestStudentsTable extends Migration
+class UpdateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTestStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('test_students', function (Blueprint $table) {
-            $table->id();
-            $table->string('Name');
-            $table->string('Profession');
-            $table->integer('age');
-            $table->timestamps();
+        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('u_type')->nullable()->after('phone');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateTestStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_students');
+        //
     }
 }
