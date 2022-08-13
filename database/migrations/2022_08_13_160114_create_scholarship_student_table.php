@@ -17,6 +17,7 @@ class CreateScholarshipStudentTable extends Migration
             $table->foreignId('student_id')->references('id')->on('students');
             $table->foreignId('scholarship_id')->references('id')->on('scholarships');
             $table->boolean('is_approve')->default(0);
+            $table->boolean('is_review')->default(0);
         });
     }
 

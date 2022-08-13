@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
 use App\Models\Mentor;
+use App\Models\ReviewedApplication;
 use App\Models\Scholarship;
 use App\Models\Student;
 use App\Scopes\TenantScope;
@@ -357,4 +358,49 @@ class ManageApplicationController extends Controller
         } else
             return redirect()->route('manage_monthly_statement_index')->with('success', 'SMS has been sent successfully!');
     }
+
+    public function review_student(Request $request, $scholarship_id, $student_id)
+    {
+        $scholarship_data= Scholarship::find($scholarship_id);
+        $student_data = Student::find($student_id);
+        $applied_students = $scholarship_data->students;
+       
+        $review = new ReviewedApplication();
+        $review->student_id = $request->student_id;
+        $review->scholarship_id = $request->scholarship_id;
+        $review->review_date = now();
+        $review->reviewed_by = Auth::user()->name;
+       
+        $review->save();
+
+        $student = Student::find($request->student_id);
+        $student->scholarships()->detach($request->scholarship_id);
+        $student->scholarships()->attach($request->scholarship_id, [
+            'is_review' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Application reviewed successfully');
+    }
+
+    public function reviewed_index()
+    {
+        $scholarships = Scholarship::where('is_delete', 0)->get();
+        return view('tenant.manage_applications.manage_reviewed_application_index', [
+            'scholarships' => $scholarships,
+        ]);
+    }
+
+    public function reviewed_applicaions($scholarship_id)
+    {
+        $scholarship = Scholarship::find($scholarship_id);
+        $reviewed_applicaions = ReviewedApplication::where('scholarship_id', $scholarship_id)->get();
+        $applied_students = $scholarship->students;
+       
+        return view('tenant.manage_applications.manage_reviewed_applications', [
+            'reviewed_applicaions' => $reviewed_applicaions,
+            'applied_students' => $applied_students,
+        ]);
+    }
+
 }
+

@@ -14,12 +14,16 @@
             white-space: nowrap;
         }
 
+        .no-wrap {
+            /* width: 9%; */
+            white-space: nowrap;
+        }
+
         .color {
             background: linear-gradient(to right, #21ba2b, #1244b0);
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -50,7 +54,8 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Application List</h1>
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Reviewed Application List
+                                    </h1>
                                 </div>
                             </div>
                             <!-- title -->
@@ -66,81 +71,61 @@
                         <div class="card-body">
 
                             <table id="example1" class="table table-bordered table-striped">
+
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
                                         <th>Applicant Name</th>
                                         <th>Student ID</th>
                                         <th>Phone</th>
-                                        <th>Email</th>
-                                        <th>Approval</th>
-                                        <th>Status</th>
-                                        {{-- <th>Reference</th> --}}
-                                        <th class="text-center">View/Action</th>
-                                        {{-- <th>Action</th> --}}
+                                        <th>Reviewed By</th>
+                                        {{-- <th>Approval</th> --}}
+                                        <th class="text-center">View</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($applied_students as $applied_student)
+                                    @forelse($reviewed_applicaions as $reviewed_applicaion)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $applied_student->name }}</td>
-                                            <td>{{ $applied_student->sid }}</td>
-                                            <td>{{ $applied_student->phone }}</td>
-                                            <td>{{ $applied_student->email }}</td>
+                                            <td>{{ $reviewed_applicaion->student->name }}</td>
+                                            <td>{{ $reviewed_applicaion->student->sid }}</td>
+                                            <td>{{ $reviewed_applicaion->student->phone }}</td>
+                                            <td>{{ $reviewed_applicaion->reviewed_by }}</td>
 
-                                            <td class="text-center">
-                                                @if ($applied_student->pivot->is_approve == 1)
-                                                    <h5><span class="badge badge-success">Approved</span></h5>
-
-                                                @else
-
-                                                    <a class="btn btn-info btn-sm"
-                                                        href="{{ route('manage_applications', [$scholarship_id, $applied_student->id]) }}"
-                                                        role="button">Approve</a>
-                                                @endif
-                                            </td>
                                             {{-- <td class="text-center">
-                                            {{ $applied_student->reference_name }}
+                                            @forelse($applied_students as $applied_student)
+                                            
+                                            @if ($applied_student->pivot->is_approve == 1)
+                                                <h5><span class="badge badge-success">Approved</span></h5>
+
+                                            @else
+
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('manage_applications', [$scholarship_id, $applied_student->id]) }}"
+                                                    role="button">Approve</a>
+                                            @endif
+                                            
+                                            @empty
+                                            @endforelse
                                             </td> --}}
+                                           
 
-                                            <td class="text-center">
-                                            
-                                                @if ($applied_student->pivot->is_review == 1)
-                                                    <h5><span class="badge badge-success">Reviewed</span></h5>
-        
-                                                @else
-                                                <form method="post" action="{{ route('manage_applications_review', ['scholarship_id' =>$scholarship_id, 'student_id'=>$applied_student->id]) }}">
-                                                    @csrf
-                                                    <input type="hidden" id="student_id" name="student_id" value="{{ $applied_student->id }}">
-                                                    <input type="hidden" id="scholarship_id" name="scholarship_id"
-                                                        value="{{ $scholarship_id }}">
-                                                       
-                                                    <button type="submit" class="btn btn-info btn-sm">Review</button>
-                                                </form>
-                                                @endif
-                                            
+                                            <td class="no-wrap">
+                                                <a class="btn btn-primary btn-sm mb-2"
+                                                    href="{{ route('manage_applications_profile', [$reviewed_applicaion->student_id]) }}"
+                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
                                             </td>
-                                               
-
-
-                                            <td class="text-center">
-                                                <a class="btn btn-primary btn-sm"
-                                                    href="{{ route('manage_applications_profile', [$applied_student->id]) }}" target="_blank"
-                                                    role="button"><i class='far fa-user'></i> Student Profile</a>
+                                            <td class="no-wrap">
                                                 
-
-                                                @if ($applied_student->pivot->is_approve == 1)
-
-                                                    <a class="btn btn-success btn-sm"
-                                                        href="{{ route('manage_applications_scholarship_details', [$applied_student->pivot->scholarship_id, $applied_student->id]) }}"
-                                                        role="button"><i class="fas fa-info"></i> Details</a>
-                                                @else
-                                                @endif
-
-
+                                                <a type="button" class="btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#delete_warning_modal"
+                                                    data-scholarship_id_u="{{ $reviewed_applicaion->scholarship_id }}"
+                                                    data-student_id_u="{{ $reviewed_applicaion->student_id }}"
+                                                    data-approved_app_id_u="{{ $reviewed_applicaion->id }}"><i
+                                                        class="fa fa-trash"></i> Delete</a>
                                             </td>
-                                            </td>
+                                            
                                         </tr>
                                     @empty
                                     @endforelse
@@ -156,36 +141,10 @@
     </section>
 
 
-    {{-- ------------------------change status Modal---------------------------- --}}
-    <div class="modal fade" id="status_change_modal" tabindex="-1" aria-labelledby="status_change_modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-secondary" id="status_change_modal">ATTENTION!!</h5>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_status_change') }}" method="POST">
-                        @csrf
-                        <div class="text-center my-3">
-                            <i class="fas fa-edit fa-4x text-warning" aria-hidden="true"></i>
-                        </div>
-                        <div class="text-center display-5 font-weight-bold">
-                            update Status ?
-                        </div>
 
-                        <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-warning">update</button>
-                        </div>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-    </div>
+
+
     {{-- ------------------------Delete User Modal---------------------------- --}}
     <div class="modal fade" id="delete_warning_modal" tabindex="-1" aria-labelledby="delete_warning_modal"
         aria-hidden="true">
@@ -193,19 +152,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-danger" id="delete_warning_modal">ATTENTION!!</h5>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_scholarships_delete') }}" method="POST">
+                    <form action="{{ route('manage_applications_approved_delete') }}" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-trash fa-4x text-danger" aria-hidden="true"></i>
                         </div>
-                        <div class="text-center display-5 font-weight-bold">
-                            Are You Sure ?
+                        <div class="text-center display-5">
+                            <h5 class="font-weight-bold">Are You Sure ?</h5>
                         </div>
 
-                        <input type="hidden" id="scholarship_id_d" name="scholarship_id_d" value="">
+                        <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
+                        <input type="hidden" id="student_id_u" name="student_id_u" value="">
+                        <input type="hidden" id="approved_app_id_u" name="approved_app_id_u" value="">
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -216,19 +176,24 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
     {{-- ------------Change STATUS Script-------------- --}}
     <script>
-        $('#status_change_modal').on('show.bs.modal', function(event) {
+        $('#delete_warning_modal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var scholarship_id = button.data('scholarship_id_u')
-            console.log(scholarship_id);
+            var student_id = button.data('student_id_u')
+            var approved_app_id = button.data('approved_app_id_u')
+            // console.log(scholarship_id);
+            // console.log(student_id);
+            // console.log(approved_app_id);
             var modal = $(this)
             modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
+            modal.find('.modal-body #student_id_u').val(student_id)
+            modal.find('.modal-body #approved_app_id_u').val(approved_app_id)
         })
     </script>
 
@@ -262,6 +227,7 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 
     <!-- Page specific script -->
     <script>
@@ -272,7 +238,34 @@
                 "scrollX": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                // "buttons": ["copy", "excel", "pdf", "print"],
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },                    
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                        }
+                    },
+                    // 'colvis'
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

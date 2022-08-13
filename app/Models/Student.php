@@ -53,7 +53,7 @@ class Student extends Model
 
     public function scholarships()
     {
-        return $this->belongsToMany(Scholarship::class, 'scholarship_student')->withoutGlobalScopes()->withPivot('is_approve');
+        return $this->belongsToMany(Scholarship::class, 'scholarship_student')->withoutGlobalScopes()->withPivot('is_approve','is_review');
     }
 
     public function student_accounts()

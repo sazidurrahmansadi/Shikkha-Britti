@@ -175,3 +175,8 @@ Route::POST('/manage-monthly-statement-date-search', [ManageMonthlyStatementCont
 
 // send sms test
 Route::POST('/sendSingleSMS', [ManageApplicationController::class, 'sendSingleSMS'])->name('send_single_sms')->middleware('auth');
+
+Route::POST('/manage-applications-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_student'])->name('manage_applications_review')->middleware('auth');
+
+Route::GET('/manage-reviewed-applications-index', [ManageApplicationController::class, 'reviewed_index'])->name('manage_reviewed_applications_index')->middleware('auth');
+Route::GET('/manage-reviewed-applications/{scholarship_id}', [ManageApplicationController::class, 'reviewed_applicaions'])->name('manage_reviewed_applications')->middleware('auth');
