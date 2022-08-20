@@ -26,4 +26,9 @@ class Tenant extends Model
 
     ];
 
+    public function donor()
+    {
+        return $this->hasMany(Donor::class);
+    }
+
 }

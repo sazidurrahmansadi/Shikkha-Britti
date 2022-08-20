@@ -248,6 +248,15 @@
                 </li>
 
                 <li>
+                    <a href="#"
+                        class="{{ \Request::route()->getName() == 'renewal_form' ? 'active' : '' }}">
+
+                        <i class='bx bx-file'></i>
+                        Renewal Form
+                    </a>
+                </li>
+
+                <li>
                   <div>
                   <a href="{{ route('student_statement_view_index', ['student_id' => $student_data->id]) }}"
                       class="{{ \Request::route()->getName() == 'student_statement_view_index' ? 'active' : '' }}">

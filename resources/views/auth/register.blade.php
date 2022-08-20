@@ -120,6 +120,13 @@
                                     <i class='bx bx-chevrons-right bx-fade-right'></i>
                                 </a>
                             </p>
+                            <p>
+                                Sign Up as a Donor?
+                                <a href="{{route('donor_reg')}}">
+                                    Click Here
+                                    <i class='bx bx-chevrons-right bx-fade-right'></i>
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>

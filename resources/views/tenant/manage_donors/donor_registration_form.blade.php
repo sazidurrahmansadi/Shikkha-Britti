@@ -202,11 +202,6 @@
                                             value="" required/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dob">Date of Birth</label>
-                                        <input type="date" class="form-control" name="dob" id="dob"
-                                            placeholder="Birth date" required/>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="company">Company Name</label>
                                         <input type="text" class="form-control" name="company" placeholder="Your company"
                                             value="" />
@@ -222,7 +217,7 @@
                                         <input type="text" class="form-control" name="address"
                                             placeholder="Enter Your Address *" value="" required/>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group">    
                                         <label for="cpassword">confirm Password</label>
                                         <input type="password" name="cpassword" class="form-control"
                                             placeholder="Confirm Password *" value="" required/>

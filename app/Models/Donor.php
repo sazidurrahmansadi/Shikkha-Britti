@@ -25,6 +25,16 @@ class Donor extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tenant()
+    {
+        return $this->hasMany(Tenant::class);
+    }
+
+    public function scholarship()
+    {
+        return $this->hasMany(Scholarship::class);
+    }
+
 
 
     protected static function booted()

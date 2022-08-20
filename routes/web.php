@@ -156,11 +156,12 @@ Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::cl
 -----------------------------------------------------------
 */
 
-Route::GET('/donor_reg', [ManageDonorController::class,'donor_reg'])->name('donor_reg');
-Route::POST('/manage-donor-accounts-store', [ManageDonorController::class, 'store'])->name('manage_donor_accounts_store')->middleware('auth');
+Route::GET('/donor_reg', [ManageDonorController::class,'donor_reg_form'])->name('donor_reg');
+Route::POST('/manage-donor-accounts-store', [ManageDonorController::class, 'donor_store'])->name('manage_donor_accounts_store');
 Route::GET('/manage-donors-create', [ManageDonorController::class,'create'])->name('manage_donors_create')->middleware('auth');
 Route::POST('/manage-donor-store', [ManageDonorController::class, 'store'])->name('manage_donor_store')->middleware('auth');
-
+Route::GET('/tenant-list-show', [ManageDonorController::class, 'tenant_list'])->name('tenant_list_show')->middleware('auth');
+Route::GET('/scholarship-list-show', [ManageDonorController::class, 'scholarship_list'])->name('scholarship_list_show')->middleware('auth');
 
 /*
 -----------------------------------------------------------

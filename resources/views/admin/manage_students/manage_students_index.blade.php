@@ -16,35 +16,8 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Student List</h1>
                                 <div class="col-md-6">
-
-                                    {{-- <label for="gender">Student List by Catagory <span
-                                            class="text-danger font-weight-bold"></span></label> --}}
-
                                     <div>
 
-
-                                        {{-- <select class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        @foreach ($data as $degree)
-                                            <option value="{{ $degree->level_id }}">{{ $degree->level }}</option>
-                                        @endforeach
-
-                                        @foreach ($data as $degree)
-
-                                        <option value="">ALL</option>
-                                                    
-                                                    <option value="">SSC</option>
-                                                    <option value="">HSC</option>
-                                                 
-                                                    <option value="">Bachelors</option>
-                                                   
-                                                    <option value="">Diploma</option>
-                                                    <option value="">Masters</option>
-                                        <option value="{{$degree->level_id="5"}}">Masters</option> 
-                                         @endforeach
-
-
-                                    </select> --}}
                                     </div>
 
 
@@ -100,16 +73,16 @@
 
                             </tr>
                         </thead>
-                        <?php $count = 0; ?>
+                        
                         @foreach ($data as $degree)
                             <tbody>
 
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $degree->student->name }}</td>
-                                    <td>{{ $degree->student->sid }}</td>
-                                    <td>{{ $degree->student->phone }}</td>
-                                    <td>{{ $degree->student->email }}</td>
+                                    <td>{{ $degree->name }}</td>
+                                    <td>{{ $degree->sid }}</td>
+                                    <td>{{ $degree->phone }}</td>
+                                    <td>{{ $degree->email }}</td>
                                     {{-- <td>{{ $student_data->sid }}</td>
                                     <td>{{ $student_data->phone }}</td>
                                     <td>{{ $student_data->email }}</td> --}}

@@ -24,7 +24,12 @@ class Scholarship extends Model
     public function reviewed_students()
     {
         return $this->belongsToMany(Student::class, 'scholarship_student')->withoutGlobalScopes()->withPivot('is_review',1);
-    } 
+    }
+    
+    public function donor()
+    {
+        return $this->hasMany(Donor::class);
+    }
 
 
     protected static function booted()

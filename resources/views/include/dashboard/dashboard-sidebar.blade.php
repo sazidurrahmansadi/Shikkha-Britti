@@ -52,14 +52,6 @@
                         </a>
                     </li>
                 @endcan
-                <li class="nav-item">
-                    <a href="{{ route('manage_students.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-graduate"></i>
-                        <p>
-                            Student List
-                        </p>
-                    </a>
-                </li>
                 @can('superadmin-can')
                     <li class="nav-item">
                         <a href="{{ route('manage_tenants.index') }}" class="nav-link">
@@ -68,39 +60,6 @@
                                 Manage Tenants
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user-tie"></i>
-                            <p>
-                                Manage Donors
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('manage_donors_create') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon text-success"></i>
-                                    <p>Add New Donor</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('manage_donors.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon text-success"></i>
-                                    <p>Donor List</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon text-success"></i>
-                                    <p>Assigned Student</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 @endcan
                 @can('role-list')
@@ -157,6 +116,47 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('manage_students.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>
+                            Student List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Manage Donors
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('manage_donors_create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Add New Donor</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('manage_donors.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Donor List</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Assigned Student</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-address-card"></i>
@@ -236,6 +236,38 @@
                     </ul>
                 </li>
                 @endrole
+
+                @role('DONOR')
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-address-card"></i>
+                        <p>
+                            Student List
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('tenant_list_show')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Tenant List</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship_list_show')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Scholarships List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @endrole
+
+                
 
 
                 {{-- <li class="nav-item"> --}}

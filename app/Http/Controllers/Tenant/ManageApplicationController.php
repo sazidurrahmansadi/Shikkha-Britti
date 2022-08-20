@@ -362,8 +362,8 @@ class ManageApplicationController extends Controller
     public function review_student(Request $request, $scholarship_id, $student_id)
     {
         $scholarship_data= Scholarship::find($scholarship_id);
-        $student_data = Student::find($student_id);
-        $applied_students = $scholarship_data->students;
+        // $student_data = Student::find($student_id);
+        // $applied_students = $scholarship_data->students;
        
         $review = new ReviewedApplication();
         $review->student_id = $request->student_id;

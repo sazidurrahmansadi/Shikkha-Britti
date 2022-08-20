@@ -13,6 +13,7 @@ class ManageStudentsController extends Controller
     public function index(Request $request)
     { 
         $data = Degree::all();
+        // dd($data);
         return view('admin.manage_students.manage_students_index', compact('data'));
     }
 
