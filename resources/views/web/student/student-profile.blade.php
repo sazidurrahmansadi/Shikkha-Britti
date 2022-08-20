@@ -392,10 +392,23 @@
                                         <p>{{ $address->area }}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div><br>
                         @empty
                         @endforelse
-
+                       <div>
+                        <h3>Signature</h3>                                  
+                            <div class="row">
+                                <div class="col-lg-8">        
+                                                           
+                                        <span data-bs-toggle="modal" data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"
+                                            title="Upload Photo" style="cursor:pointer">
+                                            <img src="{{ auth()->user()->signature_url != null ? url('storage/' . auth()->user()->signature_url) : asset('/assets/img/null/signature.JPG') }}"
+                                            width="250" height="60" alt="User-Profile-Image">
+                                        </span><br>
+                                    
+                                </div>
+                            </div>       
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <a href="{{ route('student_edit', ['student_id' => $student_data->id]) }}"><button type="submit"

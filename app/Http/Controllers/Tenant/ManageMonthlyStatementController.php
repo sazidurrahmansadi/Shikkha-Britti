@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\ApprovedApplication;
+use App\Models\Mentor;
 use App\Models\Scholarship;
 use App\Models\MonthlyStatement;
 use Illuminate\Http\Request;
@@ -212,27 +214,65 @@ class ManageMonthlyStatementController extends Controller
     }
 
 
-    public function date_range_search(Request $request){
+    public function date_range_search(){
+      
+
+        $students = Account::all();
+
+        $account_details = Account::all();
+       
+        $mentors = Mentor::with('mentor_active_account', 'user')->get();
+        $payees = Account::payees;
+        $scholarships = Scholarship::all()->where('is_delete', 0);
+        return view('tenant.manage_statements.manage_statement_date_search', [
+            'scholarships' => $scholarships,
+            'payees' => $payees,
+            'students' => $students,
+            'mentors' => $mentors,
+            'account_details' => $account_details,
+        ]);
+    
+    }
+
+    public function date_range_search_show(Request $request){
 
         $scholarship_id = $request->input('scholarship_id');
-
         $fromDate = $request->input('fromDate');
         $toDate = $request->input('toDate');
-       
+
         $query = DB::table('monthly_statements')->select()
             ->where('month_year', '>=', $fromDate)
             ->where('month_year', '<=', $toDate)
             ->get();
 
-        // $query = DB::select("SELECT * FROM monthly_statements WHERE month_year BETWEEN '$fromDate' AND '$toDate'");
+        $scholarships=Scholarship::all();
+        $statements = MonthlyStatement::where('scholarship_id', $scholarship_id)->where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
+        return view('tenant.manage_statements.manage_statement_date_search_show', compact('statements'));
+        
+    }
 
-        // dd($query);
+
+    // public function date_range_search(Request $request){
+
+    //     $scholarship_id = $request->input('scholarship_id');
+
+    //     $fromDate = $request->input('fromDate');
+    //     $toDate = $request->input('toDate');
+       
+    //     $query = DB::table('monthly_statements')->select()
+    //         ->where('month_year', '>=', $fromDate)
+    //         ->where('month_year', '<=', $toDate)
+    //         ->get();
+
+    //     // $query = DB::select("SELECT * FROM monthly_statements WHERE month_year BETWEEN '$fromDate' AND '$toDate'");
+
+    //     // dd($query);
         
         
        
-        // $mentors = Mentor::with('mentor_active_account', 'user')->get();
-        $statements = MonthlyStatement::where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
-        return view('tenant.manage_statements.manage_statement_show', compact('statements',  'query'));
+    //     // $mentors = Mentor::with('mentor_active_account', 'user')->get();
+    //     $statements = MonthlyStatement::where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
+    //     return view('tenant.manage_statements.manage_statement_show', compact('statements',  'query'));
     
-    }
+    // }
 }

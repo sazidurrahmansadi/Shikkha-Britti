@@ -54,3 +54,6 @@ Route::POST('/student/student-account-update', [StudentAccountController::class,
 
 Route::GET('/student/student-statement-view-index/{student_id}',[StudentStatementController::class, 'index'])->name('student_statement_view_index')->middleware('auth');
 Route::GET('/student/student-statement-view-show/{student_id}/{scholarship_id}',[StudentStatementController::class, 'show'])->name('student_statement_view_show')->middleware('auth');
+
+Route::GET('/signature_photo', [RegisterStudentController::class, 'signature_photo'])->name('signature_photo')->middleware('auth');
+Route::POST('/signature_photo_upload', [RegisterStudentController::class, 'signature_photo_upload'])->name('signature_photo_upload')->middleware('auth');

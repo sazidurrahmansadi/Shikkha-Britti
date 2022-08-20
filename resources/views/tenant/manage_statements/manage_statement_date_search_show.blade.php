@@ -14,10 +14,11 @@
         }
 
         .color {
-            background: linear-gradient(to right, #21ba2b, #1244b0);
+            background: linear-gradient(to right, #ec2F4B, #009FFF);
             color: white;
             font-weight: bold;
         }
+
     </style>
 @endsection
 
@@ -29,7 +30,7 @@
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-            </ul>
+            </ul> 
         </div>
     @endif
 @endsection
@@ -48,44 +49,17 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Monthly Statement List
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">
+                                        {{-- {{ (new DateTime($fromDate))->format('d-F-Y') }} To  {{ (new DateTime($toDate))->format('d-F-Y') }} : Statement List --}}
+                                        Month Range Statement List
                                     </h1>
-                                    <a href="{{ route('manage_statement_search') }}" class="btn btn-primary shadow-sm"><i
-                                            class="fa fa-search mr-2"></i>
+                                    <a href="{{ route('manage_statement_search') }}"
+                                        class="btn btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
                                         Search by Month
                                     </a>
                                 </div>
                             </div>
-
-
-                            {{-- <form action="{{ route('manage_monthly_statement_date_search') }}" method="POST">
-                                @csrf
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="container-fluid">
-                                            <div class="form-group row">
-                                                <label for="month_year" class="col-form-label col-sm-2" value="">From</label>
-                                                <div class="col-sm">
-                                                    <input type="date" class="form-control input-sm" id="fromDate" name="fromDate" required>
-                                                </div>
-                                                <label for="month_year" class="col-form-label col-sm">To</label>
-                                                <div class="col-sm">
-                                                    <input type="date" class="form-control input-sm-2" id="toDate" name="toDate" required>
-                                                </div>
-                                                
-
-                                                <div class="col-sm-2">
-                                                    <button type="submit" class="btn btn-primary">Search</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            </form> --}}
-
-                            <!-- title -->
+                            <br />
                         </div>
                     </div>
                 </div>
@@ -125,24 +99,21 @@
                                             <td>{{ $statement->student->phone }}</td>
                                             <td>{{ $statement->approved_amount }}</td>
                                             <td>{{ $statement->approval_cost }}</td>
-                                            <td>{{ $statement->approved_amount + $statement->approval_cost }}</td>
-                                            {{-- <td>{{ $statement->account->account_title }}</td> --}}
+                                            <td>{{ $statement->approved_amount + $statement->approved_cost }}</td>
+                                           
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
 
-                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
-
+                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>                                          
                                             <td>{{ $statement->status }}</td>
-                                            <td>{{ $statement->month_year }}</td>
+                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y')  }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-sm btn-primary"
-                                                    href="{{ route('manage_statement_details', $statement->id) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="View Details"><i
-                                                        class="fa fa-eye"></i></a>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_statement_details', $statement->id) }}" data-toggle="tooltip"
+                                                    data-placement="top" title="View Details"><i class="fa fa-eye"></i></a>
 
                                                 <a class="btn btn-sm btn-warning"
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
@@ -154,23 +125,6 @@
                                     @empty
                                     @endforelse
                                 </tbody>
-
-                                {{-- <tfoot>
-                                    <tr style="color: blueviolet">
-                                        <td colspan="3"></td>
-                                        <td>Total Amount (Monthly):</td>
-                                        <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_amount') }}/-
-                                        </td>
-                                        <td>
-                                            {{ $totalAmount = DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
-                                        </td>
-                                        <td>
-                                            {{ $totalAmount =DB::table('monthly_statements')->get()->sum('approved_amount') +DB::table('monthly_statements')->get()->sum('approved_cost') }}/-
-                                        </td>
-                                        <td colspan="5"></td>
-                                    </tr>
-                                </tfoot> --}}
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -212,6 +166,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('extra_js')
@@ -253,30 +208,12 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": true,
-                "buttons": [{
-                        extend: 'copy',
-                        footer: true
-                    },
-                    {
-                        extend: 'excel',
-                        footer: true
-                    },
-                    {
-                        extend: 'csv',
-                        footer: true
-                    },
-                    {
-                        extend: 'print',
-                        footer: true
-                    },
-                    {
-                        extend: 'pdf',
-                        footer: true
-                    }
-                ]
+                "autoWidth": false,
+                "buttons": ["copy", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });
+      
     </script>
 @endsection
+    

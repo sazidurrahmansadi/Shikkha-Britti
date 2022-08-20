@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 use Spatie\Permission\Traits\HasRoles;
 
@@ -486,4 +487,49 @@ class RegisterStudentController extends Controller
     {
         //
     }
+
+    public function signature_photo()
+    {
+
+        $student_data = User::FindOrFail(Auth::user()->id)->student_information;
+        return view('web.student.student-signature-create', [
+            'student_data' => $student_data,
+        ]);
+    }
+
+    public function signature_photo_upload(Request $request)
+    {
+        $data = $request->image;
+
+
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+
+
+        $data = base64_decode($data);
+        //$image_name= time().'.png';
+        $image_name = 'USER' . $request->user_id . '-' . time() . '.png';
+
+        // if(public_path('storage') . "/uploaded_photo/user_photo"){
+        //     $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
+        // }
+        //     mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
+        
+        $path = public_path('storage') . "/uploaded_file/student_signature/" . $image_name;
+
+
+        file_put_contents($path, $data);
+        $user = User::findOrFail($request->user_id);
+
+        $photo = $user->signature_url;
+        if ($photo) {
+            $filename = public_path('storage') . $photo;
+            File::delete($filename);
+        }
+
+        $user->signature_url = "/uploaded_file/student_signature/" . $image_name;
+        $user->save();
+      return redirect()->back()->with('Successfully added signature');
+    }
+
 }

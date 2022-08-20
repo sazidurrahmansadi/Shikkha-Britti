@@ -84,6 +84,12 @@
                             @empty
                             @endforelse
 
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Signature</h6>
+                                <span class="text-secondary"><img src="{{ auth()->user()->signature_url.$student_data->user->signature_url != null ? url('storage/' . auth()->user()->signature_url).$student_data->user->signature_url : asset('/assets/img/null/signature.JPG') }}"
+                                    width="200" height="40" alt="User-Profile-Image"></span>
+                            </li>
+
 
                         </ul>
                     </div>
