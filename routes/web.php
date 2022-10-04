@@ -16,6 +16,7 @@ use App\Http\Controllers\Tenant\TenantScholarshipController;
 use App\Http\Controllers\Tenant\ManageMentorAccountController;
 use App\Http\Controllers\Tenant\ManageMentorController;
 use App\Http\Controllers\Tenant\ManageMonthlyStatementController;
+use App\Http\Controllers\Tenant\ManageStuffController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -105,7 +106,6 @@ Route::group(['middleware' => ['auth']], function() {
 Route::POST('/manage-students-index', [ManageStudentsController::class, 'manage_students_info'])->name('manage_students_index')->middleware('auth');
 Route::POST('/manage-mentors-update/{id}', [ManageMentorController::class, 'update'])->name('manage_mentors_update')->middleware('auth');
 
-
 /*
 -----------------------------------------------------------
  ==== Manage Scholarship Posting starts Here  ===
@@ -152,7 +152,7 @@ Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::cl
 
 /*
 -----------------------------------------------------------
- ==== Manage Donor Account Here  ===
+ ==== Manage Donor Here  ===
 -----------------------------------------------------------
 */
 
@@ -162,6 +162,19 @@ Route::GET('/manage-donors-create', [ManageDonorController::class,'create'])->na
 Route::POST('/manage-donor-store', [ManageDonorController::class, 'store'])->name('manage_donor_store')->middleware('auth');
 Route::GET('/tenant-list-show', [ManageDonorController::class, 'tenant_list'])->name('tenant_list_show')->middleware('auth');
 Route::GET('/scholarship-list-show', [ManageDonorController::class, 'scholarship_list'])->name('scholarship_list_show')->middleware('auth');
+Route::GET('/student-list', [ManageDonorController::class, 'student_list'])->name('student_list')->middleware('auth');
+
+
+/*
+-----------------------------------------------------------
+ ==== Manage Stuff  Here  ===
+-----------------------------------------------------------
+*/
+
+Route::GET('/stuff-reg', [ManageStuffController::class,'index'])->name('stuff_reg')->middleware('auth');
+Route::POST('/manage-stuff1-store', [ManageStuffController::class, 'store'])->name('manage_stuff1_store')->middleware('auth');
+
+
 
 /*
 -----------------------------------------------------------
@@ -200,9 +213,10 @@ Route::POST('/manage-monthly-statement-date-search-show', [ManageMonthlyStatemen
 // send sms test
 Route::POST('/sendSingleSMS', [ManageApplicationController::class, 'sendSingleSMS'])->name('send_single_sms')->middleware('auth');
 
-Route::POST('/manage-applications-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_student'])->name('manage_applications_review')->middleware('auth');
-
+Route::GET('/manage-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_create'])->name('manage_review')->middleware('auth');
+Route::POST('/manage-applications-review', [ManageApplicationController::class, 'review_student'])->name('manage_applications_review')->middleware('auth');
 Route::GET('/manage-reviewed-applications-index', [ManageApplicationController::class, 'reviewed_index'])->name('manage_reviewed_applications_index')->middleware('auth');
 Route::GET('/manage-reviewed-applications/{scholarship_id}', [ManageApplicationController::class, 'reviewed_applicaions'])->name('manage_reviewed_applications')->middleware('auth');
-
-
+Route::POST('/manage-applications-reviewed-delete', [ManageApplicationController::class, 'reviewed_applicaion_delete'])->name('manage_applications_reviewed_delete')->middleware('auth');
+Route::GET('/show-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'show_review'])->name('show_review')->middleware('auth');
+Route::GET('/manage-reviewed-comment-show/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_comment_show'])->name('manage_review_comment_show')->middleware('auth');

@@ -7,6 +7,8 @@ use App\Models\Address;
 use App\Models\Student;
 use App\Models\Degree;
 use App\Models\Achievement;
+use App\Models\RenewalForm;
+use App\Models\Scholarship;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -531,5 +533,52 @@ class RegisterStudentController extends Controller
         $user->save();
       return redirect()->back()->with('Successfully added signature');
     }
+
+
+
+    #Student Renewal Form
+
+    public function renew($student_id)
+    {
+        $student_data = Student::findOrFail($student_id);
+        $academic_data = Student::find($student_data->id)->degree_information;
+        $achievements = Student::find($student_data->id)->achievements;
+
+        // dd($degree_levels);
+
+        return view('web.student.student-renewal-form', [
+            'student_data' => $student_data,
+            'academic_data' => $academic_data,
+            'achievements' => $achievements,
+            'degree_levels' => Degree::degree_levels,
+            'class_school' => Degree::class_school,
+            'class_college' => Degree::class_college,
+            'class_uni' => Degree::class_uni,
+        ]);
+    }
+
+    public function renewal_form_update(Request $request)
+    {
+
+        
+
+        $renewal = new RenewalForm;
+        $renewal->level = $request->level;
+        $renewal->class_degree = $request->class_degree;
+        $renewal->marks_cgpa1 = $request->marks_cgpa1;
+        $renewal->date1 = $request->date1;
+        $renewal->marks_cgpa2 = $request->marks_cgpa2;
+        $renewal->date2 = $request->date2;
+        $renewal->achievement = $request->achievement;
+        $renewal->financial = $request->financial;
+        $renewal->opinion = $request->opinion;
+        dd($renewal);
+        $renewal->save();
+
+        // return redirect()->with('success', 'Renewed succesfully');
+        return redirect()->with('success', 'Renewed succesfully');
+    }
+
+
 
 }

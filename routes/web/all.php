@@ -22,6 +22,11 @@ Route::GET('/student/student-profile/{student_id}',[RegisterStudentController::c
 Route::GET('/student/student-profile-edit/{student_id}', [RegisterStudentController::class, 'edit'])->name('student_edit')->middleware('auth');
 Route::POST('/student/student-profile-update', [RegisterStudentController::class, 'update'])->name('student_update')->middleware('auth');
 
+Route::GET('/student/student-statement-view-index/{student_id}',[StudentStatementController::class, 'index'])->name('student_statement_view_index')->middleware('auth');
+Route::GET('/student/student-statement-view-show/{student_id}/{scholarship_id}',[StudentStatementController::class, 'show'])->name('student_statement_view_show')->middleware('auth');
+
+Route::GET('/signature_photo', [RegisterStudentController::class, 'signature_photo'])->name('signature_photo')->middleware('auth');
+Route::POST('/signature_photo_upload', [RegisterStudentController::class, 'signature_photo_upload'])->name('signature_photo_upload')->middleware('auth');
 
 Route::GET('/student/student-document', [StudentDocumentController::class, 'Create'])->name('student_document')->middleware('auth');
 Route::POST('/student/student-document-upload', [StudentDocumentController::class, 'store'])->name('student_document_upload')->middleware('auth');
@@ -30,6 +35,9 @@ Route::POST('/student/student-document-delete',[StudentDocumentController::class
 
 Route::GET('/student/student-applications', [StudentApplicationController::class, 'index'])->name('student_applications_index')->middleware('auth');
 
+
+Route::GET('/student/student-renewal-form/{student_id}', [RegisterStudentController::class, 'renew'])->name('student_renew')->middleware('auth');
+Route::POST('/student/student-renewal-update', [RegisterStudentController::class, 'renewal_form_update'])->name('renewed_form')->middleware('auth');
 
 /*
 -----------------------------------------------------------
@@ -51,9 +59,3 @@ Route::GET('/student/student-account', [StudentAccountController::class, 'index'
 Route::POST('/student/student-account-store', [StudentAccountController::class, 'store'])->name('student_account_store')->middleware('auth');
 Route::GET('/student/student-account-edit/{account_id}', [StudentAccountController::class, 'edit'])->name('student_account_edit');
 Route::POST('/student/student-account-update', [StudentAccountController::class, 'update'])->name('student_account_update')->middleware('auth');
-
-Route::GET('/student/student-statement-view-index/{student_id}',[StudentStatementController::class, 'index'])->name('student_statement_view_index')->middleware('auth');
-Route::GET('/student/student-statement-view-show/{student_id}/{scholarship_id}',[StudentStatementController::class, 'show'])->name('student_statement_view_show')->middleware('auth');
-
-Route::GET('/signature_photo', [RegisterStudentController::class, 'signature_photo'])->name('signature_photo')->middleware('auth');
-Route::POST('/signature_photo_upload', [RegisterStudentController::class, 'signature_photo_upload'])->name('signature_photo_upload')->middleware('auth');

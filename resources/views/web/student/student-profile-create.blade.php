@@ -2,26 +2,11 @@
 
 @section('custom_styles')
     <link href="{{ asset('assets/css/bs-datepicker.min.css') }}" rel="stylesheet">
+@endsection
 
-    <script src="{{ asset('js/user_profile_photo_crop/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/user_profile_photo_crop/croppie.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/user_profile_photo_crop/croppie.min.css') }}">
-    {{-- END added for user profile photo crop --}}
-    <style>
-        .blink_me {
-            animation: blinker 1500ms linear infinite;
-        }
 
-        @keyframes blinker {
-            50% {
-                opacity: .65;
-            }
-        }
-        .theme{
-            background: #fa8231; 
-            color: #fff;"
-        }
 
+<style>
     body {
         font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
@@ -230,8 +215,24 @@
         opacity: 1;
         left: 0;
     }
+
+    .tab p {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+    }
+
+    .step {
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        margin: 0 2px;
+        color: white;
+        background: green;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.25;
+    }
 </style>
-@endsection
 
 
 @section('content')
@@ -286,21 +287,15 @@
                             <!-- Steps -->
                             @csrf
 
-                            <div class="form-step form-step-active">
-                                <h3>Add Signature</h3>                                                           
-                                    <div class="row">
-                                        <div class="col-lg-8">        
-                                            <div class="candidate-profile">                        
-                                                    <span data-bs-toggle="modal" data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"
-                                                        title="Upload Photo" style="cursor:pointer">
-                                                        <img src="{{ auth()->user()->signature_url != null ? url('storage/' . auth()->user()->signature_url) : asset('/assets/img/null/signature.JPG') }}"
-                                                        width="250" height="70" alt="User-Profile-Image">
-                                                    </span><br>
-                                                    <button type="button" class="btn theme m-2" data-bs-toggle="modal" data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"> Upload Signature</button>
-                                            </div>
-                                        </div>
-                                    </div>        
+                            @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
 
+                            <div class="form-step form-step-active" id="tab-1">
                                 <h3>Basic Information</h3>
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
@@ -310,7 +305,7 @@
                                             <label>Your Full Name <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="name" class="form-control"
-                                                placeholder="Your Name" value="{{ auth()->user()->name }}" required>
+                                                placeholder="Your Name" value="{{ auth()->user()->name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -325,20 +320,20 @@
                                             <label>Your Phone <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="phone" pattern="[0]+[1]+[7/8/9/6/5/4/3]+[0-9]{8}" name="phone"
                                                 class="form-control" placeholder="Your Phone"
-                                                value="{{ auth()->user()->phone }}" required>
+                                                value="{{ auth()->user()->phone }}" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Date of Birth <span class="text-danger font-weight-bold">*</span></label>
-                                            <input type="date" name="dob" class="form-control" required>
+                                            <input type="date" id="imp" name="dob" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Father's Name <span class="text-danger font-weight-bold">*</span></label>
-                                            <input type="text" name="father_name" class="form-control"
-                                                placeholder="Your Father's Name" required>
+                                            <input type="text" id="imp" name="father_name" class="form-control"
+                                                placeholder="Your Father's Name"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -346,14 +341,14 @@
                                             <label>Father's Profession <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="father_profession" class="form-control"
-                                                placeholder="Your Father's Profession" required>
+                                                placeholder="Your Father's Profession"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Mother's Name <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="mother_name" class="form-control"
-                                                placeholder="Your Mother's Profession" required>
+                                                placeholder="Your Mother's Profession"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -361,7 +356,7 @@
                                             <label>Mother's Profession <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="mother_profession" class="form-control"
-                                                placeholder="Your Mother's Name" required>
+                                                placeholder="Your Mother's Name"  >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -376,35 +371,36 @@
                                             <label>Your Aim in Life <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999"
-                                                style="max-height: 80px; height: 80px" required></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="gender">Gender <span
-                                                    class="text-danger font-weight-bold">*</span></label>
-                                            <select class="form-control" name="gender" id="gender" required>
-                                                <option value="">Select</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
+                                                style="max-height: 80px; height: 80px"  ></textarea>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender">Gender <span
+                                                class="text-danger font-weight-bold">*</span></label>
+                                        <select class="form-control" name="gender" id="gender"  >
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="">
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
-                                        </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(1, 2);"><span>Next </span></a>
                                 </div>
                             </div>
-                            <div class="form-step">
+                            <div class="form-step" id="tab-2">
                                 <h3>Current Academic information</h3>
                                 <div class="row dynm_field">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="level">Level <span
                                                     class="text-danger font-weight-bold">*</span></label>
-                                            <select class="form-control" name="level" id="level" required>
+                                            <select class="form-control" name="level" id="level"  >
                                                 {{-- <option value="">Select</option> --}}
                                                 @forelse($degree_levels as $degree_level)
                                                     <option value="{{ $degree_level }}">{{ $degree_level }}</option>
@@ -433,8 +429,7 @@
                                             <select class="form-control" name="class_degree_col" id="class_degree_col">
                                                 {{-- <option value="">Select</option> --}}
                                                 @forelse($class_college as $class_college)
-                                                    <option value="{{ $class_college }}">{{ $class_college }}
-                                                    </option>
+                                                    <option value="{{ $class_college }}">{{ $class_college }}</option>
                                                 @empty
                                                 @endforelse
                                             </select>
@@ -460,7 +455,7 @@
                                             <label for="institution">Institution <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="institution" class="form-control"
-                                                placeholder="Your Institution" id="institution" required>
+                                                placeholder="Your Institution" id="institution"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6" id="position">
@@ -468,7 +463,7 @@
                                             <label>Class Position/Roll/ID <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="position" class="form-control"
-                                                placeholder="Your Class Position/Roll/ID" required>
+                                                placeholder="Your Class Position/Roll/ID"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -490,7 +485,7 @@
                                         <div class="form-group">
                                             <label>Year <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" class="form-control" name="year" id="datepicker"
-                                                required value="{{ date('Y') }}" />
+                                                  value="{{ date('Y') }}" />
                                         </div>
                                     </div>
 
@@ -593,16 +588,18 @@
                                         {{-- <button type="submit" class="account-btn">Save</button> --}}
                                     </div>
                                 </div>
+
                                 <a href="javascript:void(0);" class="add_button" title="Add Achievements"><i
                                         class="bx bx-plus">Add Achievements</i></a>
                                 <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto"
-                                        style="vertical-align:middle"><span>Previous </span></a>
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
-                                        </span></a>
+                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(2, 1);"><span>Previous </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(2, 3);"><span>Next </span></a>
                                 </div>
                             </div>
-                            <div class="form-step">
+
+                            <div class="form-step" id="tab-3">
                                 <h3>Reference Details</h3>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -610,14 +607,14 @@
                                             <label>Reference name <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="reference_name" class="form-control"
-                                                placeholder="Enter reference name" required>
+                                                placeholder="Enter reference name"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Profession <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="reference_profession" class="form-control"
-                                                maxlength="999" placeholder="Enter profession" required>
+                                                maxlength="999" placeholder="Enter profession"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -625,7 +622,7 @@
                                             <label>Contact Number <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="phone" name="reference_phone" class="form-control"
-                                                placeholder="Enter contact number" required>
+                                                placeholder="Enter contact number"  >
                                         </div>
                                     </div>
 
@@ -643,7 +640,7 @@
                                             <label>Family Income (Monthly) <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="number" name="family_income" class="form-control"
-                                                placeholder="Enter monthly family income" required>
+                                                placeholder="Enter monthly family income"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -651,7 +648,7 @@
                                             <label>Income Source <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="income_source" class="form-control"
-                                                placeholder="Enter income source" required>
+                                                placeholder="Enter income source"  >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -666,7 +663,7 @@
                                             <label>Reason for Financial Support <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <textarea name="reason" class="form-control" placeholder="Please write details" maxlength="999"
-                                                style="max-height: 80px; height: 80px" required></textarea>
+                                                style="max-height: 80px; height: 80px"  ></textarea>
                                         </div>
                                     </div>
 
@@ -677,13 +674,13 @@
                                 </div>
 
                                 <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto"
-                                        style="vertical-align:middle"><span>Previous </span></a>
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
-                                        </span></a>
+                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(3, 2);"><span>Previous </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(3, 4);"><span>Next </span></a>
                                 </div>
                             </div>
-                            <div class="form-step">
+                            <div class="form-step" id="tab-4">
                                 <h3>Present Address</h3>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -784,14 +781,17 @@
                                         </div>
                                     </div>
 
+
+
+
                                     <div class="col-md-12">
                                         {{-- <button type="submit" class="account-btn">Edit</button> --}}
                                         {{-- <button type="submit" class="account-btn">Save</button> --}}
                                     </div>
                                 </div>
-                                <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto"
-                                        style="vertical-align:middle"><span>Previous </span></a>
+                                <div class="btns-group" id="tab-5">
+                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"
+                                        onclick="run(5, 4);"><span>Previous </span></a>
                                     <button class="button2" style="vertical-align:middle"><span>Update</span></button>
                                 </div>
                             </div>
@@ -801,103 +801,6 @@
             </div>
         </div>
     </section>
-
-     {{-- ------------------------Create Modal------------------------- --}}
-
-     <div class="modal fade" id="user_profile_photo_modal{{ auth()->user()->id }}" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Signature</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
-                    <div class="form-group row">
-
-                        <label for="formFile" class="col-md-3">Signature</label>
-                        <div class="col-md-9 custom-file">
-                            <input type="file" class="form-control custom-file-input" id="upload{{ auth()->user()->id }}"
-                                name="profile_photo" accept="image/x-png,image/gif,image/jpeg">
-                            <label class="custom-file-label" for="profile_photo"></label>
-                        </div>
-
-                    </div>
-                    <center>
-                        <div id="upload-demo{{ auth()->user()->id }}" style="max-width:500px"></div>
-                    </center>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-success" id="upload-result{{ auth()->user()->id }}">Upload</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        $uploadCrop{{ auth()->user()->id }} = $('#upload-demo{{ auth()->user()->id }}').croppie({
-            enableExif: true,
-            viewport: {
-                width: 400,
-                height: 100,
-                type: 'square' //circle,square
-            },
-            boundary: {
-                width: 450,
-                height: 100
-            }
-        });
-
-
-        $('#upload{{ auth()->user()->id }}').on('change', function() {
-            // window.alert('#upload{{ auth()->user()->id }}');
-            var reader = new FileReader();
-            // window.alert(reader{{ auth()->user()->id }});
-            reader.onload = function(e) {
-                $uploadCrop{{ auth()->user()->id }}.croppie('bind', {
-                    url: e.target.result
-                }).then(function() {
-                    console.log('jQuery bind complete');
-                });
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-
-
-        $('#upload-result{{ auth()->user()->id }}').on('click', function(ev) {
-            $uploadCrop{{ auth()->user()->id }}.croppie('result', {
-                type: 'canvas',
-                size: 'viewport'
-            }).then(function(resp) {
-                $.ajax({
-                    url: "/signature_photo_upload",
-                    type: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "image": resp,
-                        "user_id": {{ auth()->user()->id }}
-                    },
-                    success: function(data) {
-                        location.reload();
-                    }
-                });
-            });
-        });
-    </script>
-
-
 @endsection
 
 @section('custom_js')
@@ -998,7 +901,7 @@
 
         nextBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
-                formStepsNum++;
+                 formStepsNum++;
                 updateFormSteps();
                 updateProgressbar();
             });
@@ -1006,7 +909,7 @@
 
         prevBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
-                formStepsNum--;
+                 formStepsNum--;
                 updateFormSteps();
                 updateProgressbar();
             });

@@ -81,7 +81,7 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $scholarship->scholarship_title }}</td>
                                             <td><a class="btn btn-primary btn-sm"
-                                                href="#"
+                                                href="{{ route('student_list') }}"
                                                 role="button">View All</a>
                                             </td>
                                         </tr>

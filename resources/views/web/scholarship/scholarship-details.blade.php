@@ -34,7 +34,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-2">
                                         <div class="company-logo">
-                                            <img src="{{asset('assets/img/company-logo/1.png')}}" alt="logo">
+                                            <img src="{{asset('assets/img/company-logo/7.png')}}" alt="logo">
                                         </div>
                                     </div>
                                     <div class="col-md-10">

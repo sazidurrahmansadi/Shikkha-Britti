@@ -247,7 +247,7 @@ class ManageMonthlyStatementController extends Controller
 
         $scholarships=Scholarship::all();
         $statements = MonthlyStatement::where('scholarship_id', $scholarship_id)->where('month_year', '>=',  $fromDate)->where('month_year','<=',  $toDate)->get();
-        return view('tenant.manage_statements.manage_statement_date_search_show', compact('statements'));
+        return view('tenant.manage_statements.manage_statement_date_search_show', compact('statements','toDate', 'fromDate'));
         
     }
 

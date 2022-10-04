@@ -137,8 +137,8 @@ class ManageMentorController extends Controller
         // $students = ApprovedApplication::where('mentor_id', '=',  $mentor_id)->get();
 
         
-        dd($query);
-        return view('tenant.manage_mentors.manage_student_list', compact('students','query'));
+        // dd($query);
+        return view('tenant.manage_mentors.manage_student_list', compact('query'));
     }
 
 

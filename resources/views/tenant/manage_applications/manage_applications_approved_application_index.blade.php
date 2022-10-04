@@ -110,24 +110,24 @@
                                             <td class="no-wrap">
                                                 <a class="btn btn-primary btn-sm mb-2"
                                                     href="{{ route('manage_applications_profile', [$approved_application->student_id]) }}"
-                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
+                                                    target="_blank"><i class='far fa-user'></i></a>
 
-                                                <a class="btn btn-success btn-sm"
+                                                <a class="btn btn-success btn-sm mb-2"
                                                     href="{{ route('manage_applications_scholarship_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i
                                                         class="fas fa-info"></i> Details</a>
 
                                             </td>
                                             <td class="no-wrap">
-                                                <a href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
+                                                <a class="btn-sm btn-warning" href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
                                                     class="btn btn-sm btn-warning mb-2" type="button"><i
-                                                        class="fas fa-edit"></i>Edit</a><br>
+                                                        class="fas fa-edit"></i>Edit</a>
 
                                                 <a type="button" class="btn-sm btn-danger" data-toggle="modal"
                                                     data-target="#delete_warning_modal"
                                                     data-scholarship_id_u="{{ $approved_application->scholarship_id }}"
                                                     data-student_id_u="{{ $approved_application->student_id }}"
                                                     data-approved_app_id_u="{{ $approved_application->id }}"><i
-                                                        class="fa fa-trash"></i> Delete</a>
+                                                        class="fa fa-trash"></i></a>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm align-top"

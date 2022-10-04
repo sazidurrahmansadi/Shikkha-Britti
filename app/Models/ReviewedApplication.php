@@ -21,6 +21,11 @@ class ReviewedApplication extends Model
         return $this->belongsTo(Scholarship::class);
     }
 
+    public function donor()
+    {
+        return $this->hasMany(Donor::class);
+    }
+
     protected static function booted()
     {
         static::addGlobalScope(new TenantScope);

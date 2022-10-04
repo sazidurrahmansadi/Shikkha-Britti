@@ -359,15 +359,34 @@ class ManageApplicationController extends Controller
             return redirect()->route('manage_monthly_statement_index')->with('success', 'SMS has been sent successfully!');
     }
 
-    public function review_student(Request $request, $scholarship_id, $student_id)
+    public function review_create($scholarship_id, $student_id)
     {
-        $scholarship_data= Scholarship::find($scholarship_id);
+        $scholarship_data = Scholarship::find($scholarship_id);
+        $student_data = Student::find($student_id);
+       
+        return view('tenant.manage_applications.manage_applications_review', [
+             'scholarship_data' => $scholarship_data,
+            'student_data' => $student_data,           
+        ]);
+    }
+
+    public function review_student(Request $request)
+    {
+        // $scholarship_data= Scholarship::find($scholarship_id);
         // $student_data = Student::find($student_id);
         // $applied_students = $scholarship_data->students;
        
+        // dd($request->all());
+        $this->validate($request, [
+            'student_id' => 'required',
+            'scholarship_id' => 'required',
+            'comment' => 'required',
+        ]);
+
         $review = new ReviewedApplication();
         $review->student_id = $request->student_id;
         $review->scholarship_id = $request->scholarship_id;
+        $review->comment = $request->comment;
         $review->review_date = now();
         $review->reviewed_by = Auth::user()->name;
        
@@ -379,7 +398,7 @@ class ManageApplicationController extends Controller
             'is_review' => 1
         ]);
 
-        return redirect()->back()->with('success', 'Application reviewed successfully');
+        return redirect()->route('manage_applications_index', $request->scholarship_id)->with('success', 'Application reviewed successfully');
     }
 
     public function reviewed_index()
@@ -399,6 +418,41 @@ class ManageApplicationController extends Controller
         return view('tenant.manage_applications.manage_reviewed_applications', [
             'reviewed_applicaions' => $reviewed_applicaions,
             'applied_students' => $applied_students,
+        ]);
+    }
+
+    public function reviewed_applicaion_delete(Request $request)
+    {
+        $this->validate($request, [
+            'scholarship_id_u' => 'required',
+            'student_id_u' => 'required',
+            'reviewed_app_id_u' => 'required',
+        ]);
+
+        $reviewed_application = ReviewedApplication::find($request->reviewed_app_id_u);
+        $reviewed_application->delete();
+
+        $student = Student::find($request->student_id_u);
+        $student->scholarships()->detach($request->scholarship_id_u);
+        $student->scholarships()->attach($request->scholarship_id_u, [
+            'is_review' => 0
+        ]);
+
+        return redirect()->back()->with('success', 'Deleted successfully');
+    }
+
+
+    public function review_comment_show(Request $request, $scholarship_id, $student_id)
+    {
+        $reviewed_application_detail = ReviewedApplication::where('scholarship_id', $scholarship_id)->where('student_id', $student_id)->first();
+
+        $student_data = Student::find($student_id)->name;
+        $scholarship_data = Scholarship::find($scholarship_id)->scholarship_title;
+
+        return view('tenant.manage_applications.manage_review_comment_show', [
+            'reviewed_application_detail' => $reviewed_application_detail,
+            'student_data' => $student_data,
+            'scholarship_data' => $scholarship_data,
         ]);
     }
 

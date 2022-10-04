@@ -106,18 +106,13 @@
 
                                             <td class="text-center">
                                             
-                                                @if ($applied_student->pivot->is_review == 1)
+                                                 @if ($applied_student->pivot->is_review == 1)
                                                     <h5><span class="badge badge-success">Reviewed</span></h5>
         
                                                 @else
-                                                <form method="post" action="{{ route('manage_applications_review', ['scholarship_id' =>$scholarship_id, 'student_id'=>$applied_student->id]) }}">
-                                                    @csrf
-                                                    <input type="hidden" id="student_id" name="student_id" value="{{ $applied_student->id }}">
-                                                    <input type="hidden" id="scholarship_id" name="scholarship_id"
-                                                        value="{{ $scholarship_id }}">
-                                                       
-                                                    <button type="submit" class="btn btn-info btn-sm">Review</button>
-                                                </form>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('manage_review',['scholarship_id' =>$scholarship_id, 'student_id'=>$applied_student->id]) }}"
+                                                        role="button">Review</a>
                                                 @endif
                                             
                                             </td>

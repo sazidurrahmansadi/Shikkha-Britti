@@ -1,7 +1,6 @@
 @extends('layouts.web')
 
 @section('custom_styles')
-
     <link href="{{ asset('assets/css/bs-datepicker.min.css') }}" rel="stylesheet">
     {{-- Start added for user profile photo crop --}}
     <script src="{{ asset('js/user_profile_photo_crop/jquery.min.js') }}"></script>
@@ -18,220 +17,222 @@
                 opacity: .65;
             }
         }
-        .theme{
-            background: #fa8231; 
-            color: #fff;"
+
+        .theme {
+            background: #fa8231;
+            color: #fff;
+            "
+
         }
 
         body {
-        font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        display: grid;
-    }
+            font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: grid;
+        }
 
-    /* Global Stylings */
-    label {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
+        /* Global Stylings */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
 
-    input {
-        display: block;
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-    }
+        input {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+        }
 
-    .width-50 {
-        width: 50%;
-    }
+        .width-50 {
+            width: 50%;
+        }
 
-    .ml-auto {
-        margin-left: auto;
-    }
+        .ml-auto {
+            margin-left: auto;
+        }
 
-    .text-center {
-        text-align: center;
-    }
+        .text-center {
+            text-align: center;
+        }
 
-    /* Progressbar */
-    .progressbar {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        counter-reset: step;
-        margin: 2rem 0 4rem;
-    }
+        /* Progressbar */
+        .progressbar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            counter-reset: step;
+            margin: 2rem 0 4rem;
+        }
 
-    .progressbar::before,
-    .progress {
-        content: "";
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 4px;
-        width: 100%;
-        background-color: #dcdcdc;
-        z-index: -1;
-    }
+        .progressbar::before,
+        .progress {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 4px;
+            width: 100%;
+            background-color: #dcdcdc;
+            z-index: -1;
+        }
 
-    .progress {
-        background-color: var(--primary-color);
-        width: 0%;
-        transition: 0.3s;
-    }
+        .progress {
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: 0.3s;
+        }
 
-    .progress-step {
-        width: 2.1875rem;
-        height: 2.1875rem;
-        background-color: #dcdcdc;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .progress-step {
+            width: 2.1875rem;
+            height: 2.1875rem;
+            background-color: #dcdcdc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .progress-step::before {
-        counter-increment: step;
-        content: counter(step);
-    }
+        .progress-step::before {
+            counter-increment: step;
+            content: counter(step);
+        }
 
-    .progress-step::after {
-        content: attr(data-title);
-        position: absolute;
-        top: calc(100% + 0.5rem);
-        font-size: 0.85rem;
-        color: #666;
-    }
+        .progress-step::after {
+            content: attr(data-title);
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            font-size: 0.85rem;
+            color: #666;
+        }
 
-    .progress-step-active {
-        background-color: var(--primary-color);
-        color: #f3f3f3;
-    }
+        .progress-step-active {
+            background-color: var(--primary-color);
+            color: #f3f3f3;
+        }
 
-    /* Form */
-    .form {
-        width: clamp(320px, 30%, 430px);
-        margin: 0 auto;
-        border: 1px solid #ccc;
-        border-radius: 0.35rem;
-        padding: 1.5rem;
-    }
+        /* Form */
+        .form {
+            width: clamp(320px, 30%, 430px);
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 0.35rem;
+            padding: 1.5rem;
+        }
 
-    .form-step {
-        display: none;
-        transform-origin: top;
-        animation: animate 0.5s;
-    }
+        .form-step {
+            display: none;
+            transform-origin: top;
+            animation: animate 0.5s;
+        }
 
-    .form-step-active {
-        display: block;
-    }
+        .form-step-active {
+            display: block;
+        }
 
-    .input-group {
-        margin: 2rem 0;
-    }
+        .input-group {
+            margin: 2rem 0;
+        }
 
-    @keyframes animate {
-        from {
-            transform: scale(1, 0);
+        @keyframes animate {
+            from {
+                transform: scale(1, 0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1, 1);
+                opacity: 1;
+            }
+        }
+
+        /* Button */
+        .btns-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25rem;
+        }
+
+        .button2 {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #f4511e;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 15px;
+            padding: 12px;
+            width: 100px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button2 span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button2 span:after {
+            content: '\21A0';
+            position: absolute;
             opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
         }
 
-        to {
-            transform: scale(1, 1);
+        .button2:hover span {
+            padding-right: 25px;
+        }
+
+        .button2:hover span:after {
             opacity: 1;
+            right: 0;
         }
-    }
 
-    /* Button */
-    .btns-group {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25rem;
-    }
+        .button1 {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #f4511e;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 15px;
+            padding: 12px;
+            width: 100px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
 
-    .button2 {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 15px;
-  padding: 12px;
-  width: 100px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
+        .button1 span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
 
-.button2 span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
+        .button1 span:after {
+            content: '\219E';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: -20px;
+            transition: 0.5s;
+        }
 
-.button2 span:after {
-  content: '\21A0';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
+        .button1:hover span {
+            padding-left: 25px;
+        }
 
-.button2:hover span {
-  padding-right: 25px;
-}
-
-.button2:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-.button1 {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 15px;
-  padding: 12px;
-  width: 100px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.button1 span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button1 span:after {
-  content: '\219E';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  left: -20px;
-  transition: 0.5s;
-}
-
-.button1:hover span {
-  padding-left: 25px;
-}
-
-.button1:hover span:after {
-  opacity: 1;
- left: 0;
-}
-
+        .button1:hover span:after {
+            opacity: 1;
+            left: 0;
+        }
     </style>
 @endsection
 
@@ -266,13 +267,13 @@
 
                 <div class="col-md-8">
                     <div class="account-details">
-                        @if (count($errors) > 0)
+                        {{-- @if (count($errors) > 0)
                             <div class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
                                     {{ $error }}
                                 @endforeach
                             </div>
-                        @endif
+                        @endif --}}
 
                         <form class="basic-info" action="{{ route('student_update') }}" method="POST">
                             <h1 class="text-center">Update Information</h1><br><br>
@@ -287,23 +288,33 @@
                             </div> --}}
                             @csrf
                             <div class="form-step form-step-active">
-                                <h3>Add Signature</h3>                                                           
-                                    <div class="row">
-                                        <div class="col-lg-8">        
-                                            <div class="candidate-profile">                        
-                                                    <span data-bs-toggle="modal" data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"
-                                                        title="Upload Photo" style="cursor:pointer">
-                                                        <img src="{{ auth()->user()->signature_url != null ? url('storage/' . auth()->user()->signature_url) : asset('/assets/img/null/signature.JPG') }}"
-                                                        width="250" height="70" alt="User-Profile-Image">
-                                                    </span><br>
-                                                    <button type="button" class="btn theme m-2" data-bs-toggle="modal" data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"> Upload Signature</button>
-                                            </div>
+                                <h3>Add Signature</h3>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="candidate-profile">
+                                            <span data-bs-toggle="modal"
+                                                data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"
+                                                title="Upload Photo" style="cursor:pointer">
+                                                <img src="{{ auth()->user()->signature_url != null ? url('storage/' . auth()->user()->signature_url) : asset('/assets/img/null/signature.JPG') }}"
+                                                    width="250" height="70" alt="User-Profile-Image">
+                                            </span><br>
+                                            <button type="button" class="btn theme m-2" data-bs-toggle="modal"
+                                                data-bs-target="#user_profile_photo_modal{{ auth()->user()->id }}"> Upload
+                                                Signature</button>
                                         </div>
-                                    </div>                                    
-                            
+                                    </div>
+                                </div>
 
-                            <!-- Steps -->
-                            
+
+                                <!-- Steps -->
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <h3>Basic Information</h3>
                                 <input type="hidden" name="student_id" value="{{ $student_data->id }}">
                                 <input type="hidden" name="degrees_id" value="{{ $academic_data->id }}">
@@ -312,15 +323,15 @@
                                         <div class="form-group">
                                             <label>Your Full Name <span
                                                     class="text-danger font-weight-bold">*</span></label>
-                                            <input type="text" name="name" class="form-control" placeholder="Your Name"
-                                                value="{{ $student_data->name }}" required>
+                                            <input type="text" name="name" class="form-control"
+                                                placeholder="Your Name" value="{{ $student_data->name }}"   >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Your Email</label>
-                                            <input type="email" name="email" class="form-control" placeholder="Your Email"
-                                                value="{{ $student_data->email }}">
+                                            <input type="email" name="email" class="form-control"
+                                                placeholder="Your Email" value="{{ $student_data->email }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -328,15 +339,14 @@
                                             <label>Your Phone <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="phone" pattern="[0]+[1]+[7/8/9/6/5/4/3]+[0-9]{8}" name="phone"
                                                 class="form-control" placeholder="Your Phone"
-                                                value="{{ $student_data->phone }}" required>
+                                                value="{{ $student_data->phone }}"   >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Date of Birth <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="date" name="dob" class="form-control"
-                                                value="{{ (new DateTime($student_data->dob))->format('Y-m-d') }}"
-                                                required>
+                                                value="{{ (new DateTime($student_data->dob))->format('Y-m-d') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -344,7 +354,7 @@
                                             <label>Father's Name <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="father_name" class="form-control"
                                                 placeholder="Your Father's Name" value="{{ $student_data->father_name }}"
-                                                required>
+                                                  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -353,7 +363,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="father_profession" class="form-control"
                                                 placeholder="Your Father's Profession"
-                                                value="{{ $student_data->father_profession }}" required>
+                                                value="{{ $student_data->father_profession }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -361,7 +371,7 @@
                                             <label>Mother's Name <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="mother_name" class="form-control"
                                                 placeholder="Your Mother's Profession"
-                                                value="{{ $student_data->mother_name }}" required>
+                                                value="{{ $student_data->mother_name }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -370,7 +380,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="mother_profession" class="form-control"
                                                 placeholder="Your Mother's Name"
-                                                value="{{ $student_data->mother_profession }}" required>
+                                                value="{{ $student_data->mother_profession }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -385,15 +395,14 @@
                                             <label>Your Aim in Life <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <textarea name="aim_in_life" class="form-control" placeholder="Write details" maxlength="999"
-                                                style="max-height: 80px; height: 80px"
-                                                required>{{ $student_data->aim_in_life }}</textarea>
+                                                style="max-height: 80px; height: 80px"  >{{ $student_data->aim_in_life }}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="gender">Gender <span
                                                     class="text-danger font-weight-bold">*</span></label>
-                                            <select class="form-control" name="gender" id="gender" required>
+                                            <select class="form-control" name="gender" id="gender"  >
                                                 {{-- <option value="">Select</option> --}}
                                                 <option value="Male"
                                                     {{ old('gender', $student_data->gender) == 'Male' ? 'selected' : '' }}>
@@ -409,7 +418,8 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
+                                        </span></a>
                                 </div>
                             </div>
                             <div class="form-step">
@@ -419,7 +429,7 @@
                                         <div class="form-group">
                                             <label for="level">Level <span
                                                     class="text-danger font-weight-bold">*</span></label>
-                                            <select class="form-control" name="level" id="level" required>
+                                            <select class="form-control" name="level" id="level"  >
                                                 {{-- <option value="">Select</option> --}}
                                                 <option value="School"
                                                     {{ old('level', $academic_data->level) == 'School' ? 'selected' : '' }}>
@@ -492,7 +502,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="institution" class="form-control"
                                                 placeholder="Your Institution" id="institution"
-                                                value="{{ $academic_data->institution }}" required>
+                                                value="{{ $academic_data->institution }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6" id="position">
@@ -501,7 +511,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="position" class="form-control"
                                                 placeholder="Your Class Position" value="{{ $academic_data->position }}"
-                                                required>
+                                                 >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -509,21 +519,21 @@
                                             <label>Marks/GPA/CGPA <span
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="number" step=0.01 name="marks_cgpa" class="form-control"
-                                                placeholder="CGPA" value="{{ $academic_data->marks_cgpa }}" required>
+                                                placeholder="CGPA" value="{{ $academic_data->marks_cgpa }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Semester</label>
-                                            <input type="text" name="semester" class="form-control" placeholder="Semester"
-                                                value="{{ $academic_data->semester }}">
+                                            <input type="text" name="semester" class="form-control"
+                                                placeholder="Semester" value="{{ $academic_data->semester }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Year <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" class="form-control" name="year" id="datepicker"
-                                                value="{{ $academic_data->year }}" required />
+                                                value="{{ $academic_data->year }}"   />
 
                                         </div>
                                     </div>
@@ -618,9 +628,8 @@
                                         <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <label>Achievement {{ $loop->index + 1 }}</label>
-                                                <textarea id="" name="achievement[]" class="form-control" placeholder=" (e.g., athlete, debater, organizer, etc.)"
-                                                    maxlength="999"
-                                                    style="max-height: 80px; height: 80px">{{ $achievement->achievement }}</textarea>
+                                                <textarea id="" name="achievement[]" class="form-control"
+                                                    placeholder=" (e.g., athlete, debater, organizer, etc.)" maxlength="999" style="max-height: 80px; height: 80px">{{ $achievement->achievement }}</textarea>
                                             </div>
                                         </div>
                                     @empty
@@ -634,8 +643,10 @@
                                         class="bx bx-plus">Add Achievements</i></a>
 
                                 <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"><span>Previous </span></a>
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next </span></a>
+                                    <a class="button1 btn-prev width-50 ml-auto"
+                                        style="vertical-align:middle"><span>Previous </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
+                                        </span></a>
                                 </div>
                             </div>
                             <div class="form-step">
@@ -647,7 +658,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="reference_name" class="form-control"
                                                 placeholder="Enter reference name"
-                                                value="{{ $student_data->reference_name }}" required>
+                                                value="{{ $student_data->reference_name }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -655,7 +666,7 @@
                                             <label>Profession <span class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="reference_profession" class="form-control"
                                                 placeholder="Enter profession" maxlength="999"
-                                                value="{{ $student_data->reference_profession }}" required>
+                                                value="{{ $student_data->reference_profession }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -664,7 +675,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="phone" name="reference_phone" class="form-control"
                                                 placeholder="Enter contact number"
-                                                value="{{ $student_data->reference_phone }}" required>
+                                                value="{{ $student_data->reference_phone }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -681,7 +692,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="number" name="family_income" class="form-control"
                                                 placeholder="Enter monthly family income"
-                                                value="{{ $student_data->family_income }}" required>
+                                                value="{{ $student_data->family_income }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -690,7 +701,7 @@
                                                     class="text-danger font-weight-bold">*</span></label>
                                             <input type="text" name="income_source" class="form-control"
                                                 placeholder="Enter income source"
-                                                value="{{ $student_data->income_source }}" required>
+                                                value="{{ $student_data->income_source }}"  >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -714,8 +725,10 @@
                                     </div>
                                 </div>
                                 <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"><span>Previous </span></a>
-                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next </span></a>
+                                    <a class="button1 btn-prev width-50 ml-auto"
+                                        style="vertical-align:middle"><span>Previous </span></a>
+                                    <a class="button2 btn-next width-50 ml-auto" style="vertical-align:middle"><span>Next
+                                        </span></a>
                                 </div>
                             </div>
                             <div class="form-step">
@@ -781,7 +794,8 @@
                                                 value="{{ $present->same_as_presen }}" name="same_as_present"
                                                 @if (old('same_as_present', $present->same_as_present)) checked @endif>
 
-                                            <label class="form-check-label" for="trigger">Same as Present Address (Tick, if
+                                            <label class="form-check-label" for="trigger">Same as Present Address (Tick,
+                                                if
                                                 yes)</label>
                                         </div>
                                     </div>
@@ -880,7 +894,8 @@
                                 </div>
 
                                 <div class="btns-group">
-                                    <a class="button1 btn-prev width-50 ml-auto" style="vertical-align:middle"><span>Previous </span></a>
+                                    <a class="button1 btn-prev width-50 ml-auto"
+                                        style="vertical-align:middle"><span>Previous </span></a>
                                     <button class="button2" style="vertical-align:middle"><span>Update</span></button>
                                 </div>
                             </div>
@@ -891,7 +906,7 @@
         </div>
     </section>
 
-    
+
     {{-- ------------------------Create Modal------------------------- --}}
 
     <div class="modal fade" id="user_profile_photo_modal{{ auth()->user()->id }}" tabindex="-1"
@@ -909,8 +924,9 @@
 
                         <label for="formFile" class="col-md-3">Signature</label>
                         <div class="col-md-9 custom-file">
-                            <input type="file" class="form-control custom-file-input" id="upload{{ auth()->user()->id }}"
-                                name="profile_photo" accept="image/x-png,image/gif,image/jpeg">
+                            <input type="file" class="form-control custom-file-input"
+                                id="upload{{ auth()->user()->id }}" name="profile_photo"
+                                accept="image/x-png,image/gif,image/jpeg">
                             <label class="custom-file-label" for="profile_photo"></label>
                         </div>
 
@@ -1145,7 +1161,6 @@
         this.getField("myField").required = false;
     </script> --}}
 @endsection
-    
-@section('custom_js')
 
+@section('custom_js')
 @endsection

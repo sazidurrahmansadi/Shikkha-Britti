@@ -80,8 +80,8 @@
                                         <th>Phone</th>
                                         <th>Reviewed By</th>
                                         {{-- <th>Approval</th> --}}
-                                        <th class="text-center">View</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center">Comment</th>
+                                        <th class="text-center">View/Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,40 +92,28 @@
                                             <td>{{ $reviewed_applicaion->student->sid }}</td>
                                             <td>{{ $reviewed_applicaion->student->phone }}</td>
                                             <td>{{ $reviewed_applicaion->reviewed_by }}</td>
+                                            <td class="no-wrap">
+                                                {{-- <a class="btn btn-success btn-sm align-top"
+                                                    href="{{ route('manage_review_comment_show', [$reviewed_applicaion->scholarship_id, $reviewed_applicaion->student_id]) }}"
+                                                    target="_blank"> View Comment </a> --}}
+                                                    {{ $reviewed_applicaion->comment }}
+                                            </td>
 
-                                            {{-- <td class="text-center">
-                                            @forelse($applied_students as $applied_student)
-                                            
-                                            @if ($applied_student->pivot->is_approve == 1)
-                                                <h5><span class="badge badge-success">Approved</span></h5>
 
-                                            @else
-
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('manage_applications', [$scholarship_id, $applied_student->id]) }}"
-                                                    role="button">Approve</a>
-                                            @endif
-                                            
-                                            @empty
-                                            @endforelse
-                                            </td> --}}
-                                           
 
                                             <td class="no-wrap">
                                                 <a class="btn btn-primary btn-sm mb-2"
                                                     href="{{ route('manage_applications_profile', [$reviewed_applicaion->student_id]) }}"
-                                                    target="_blank"><i class='far fa-user'></i> Profile</a><br>
-                                            </td>
-                                            <td class="no-wrap">
-                                                
-                                                <a type="button" class="btn-sm btn-danger" data-toggle="modal"
+                                                    target="_blank"><i class='far fa-user'></i>Profile </a>
+
+                                                <a type="button" class="btn btn-danger btn-sm mb-2" data-toggle="modal"
                                                     data-target="#delete_warning_modal"
                                                     data-scholarship_id_u="{{ $reviewed_applicaion->scholarship_id }}"
                                                     data-student_id_u="{{ $reviewed_applicaion->student_id }}"
-                                                    data-approved_app_id_u="{{ $reviewed_applicaion->id }}"><i
-                                                        class="fa fa-trash"></i> Delete</a>
+                                                    data-reviewed_app_id_u="{{ $reviewed_applicaion->id }}"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
-                                            
+
                                         </tr>
                                     @empty
                                     @endforelse
@@ -154,7 +142,7 @@
                     <h5 class="modal-title text-danger" id="delete_warning_modal">ATTENTION!!</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('manage_applications_approved_delete') }}" method="POST">
+                    <form action="{{ route('manage_applications_reviewed_delete') }}" method="POST">
                         @csrf
                         <div class="text-center my-3">
                             <i class="fas fa-trash fa-4x text-danger" aria-hidden="true"></i>
@@ -165,7 +153,7 @@
 
                         <input type="hidden" id="scholarship_id_u" name="scholarship_id_u" value="">
                         <input type="hidden" id="student_id_u" name="student_id_u" value="">
-                        <input type="hidden" id="approved_app_id_u" name="approved_app_id_u" value="">
+                        <input type="hidden" id="reviewed_app_id_u" name="reviewed_app_id_u" value="">
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -186,14 +174,14 @@
             var button = $(event.relatedTarget)
             var scholarship_id = button.data('scholarship_id_u')
             var student_id = button.data('student_id_u')
-            var approved_app_id = button.data('approved_app_id_u')
+            var reviewed_app_id = button.data('reviewed_app_id_u')
             // console.log(scholarship_id);
             // console.log(student_id);
-            // console.log(approved_app_id);
+            // console.log(reviewed_app_id);
             var modal = $(this)
             modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
             modal.find('.modal-body #student_id_u').val(student_id)
-            modal.find('.modal-body #approved_app_id_u').val(approved_app_id)
+            modal.find('.modal-body #reviewed_app_id_u').val(reviewed_app_id)
         })
     </script>
 
@@ -239,8 +227,7 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 // "buttons": ["copy", "excel", "pdf", "print"],
-                "buttons": [
-                    {
+                "buttons": [{
                         extend: 'copyHtml5',
                         exportOptions: {
                             columns: ':visible'
@@ -255,13 +242,13 @@
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
-                    },                    
+                    },
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
                     },
                     // 'colvis'

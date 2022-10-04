@@ -19,6 +19,7 @@
             color: white;
             font-weight: bold;
         }
+
     </style>
 @endsection
 
@@ -49,8 +50,9 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Scholarship List</h1>
-
+                                    <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Student List</h1>
+                                    <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn-sm btn-danger shadow-sm"><i class="fa fa-backward"></i>Dashboard
+                                </a>
                                 </div>
                             </div>
                             <!-- title -->
@@ -64,31 +66,22 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr class="color">
                                         <th>SL#</th>
-                                        <th>Scholarship Title</th>
-                                        <th>Deadline</th>
-                                        <th>Status</th>
+                                        <th>Student Name</th>
+                                        <th>Phone</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($scholarships as $scholarship)
+                                    @forelse($query as $q)
+
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $scholarship->scholarship_title }}</td>
-                                            <td>{{ (new DateTime($scholarship->deadline))->format('d-M-Y') }}</td>
-                                            <td>{{ $scholarship->status }}</td>
-
-                                            <td class="text-center"><a class="btn btn-primary btn-sm"
-                                                    href="{{ route('manage_reviewed_applications', [$scholarship->id]) }}"
-                                                    role="button">View Reviewed Applications</a>
-                                            </td>
-
-
+                                            <td>{{ $q->student->name }}</td>
+                                            <td>{{ $q->student->phone }}</td>
                                         </tr>
                                     @empty
                                     @endforelse
@@ -98,15 +91,65 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
+
+
+    {{-- ------------------------change status Modal---------------------------- --}}
+    <div class="modal fade" id="status_change_modal" tabindex="-1" aria-labelledby="status_change_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-secondary" id="status_change_modal">ATTENTION!!</h5>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{-- ------------------------Delete User Modal---------------------------- --}}
+    <div class="modal fade" id="delete_warning_modal" tabindex="-1" aria-labelledby="delete_warning_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="delete_warning_modal">ATTENTION!!</h5>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('extra_js')
     <script src="{{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
+    {{-- ------------Change STATUS Script-------------- --}}
+    <script>
+        $('#status_change_modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var scholarship_id = button.data('scholarship_id_u')
+            console.log(scholarship_id);
+            var modal = $(this)
+            modal.find('.modal-body #scholarship_id_u').val(scholarship_id)
+        })
+    </script>
+
+
+    {{-- ------------Delete Script-------------- --}}
+
+    <script>
+        $('#delete_warning_modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var scholarship_id = button.data('scholarship_id_d')
+            console.log(scholarship_id);
+            var modal = $(this)
+            modal.find('.modal-body #scholarship_id_d').val(scholarship_id)
+        })
+    </script>
 
     <!-- jQuery -->
     {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
@@ -118,13 +161,13 @@
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <!-- Page specific script -->
     <script>
@@ -135,8 +178,7 @@
                 "scrollX": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "searching": false,
-                // "buttons": ["copy", "excel", "pdf", "print"]
+                "buttons": ["copy", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

@@ -18,7 +18,6 @@
             color: white;
             font-weight: bold;
         }
-
     </style>
 @endsection
 
@@ -30,7 +29,7 @@
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-            </ul> 
+            </ul>
         </div>
     @endif
 @endsection
@@ -53,8 +52,8 @@
                                         {{-- {{ (new DateTime($fromDate))->format('d-F-Y') }} To  {{ (new DateTime($toDate))->format('d-F-Y') }} : Statement List --}}
                                         Month Range Statement List
                                     </h1>
-                                    <a href="{{ route('manage_statement_search') }}"
-                                        class="btn btn-primary shadow-sm"><i class="fa fa-search mr-2"></i>
+                                    <a href="{{ route('manage_statement_search') }}" class="btn btn-primary shadow-sm"><i
+                                            class="fa fa-search mr-2"></i>
                                         Search by Month
                                     </a>
                                 </div>
@@ -90,6 +89,23 @@
                                         {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr style="color: blueviolet" id="total">
+                                        <td colspan="3"></td>
+
+                                        <td>Total Amount (Date Ranged):</td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->select()->where('month_year', '>=', $fromDate)->where('month_year', '<=', $toDate)->get()->sum('approved_amount') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount = DB::table('monthly_statements')->select()->where('month_year', '>=', $fromDate)->where('month_year', '<=', $toDate)->get()->sum('approval_cost') }}
+                                        </td>
+                                        <td>
+                                            {{ $totalAmount =DB::table('monthly_statements')->select()->where('month_year', '>=', $fromDate)->where('month_year', '<=', $toDate)->get()->sum('approved_amount') + DB::table('monthly_statements')->select()->where('month_year', '>=', $fromDate)->where('month_year', '<=', $toDate)->get()->sum('approval_cost') }}
+                                        </td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @forelse($statements as $statement)
                                         <tr>
@@ -100,20 +116,22 @@
                                             <td>{{ $statement->approved_amount }}</td>
                                             <td>{{ $statement->approval_cost }}</td>
                                             <td>{{ $statement->approved_amount + $statement->approved_cost }}</td>
-                                           
+
                                             @php
                                                 $payee = explode('\\', $statement->account->accountable_type);
                                             @endphp
 
-                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>                                          
+                                            <td>{{ $statement->account->account_title }} - {{ $payee[2] }}</td>
                                             <td>{{ $statement->status }}</td>
-                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y')  }}</td>
+                                            <td>{{ (new DateTime($statement->month_year))->format('M-Y') }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($statement->note, 40, $end = '...') }}
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ route('manage_statement_details', $statement->id) }}" data-toggle="tooltip"
-                                                    data-placement="top" title="View Details"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('manage_statement_details', $statement->id) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="View Details"><i
+                                                        class="fa fa-eye"></i></a>
 
                                                 <a class="btn btn-sm btn-warning"
                                                     href="{{ route('manage_statement_edit', $statement->id) }}"
@@ -166,7 +184,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -208,12 +225,36 @@
                 "responsive": false,
                 "scrollX": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "excel", "pdf", "print"]
+                "autoWidth": true,
+                "buttons": [{
+                        extend: 'copy',
+                        footer: true
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true
+                    },
+                    {
+                        extend: 'csv',
+                        footer: true
+                    },
+                    {
+                        extend: 'print',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    }
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });
-      
     </script>
 @endsection
-    

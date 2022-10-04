@@ -72,6 +72,43 @@
                         </a>
                     </li>
                 @endcan
+                @role('TENANT')
+
+                <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Manage Stuff
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('stuff_reg') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Add Stuff For Scholarship</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Add Stuff For Statements</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-success"></i>
+                                    <p>Stuff List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endrole
                 @can('admin-can')
                     <li class="nav-item">
                         <a href="{{ route('manage_permissions.index') }}" class="nav-link">
@@ -116,14 +153,14 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('manage_students.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Student List
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user-tie"></i>

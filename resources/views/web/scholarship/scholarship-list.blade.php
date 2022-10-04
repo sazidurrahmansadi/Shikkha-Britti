@@ -37,7 +37,7 @@
                             <div class="col-md-1">
                                 <div class="company-logo">
                                     <a href="#">
-                                        <img src="{{asset('assets/img/company-logo/1.png')}}" alt="logo">
+                                        <img src="{{asset('assets/img/company-logo/7.png')}}" alt="logo">
                                     </a>
                                 </div>
                             </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUsersTable extends Migration
+class UpdateReviewedApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-        $table->string('u_type')->nullable()->after('phone');
-        $table->string('signature_url')->nullable()->after('photo_url');
+        Schema::table('reviewed_applications', function (Blueprint $table) {
+            $table->string('comment')->nullable()->after('reviewed_by');
         });
     }
 
