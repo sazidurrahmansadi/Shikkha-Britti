@@ -186,7 +186,7 @@ Route::POST('/manage-mentor-accounts-store', [ManageMentorAccountController::cla
 Route::GET('/manage-mentor-accounts-details/{mentor_id}', [ManageMentorAccountController::class, 'show'])->name('manage_mentor_accounts_details')->middleware('auth');
 Route::GET('/manage-mentor-accounts-edit/{account_id}', [ManageMentorAccountController::class, 'edit'])->name('manage_mentor_accounts_edit')->middleware('auth');
 Route::POST('/manage-mentor-accounts-update', [ManageMentorAccountController::class, 'update'])->name('manage_mentor_accounts_update')->middleware('auth');
-Route::GET('/manage-student-list', [ManageMentorController::class, 'students'])->name('manage_student_list')->middleware('auth');
+Route::GET('/manage-student-list/{mentor_id}', [ManageMentorController::class, 'students'])->name('manage_student_list')->middleware('auth');
 
 
 /*

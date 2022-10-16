@@ -105,7 +105,7 @@
                                                     @endif
                                             </td>
                                             <td><a class="btn btn-primary btn-sm"
-                                                href="{{ route('manage_student_list') }}"
+                                                href="{{ route('manage_student_list',$mentor->id) }}"
                                                 role="button">View All</a>
                                             </td>
                                         </tr>

@@ -38,7 +38,6 @@ class ManageMentorController extends Controller
     public function create()
     {
         return view('tenant.manage_mentors.manage_mentors_create');
-
     }
 
     /**
@@ -69,7 +68,7 @@ class ManageMentorController extends Controller
         $user->assignRole($role);
 
         // return redirect()->route('manage_mentors.index')->with('success','Mentor created successfully');
-        return redirect()->route('manage_mentor_accounts_create',$mentor->id)->with('success','Mentor created successfully');
+        return redirect()->route('manage_mentor_accounts_create', $mentor->id)->with('success', 'Mentor created successfully');
     }
 
     /**
@@ -80,7 +79,7 @@ class ManageMentorController extends Controller
      */
     public function show($id)
     {
-        return view('tenant.manage_mentors.manage_mentors_show',[
+        return view('tenant.manage_mentors.manage_mentors_show', [
             'mentor' => Mentor::find($id),
         ]);
     }
@@ -93,7 +92,7 @@ class ManageMentorController extends Controller
      */
     public function edit($id)
     {
-        return view('tenant.manage_mentors.manage_mentors_edit',[
+        return view('tenant.manage_mentors.manage_mentors_edit', [
             'mentor' => Mentor::find($id),
         ]);
     }
@@ -120,24 +119,22 @@ class ManageMentorController extends Controller
         $mentor = Mentor::find($id);
         $mentor->update($input);
 
-        return redirect()->route('manage_mentors.show',$id)
-        ->with('success','Mentor data updated successfully');
+        return redirect()->route('manage_mentors.show', $id)
+            ->with('success', 'Mentor data updated successfully');
     }
 
 
     public function students(Request $request)
     {
-
-        $mentor_id = $request->mentor_id
-;
+        $mentor_id = $request->mentor_id;
         $query = DB::table('approved_applications')->select()
             ->where('mentor_id', '=', $mentor_id)
             ->get();
 
         // $students = ApprovedApplication::where('mentor_id', '=',  $mentor_id)->get();
 
-        
-        // dd($query);
+
+        dd($query);
         return view('tenant.manage_mentors.manage_student_list', compact('query'));
     }
 

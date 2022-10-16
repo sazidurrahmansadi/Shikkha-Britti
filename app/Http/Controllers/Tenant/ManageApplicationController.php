@@ -199,7 +199,7 @@ class ManageApplicationController extends Controller
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
         $approve->scholarship_id = $request->scholarship_id;
-        // $approve->mentor_id = $request->mentor_id;
+        $approve->mentor_id = Account::findOrFail($request->account_id_mentor)->first();
         $approve->approved_amount = $request->approved_amount;
         $approve->approval_cost = $request->approval_cost;
         $approve->from_date = $request->from_date;

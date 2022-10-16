@@ -15,8 +15,7 @@ class UpdateApprovedApplicationsTable extends Migration
     {
         Schema::table('approved_applications', function (Blueprint $table) {
             $table->double('approval_cost')->nullable()->after('approved_amount');
-            $table->integer('mentor_id')->nullable()->after('student_id');
-
+            $table->foreignId('mentor_id')->after('student_id')->nullable()->constrained();
         });
     }
 

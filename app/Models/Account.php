@@ -20,6 +20,11 @@ class Account extends Model
         return $this->morphTo();
     }
 
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
+
     // public function monthly_statements()
     // {
     //     return $this->hasMany(Account::class);
