@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Student;
 use App\Models\Degree;
 use App\Models\Achievement;
+use App\Models\ApprovedApplication;
 use App\Models\RenewalForm;
 use App\Models\Scholarship;
 use App\Models\User;
@@ -63,8 +64,6 @@ class RegisterStudentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
 
         $this->validate($request, [
             'user_id' => 'required',
@@ -334,47 +333,72 @@ class RegisterStudentController extends Controller
 
         $level = $request->level;
         if ($level == "School" || $level == "College" || $level == "Diploma" || $level == "Bachelors") {
-            $bachelor_year = NULL; $bachelor_institution = NULL; $bachelor_subject = NULL; $bachelor_cgpa = NULL;
-            
+            $bachelor_year = NULL;
+            $bachelor_institution = NULL;
+            $bachelor_subject = NULL;
+            $bachelor_cgpa = NULL;
+
             if ($level == "School") {
                 $this->validate($request, [
                     'class_degree_sch' => 'required'
-                ],[
+                ], [
                     'class_degree_sch.required' => 'The "Class" field is mandatory!',
                 ]);
                 $degree_level = $request->class_degree_sch;
-                $ssc_year = NULL; $ssc_institution = NULL; $ssc_gpa = NULL; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+                $ssc_year = NULL;
+                $ssc_institution = NULL;
+                $ssc_gpa = NULL;
+                $hsc_year = NULL;
+                $hsc_institution = NULL;
+                $hsc_gpa = NULL;
             } else if ($level == "College") {
                 $this->validate($request, [
                     'class_degree_col' => 'required'
-                ],[
+                ], [
                     'class_degree_col.required' => 'The "Class" field is mandatory!',
                 ]);
                 $degree_level = $request->class_degree_col;
-                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+                $ssc_year = $request->ssc_year;
+                $ssc_institution = $request->ssc_institution;
+                $ssc_gpa = $request->ssc_gpa;
+                $hsc_year = NULL;
+                $hsc_institution = NULL;
+                $hsc_gpa = NULL;
             } else if ($level == "Diploma") {
                 $degree_level = NULL;
-                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; $hsc_year = NULL; $hsc_institution = NULL; $hsc_gpa = NULL;
+                $ssc_year = $request->ssc_year;
+                $ssc_institution = $request->ssc_institution;
+                $ssc_gpa = $request->ssc_gpa;
+                $hsc_year = NULL;
+                $hsc_institution = NULL;
+                $hsc_gpa = NULL;
             } else if ($level == "Bachelors") {
                 $this->validate($request, [
                     'class_degree_uni' => 'required'
-                ],[
+                ], [
                     'class_degree_uni.required' => 'The "Degree Year" field is mandatory!',
                 ]);
                 $degree_level = $request->class_degree_uni;
-                $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; 
-                $hsc_year = $request->hsc_year; $hsc_institution = $request->hsc_institution; $hsc_gpa = $request->hsc_gpa;
+                $ssc_year = $request->ssc_year;
+                $ssc_institution = $request->ssc_institution;
+                $ssc_gpa = $request->ssc_gpa;
+                $hsc_year = $request->hsc_year;
+                $hsc_institution = $request->hsc_institution;
+                $hsc_gpa = $request->hsc_gpa;
             }
-
         } else {
             $this->validate($request, [
                 'class_degree_uni' => 'required'
-            ],[
+            ], [
                 'class_degree_uni.required' => 'The "Degree Year" field is mandatory!',
             ]);
             $degree_level = $request->class_degree_uni;
-            $ssc_year = $request->ssc_year; $ssc_institution = $request->ssc_institution; $ssc_gpa = $request->ssc_gpa; 
-            $hsc_year = $request->hsc_year; $hsc_institution = $request->hsc_institution; $hsc_gpa = $request->hsc_gpa;
+            $ssc_year = $request->ssc_year;
+            $ssc_institution = $request->ssc_institution;
+            $ssc_gpa = $request->ssc_gpa;
+            $hsc_year = $request->hsc_year;
+            $hsc_institution = $request->hsc_institution;
+            $hsc_gpa = $request->hsc_gpa;
 
             $bachelor_year = $request->bachelor_year;
             $bachelor_institution = $request->bachelor_institution;
@@ -516,7 +540,7 @@ class RegisterStudentController extends Controller
         //     $path = public_path('storage') . "/uploaded_photo/user_photo/" . $image_name;
         // }
         //     mkdir(public_path('storage') . "/uploaded_photo/user_photo" . '/', 0777, true);
-        
+
         $path = public_path('storage') . "/uploaded_file/student_signature/" . $image_name;
 
 
@@ -531,7 +555,7 @@ class RegisterStudentController extends Controller
 
         $user->signature_url = "/uploaded_file/student_signature/" . $image_name;
         $user->save();
-      return redirect()->back()->with('Successfully added signature');
+        return redirect()->back()->with('Successfully added signature');
     }
 
 
@@ -543,22 +567,25 @@ class RegisterStudentController extends Controller
 
         $student_data = User::find(Auth::user()->id)->student_information;
         $renewal_info = $student_data->renewal_form;
- 
-         return view('web.student.student_renewal_form_index', [
+        $applied_scholarships = ApprovedApplication::where('student_id',Auth::user()->student_information->id)->get();
+        // $scholarships = Scholarship::where('id',);
+
+        return view('web.student.student_renewal_form_index', [
             'student_data' => $student_data,
-             'renewal_info' => $renewal_info,          
-         ]);
+            'renewal_info' => $renewal_info,
+            'applied_scholarships' => $applied_scholarships,
+        ]);
     }
 
 
 
-    
+
 
     public function renew_form_create(Request $request)
     {
 
         $this->validate($request, [
-            // 'scholarship_id' => 'required',
+            'scholarship_id' => 'required',
             'student_id' => 'required',
             'level' => 'required',
             'class_degree' => 'required',
@@ -567,14 +594,14 @@ class RegisterStudentController extends Controller
             'marks_cgpa2' => 'required',
             'date2' => 'required',
             'financial' => 'required',
-            'opinion'=>'required',
+            'opinion' => 'required',
         ]);
 
-        $student_data = Student::find($request->student_id);      
-        
+        $student_data = Student::find($request->student_id);
+
         $renew = new RenewalForm();
         $renew->student_id = $request->student_id;
-        // $renew->scholarship_id = $request->scholarship_id;
+        $renew->scholarship_id = $request->scholarship_id;
         $renew->level = $request->level;
         $renew->class_degree = $request->class_degree;
         $renew->marks_cgpa1 = $request->marks_cgpa1;
@@ -590,7 +617,7 @@ class RegisterStudentController extends Controller
     }
 
     public function renewal_form_edit($renewal_id)
-    {        
+    {
         // $academic_data = Student::find($student_data->id)->degree_information;
         // $achievement = Student::find($student_data->id)->achievements;
         $student_data = User::find(Auth::user()->id)->student_information;
@@ -601,7 +628,7 @@ class RegisterStudentController extends Controller
             'student_data' => $student_data,
             //  'academic_data' => $academic_data,
             //  'achievement' => $achievement,
-             'renewal_info' => $renewal_info,  
+            'renewal_info' => $renewal_info,
         ]);
     }
 
@@ -616,7 +643,7 @@ class RegisterStudentController extends Controller
             'marks_cgpa2' => 'required',
             'date2' => 'required',
             'financial' => 'required',
-            'opinion'=>'required',
+            'opinion' => 'required',
         ]);
 
         $renew = RenewalForm::find($request->renewal_id);
@@ -635,6 +662,4 @@ class RegisterStudentController extends Controller
 
         return redirect()->route('student_renewal_form')->with('success', 'Form updated successfully');
     }
-
-
 }

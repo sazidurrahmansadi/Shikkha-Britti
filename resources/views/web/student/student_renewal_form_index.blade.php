@@ -125,7 +125,8 @@
                                             data-target="#edit_account_modal"
                                             data-document_id="{{ $student_data->id }}">Edit</button> --}}
 
-                                        <a href="{{ route('renewal_form_edit', $renewal_info->id) }}" type="button" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('renewal_form_edit', $renewal_info->id) }}" type="button"
+                                            class="btn btn-primary">Edit</a>
 
                                     </div>
                                 @empty
@@ -173,10 +174,22 @@
                                     <input type="hidden" id="student_id" name="student_id"
                                         value="{{ $student_data->id }}">
 
-                                    {{-- <input type="hidden" id="scholarship_id" name="scholarship_id" value="{{ $scholarship_data->id }}"> --}}
-
                                     <div class="row">
                                         <h3>Basic Information</h3>
+
+                                        <div class="col-md-12">
+                                            <label for="scholarship_id">Select Scholarship</label>
+                                            <select class="form-control" id="scholarship_id" name="scholarship_id" required>
+                                                @if (!$applied_scholarships->isEmpty())
+                                                    @foreach ($applied_scholarships as $applied_scholarship)
+                                                        <option value="{{ $applied_scholarship->scholarship_id }}">
+                                                            {{ $applied_scholarship->scholarship->scholarship_title }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select><br>
+                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Your Full Name <span
@@ -211,14 +224,6 @@
                                                     value="{{ $student_data->father_name }}" required>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Mother's Name <span class="text-danger font-weight-bold">*</span></label>
-                                            <input disabled type="text" name="mother_name" class="form-control"
-                                                placeholder="Your Mother's Profession"
-                                                value="{{ $student_data->mother_name }}" required>
-                                        </div>
-                                    </div> --}}
                                     </div>
 
                                     <div>
