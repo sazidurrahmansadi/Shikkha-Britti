@@ -28,8 +28,7 @@
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h2 mb-0 text-gray-800 text-info font-weight-bold">Approve Application</h1>
-                                <a href="{{ route('dashboard') }}"
-                                    class="d-sm-inline-block btn-sm btn-primary shadow-sm"><i
+                                <a href="{{ route('dashboard') }}" class="d-sm-inline-block btn-sm btn-primary shadow-sm"><i
                                         class="fa fa-backward mr-2"></i>
                                     Dashboard
                                 </a>
@@ -46,8 +45,12 @@
                     <form method="post" action="{{ route('manage_applications_approval') }}">
                         @csrf
                         <input type="hidden" id="student_id" name="student_id" value="{{ $student_data->id }}">
-                        <input type="hidden" id="scholarship_id" name="scholarship_id"
-                            value="{{ $scholarship_data->id }}">
+                        <input type="hidden" id="scholarship_id" name="scholarship_id" value="{{ $scholarship_data->id }}">
+                        @forelse($mentors as $mentor)
+                            <input type="hidden" id="mentor_id" name="mentor_id" value="{{ $mentor->id }}">
+                        @empty
+                        @endforelse
+
 
                         <div class="card-body">
                             <div class="form-group">
@@ -119,7 +122,6 @@
                                         @forelse($mentors as $mentor)
                                             <option value="{{ $mentor->mentor_active_account->id ?? null }}">
                                                 {{ $mentor->user->name }}</option>
-
                                         @empty
                                         @endforelse
                                     </select>

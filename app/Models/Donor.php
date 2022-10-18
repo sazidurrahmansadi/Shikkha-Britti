@@ -30,6 +30,11 @@ class Donor extends Model
         return $this->hasMany(Tenant::class);
     }
 
+    public function review_student()
+    {
+        return $this->hasMany(ReviewedApplication::class);
+    }
+
     public function scholarship()
     {
         return $this->hasMany(Scholarship::class);

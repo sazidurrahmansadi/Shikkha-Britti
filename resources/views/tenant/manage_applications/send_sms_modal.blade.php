@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     {{-- <form> --}}
                     <div class="form-group row">
-                        <label for="inputPhone3" class="col-sm-1 col-form-label">To</label>
+                        <label for="inputPhone3" class="col-sm-2 col-form-label">To</label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="inputPhone3"
                                 name="recipient_phone" value="{{ $approved_application->student->phone }}">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Message
+                        <label for="exampleFormControlTextarea1" class="col-sm-5 col-form-label">Message
                         </label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="message_text" rows="3"></textarea>

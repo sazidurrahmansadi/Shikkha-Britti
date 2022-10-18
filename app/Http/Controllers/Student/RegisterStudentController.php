@@ -538,47 +538,108 @@ class RegisterStudentController extends Controller
 
     #Student Renewal Form
 
-    public function renew($student_id)
+    public function renew_form_index($student_id)
     {
         $student_data = Student::findOrFail($student_id);
         $academic_data = Student::find($student_data->id)->degree_information;
-        $achievements = Student::find($student_data->id)->achievements;
+        $achievement = Student::find($student_data->id)->achievements;
+        $renewal_info = $student_data->renewal_form;
+ 
+         return view('web.student.student_renewal_form_index', [
+             'student_data' => $student_data,
+             'academic_data' => $academic_data,
+             'achievement' => $achievement,
+             'renewal_info' => $renewal_info,          
+         ]);
+    }
 
-        // dd($degree_levels);
 
-        return view('web.student.student-renewal-form', [
+
+    
+
+    public function renew_form_create(Request $request, $student_id)
+    {
+
+        $this->validate($request, [
+            // 'scholarship_id' => 'required',
+            'student_id' => 'required',
+            'level' => 'required',
+            'class_degree' => 'required',
+            'marks_cgpa1' => 'required',
+            'date1' => 'required',
+            'marks_cgpa2' => 'required',
+            'date2' => 'required',
+            'financial' => 'required',
+            'opinion'=>'required',
+        ]);
+
+        $student_data = Student::findOrFail($student_id);
+        $scholarship_data = Scholarship::where('student_id', $student_id);       
+        
+        $renew = new RenewalForm();
+        $renew->student_id = $request->student_id;
+        // $renew->scholarship_id = $request->scholarship_id;
+        $renew->level = $request->level;
+        $renew->class_degree = $request->class_degree;
+        $renew->marks_cgpa1 = $request->marks_cgpa1;
+        $renew->date1 = $request->date1;
+        $renew->marks_cgpa2 = $request->marks_cgpa2;
+        $renew->date2 = $request->date2;
+        $renew->achievement = $request->achievement;
+        $renew->financial = $request->financial;
+        $renew->opinion = $request->opinion;
+        $renew->save();
+
+        return redirect()->route('student_renewal_form', ['student_id' => $student_id])->with('success', 'renewed succesfully');
+    }
+
+    public function renewal_form_edit($renewal_id)
+    {        
+        $student_data = User::find(Auth::user()->id)->student_information;
+        $academic_data = Student::find($student_data->id)->degree_information;
+        $achievement = Student::find($student_data->id)->achievements;
+        $renewal_info = RenewalForm::find($renewal_id);
+
+
+        return view('web.student.student_renewal_form_index', [
             'student_data' => $student_data,
-            'academic_data' => $academic_data,
-            'achievements' => $achievements,
-            'degree_levels' => Degree::degree_levels,
-            'class_school' => Degree::class_school,
-            'class_college' => Degree::class_college,
-            'class_uni' => Degree::class_uni,
+             'academic_data' => $academic_data,
+             'achievement' => $achievement,
+             'renewal_info' => $renewal_info,  
         ]);
     }
 
-    public function renewal_form_update(Request $request)
+    public function update_renewal_form(Request $request)
     {
+        // dd($request->all());
+        $this->validate($request, [
+            'level' => 'required',
+            'class_degree' => 'required',
+            'marks_cgpa1' => 'required',
+            'date1' => 'required',
+            'marks_cgpa2' => 'required',
+            'date2' => 'required',
+            'financial' => 'required',
+            'opinion'=>'required',
+        ]);
 
-        
+        $renew = RenewalForm::find($request->renewal_id);
 
-        $renewal = new RenewalForm;
-        $renewal->level = $request->level;
-        $renewal->class_degree = $request->class_degree;
-        $renewal->marks_cgpa1 = $request->marks_cgpa1;
-        $renewal->date1 = $request->date1;
-        $renewal->marks_cgpa2 = $request->marks_cgpa2;
-        $renewal->date2 = $request->date2;
-        $renewal->achievement = $request->achievement;
-        $renewal->financial = $request->financial;
-        $renewal->opinion = $request->opinion;
-        dd($renewal);
-        $renewal->save();
+        // $renew->student_id = $request->student_id;
+        // $renew->scholarship_id = $request->scholarship_id;
+        $renew->level = $request->level;
+        $renew->class_degree = $request->class_degree;
+        $renew->marks_cgpa1 = $request->marks_cgpa1;
+        $renew->date1 = $request->date1;
+        $renew->marks_cgpa2 = $request->marks_cgpa2;
+        $renew->date2 = $request->date2;
+        $renew->achievement = $request->achievement;
+        $renew->financial = $request->financial;
+        $renew->opinion = $request->opinion;
+        $renew->save();
 
-        // return redirect()->with('success', 'Renewed succesfully');
-        return redirect()->with('success', 'Renewed succesfully');
+        return redirect()->route('student_renewal_form')->with('success', 'Form updated successfully');
     }
-
 
 
 }

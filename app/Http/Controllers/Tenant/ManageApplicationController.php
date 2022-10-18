@@ -7,6 +7,7 @@ use App\Helpers\SMSHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ApprovedApplication;
+use App\Models\Degree;
 use App\Models\Mentor;
 use App\Models\ReviewedApplication;
 use App\Models\Scholarship;
@@ -69,11 +70,16 @@ class ManageApplicationController extends Controller
 
         // ]);
 
-        $approved_applications = ApprovedApplication::where('scholarship_id', $scholarship_id)->get();
 
+        $approved_applications = ApprovedApplication::where('scholarship_id', $scholarship_id)->get();
+        // $student_data = Student::all();
+
+        
         // dd($approved_applications);
         return view('tenant.manage_applications.manage_applications_approved_application_index', [
             'approved_applications' => $approved_applications,
+            // 'student_data'=> $student_data,
+            
         ]);
     }
 
@@ -198,8 +204,9 @@ class ManageApplicationController extends Controller
 
         $approve = new ApprovedApplication();
         $approve->student_id = $request->student_id;
+        $approve->mentor_id = $request->mentor_id;
         $approve->scholarship_id = $request->scholarship_id;
-        $approve->mentor_id = Account::findOrFail($request->account_id_mentor)->first();
+        // $approve->mentor_id = Account::findOrFail($request->account_id_mentor)->first();
         $approve->approved_amount = $request->approved_amount;
         $approve->approval_cost = $request->approval_cost;
         $approve->from_date = $request->from_date;
@@ -453,6 +460,26 @@ class ManageApplicationController extends Controller
             'reviewed_application_detail' => $reviewed_application_detail,
             'student_data' => $student_data,
             'scholarship_data' => $scholarship_data,
+        ]);
+    }
+
+
+    public function renewal_form_show($scholarship_id,$student_id)
+    {
+       
+
+        $student_data = Student::findOrFail($student_id);
+        $academic_data = Student::find($student_data->id)->degree_information;
+        $achievement = Student::find($student_data->id)->achievements;
+        $scholarship_data = Scholarship::find($scholarship_id);
+        
+        // dd($approved_applications);
+        return view('tenant.manage_applications.manage_renewal_form_show_index', [
+            'student_data' => $student_data,
+             'academic_data' => $academic_data,
+             'achievement' => $achievement,
+             'scholarship_data'=>$scholarship_data,
+            
         ]);
     }
 

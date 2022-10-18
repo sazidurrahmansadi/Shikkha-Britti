@@ -86,6 +86,7 @@
                                         <th class="text-center">View</th>
                                         <th class="text-center">Action</th>
                                         <th class="text-center">SMS</th>
+                                        <th class="text-center">Renewal Info</th>
 
                                     </tr>
                                 </thead>
@@ -118,7 +119,8 @@
 
                                             </td>
                                             <td class="no-wrap">
-                                                <a class="btn-sm btn-warning" href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
+                                                <a class="btn-sm btn-warning"
+                                                    href="{{ route('manage_applications_approved_edit', [$approved_application->id]) }}"
                                                     class="btn btn-sm btn-warning mb-2" type="button"><i
                                                         class="fas fa-edit"></i>Edit</a>
 
@@ -136,6 +138,18 @@
                                                     data-placement="top"><i class="fa fa-sms fa-2x "></i></button>
 
                                                 @include('tenant.manage_applications.send_sms_modal')
+                                            </td>
+                                            <td>
+
+                                                {{-- <a class="btn btn-success btn-sm align-top" href="#" type="button"><i
+                                                        class="fas fa-eye fa-x"></i></a> --}}
+
+                                                <button type="button" class="btn btn-success btn-sm align-top"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModalCenter1{{ $approved_application->student_id }}"
+                                                    data-placement="top"><i class="fa fa-eye fa-x "></i></button>
+
+                                                @include('tenant.manage_applications.renewal_form_modal')
                                             </td>
                                         </tr>
                                     @empty
@@ -250,8 +264,7 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 // "buttons": ["copy", "excel", "pdf", "print"],
-                "buttons": [
-                    {
+                "buttons": [{
                         extend: 'copyHtml5',
                         exportOptions: {
                             columns: ':visible'
@@ -266,13 +279,13 @@
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
-                    },                    
+                    },
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3,4,5,6,7,8]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
                     },
                     // 'colvis'

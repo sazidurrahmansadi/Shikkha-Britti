@@ -72,16 +72,17 @@
                                         <th>SL#</th>
                                         <th>Student Name</th>
                                         <th>Phone</th>
-                                        <th>Action</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($query as $q)
+                                    @forelse($students as $student)
 
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $q->student->name }}</td>
-                                            <td>{{ $q->student->phone }}</td>
+                                            <td>{{ $student->student->name }}</td>
+                                            <td>{{ $student->student->phone }}</td>
+                                            
                                         </tr>
                                     @empty
                                     @endforelse

@@ -213,6 +213,8 @@ Route::POST('/manage-monthly-statement-date-search-show', [ManageMonthlyStatemen
 // send sms test
 Route::POST('/sendSingleSMS', [ManageApplicationController::class, 'sendSingleSMS'])->name('send_single_sms')->middleware('auth');
 
+
+//Reviewed Application
 Route::GET('/manage-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_create'])->name('manage_review')->middleware('auth');
 Route::POST('/manage-applications-review', [ManageApplicationController::class, 'review_student'])->name('manage_applications_review')->middleware('auth');
 Route::GET('/manage-reviewed-applications-index', [ManageApplicationController::class, 'reviewed_index'])->name('manage_reviewed_applications_index')->middleware('auth');
@@ -220,3 +222,8 @@ Route::GET('/manage-reviewed-applications/{scholarship_id}', [ManageApplicationC
 Route::POST('/manage-applications-reviewed-delete', [ManageApplicationController::class, 'reviewed_applicaion_delete'])->name('manage_applications_reviewed_delete')->middleware('auth');
 Route::GET('/show-review/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'show_review'])->name('show_review')->middleware('auth');
 Route::GET('/manage-reviewed-comment-show/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'review_comment_show'])->name('manage_review_comment_show')->middleware('auth');
+
+
+//Renewal Form
+Route::GET('/manage-renewal-form-show/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'renewal_form_show'])->name('manage_renewal_form_show')->middleware('auth');
+

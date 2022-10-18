@@ -72,6 +72,11 @@ class Student extends Model
         return $this->hasMany(MonthlyStatement::class);
     }
 
+    public function renewal_form()
+    {
+        return $this->hasMany(RenewalForm::class);
+    }
+
 
     //    protected static function booted()
     //    {

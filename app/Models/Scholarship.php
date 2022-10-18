@@ -31,6 +31,11 @@ class Scholarship extends Model
         return $this->hasMany(Donor::class);
     }
 
+    public function renewal_form()
+    {
+        return $this->belongsTo(RenewalForm::class);
+    }
+
 
     protected static function booted()
     {

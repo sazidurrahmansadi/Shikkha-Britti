@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApprovedApplication;
 use App\Models\Donor;
+use App\Models\ReviewedApplication;
 use App\Models\Scholarship;
 use App\Models\Tenant;
 use App\Models\User;
@@ -117,5 +119,20 @@ class ManageDonorController extends Controller
 
         // return redirect()->route('manage_mentors.index')->with('success','Mentor created successfully');
         return redirect()->route('login',$donor->id)->with('success','Successfully registered.');
+    }
+
+    public function student_list(Request $tenant_id)
+    {
+
+        // $tenant_id = $request->tenant_id
+        // $query = DB::table('approved_applications')->select()
+        //     ->where('mentor_id', '=', $mentor_id)
+        //     ->get();
+
+        $students = ReviewedApplication::where('tenant_id', '=',  $tenant_id)->get();
+
+        
+        // dd($query);
+        return view('tenant.manage_donors.student_list', compact('students'));
     }
 }
