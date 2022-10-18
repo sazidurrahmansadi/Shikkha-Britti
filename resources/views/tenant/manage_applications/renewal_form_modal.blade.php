@@ -1,13 +1,9 @@
 <style>
-    .modal-dialog {
+    #mod {
         width: 900px;
         height: 1500px;
     }
 
-    .modal-content {
-        /* 80% of window height */
-        height: 80%;
-    }
 
     .modal-header {
         background-color: #337AB7;
@@ -30,7 +26,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter1{{ $approved_application->student_id }}" tabindex="-1"
     aria-labelledby="exampleModalCenterTitle" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div id="mod" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -122,7 +118,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="instituition">School/University/Department: </label>
-                            {{-- {{ $approved_application->student->renewal_form->institution }} --}}
+                            {{-- {{ $renewal_info->id }} --}}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -131,7 +127,9 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <u><h5>Results of the last two examinations:</h5></u>
+                        <u>
+                            <h5>Results of the last two examinations:</h5>
+                        </u>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -145,25 +143,25 @@
                             <label>b) Date:</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <div class="form-group">
                             <label for="achievement">Any other achievements in last one year: </label><br>
-                            <textarea disabled>Hii</textarea>
+                            <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3">Hii</textarea>
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <div class="form-group">
                             <label for="financial">Did your financial situation change in last one year? </label><br>
-                            <textarea disabled>Hii</textarea>
+                            <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3">Hii</textarea>
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <div class="form-group">
                             <label for="opinion">In your opinion, why should Hridoya Bangladesh renew your
                                 scholarship? </label><br>
-                            <textarea disabled>Hii</textarea>
+                            <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3">Hii</textarea>
 
 
                         </div>
@@ -179,3 +177,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.modal-content').resizable({
+        //alsoResize: ".modal-dialog",
+        minHeight: 300,
+        minWidth: 300
+    });
+    $('.modal-dialog').draggable();
+
+    $('#myModal').on('show.bs.modal', function() {
+        $(this).find('.modal-body').css({
+            'max-height': '100%'
+        });
+    });
+</script>

@@ -108,7 +108,7 @@ class ManageDonorController extends Controller
 
         $input = $request->all();
         $user = User::create($input);
-        $role = Role::findOrCreate('Donor');
+        $role = Role::findOrCreate('DONOR');
         $input += ['user_id' => $user->id];
 
         $donor = Donor::create($input);

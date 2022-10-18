@@ -9,6 +9,7 @@ use App\Models\Account;
 use App\Models\ApprovedApplication;
 use App\Models\Degree;
 use App\Models\Mentor;
+use App\Models\RenewalForm;
 use App\Models\ReviewedApplication;
 use App\Models\Scholarship;
 use App\Models\Student;
@@ -72,12 +73,15 @@ class ManageApplicationController extends Controller
 
 
         $approved_applications = ApprovedApplication::where('scholarship_id', $scholarship_id)->get();
+        $renewal_info = RenewalForm::where('scholarship_id', $scholarship_id)->get();
+        
         // $student_data = Student::all();
 
         
         // dd($approved_applications);
         return view('tenant.manage_applications.manage_applications_approved_application_index', [
             'approved_applications' => $approved_applications,
+            'renewal_info' => $renewal_info,
             // 'student_data'=> $student_data,
             
         ]);
@@ -482,6 +486,18 @@ class ManageApplicationController extends Controller
             
         ]);
     }
+
+    public function application_renewal_form_details(Request $request, $scholarship_id, $student_id)
+    {
+        $renewal_info = RenewalForm::where('scholarship_id', $scholarship_id)->where('student_id', $student_id)->first();
+        $scholarship_data = Scholarship::find($scholarship_id)->scholarship_title;
+
+        return view('tenant.manage_applications.manage_renewal_form_show', [
+            'renewal_info' => $renewal_info,
+            'scholarship_data' => $scholarship_data,
+        ]);
+    }
+
 
 }
 

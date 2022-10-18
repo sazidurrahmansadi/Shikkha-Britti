@@ -144,12 +144,16 @@
                                                 {{-- <a class="btn btn-success btn-sm align-top" href="#" type="button"><i
                                                         class="fas fa-eye fa-x"></i></a> --}}
 
-                                                <button type="button" class="btn btn-success btn-sm align-top"
+                                                {{-- <button type="button" class="btn btn-success btn-sm align-top"
                                                     data-toggle="modal"
                                                     data-target="#exampleModalCenter1{{ $approved_application->student_id }}"
                                                     data-placement="top"><i class="fa fa-eye fa-x "></i></button>
 
-                                                @include('tenant.manage_applications.renewal_form_modal')
+                                                @include('tenant.manage_applications.renewal_form_modal') --}}
+                                                <a class="btn btn-success btn-sm mb-2"
+                                                    href="{{ route('manage_renewal_form_details', [$approved_application->scholarship_id, $approved_application->student_id]) }}"><i
+                                                        class="fa fa-eye fa-x"></i> </a>
+
                                             </td>
                                         </tr>
                                     @empty

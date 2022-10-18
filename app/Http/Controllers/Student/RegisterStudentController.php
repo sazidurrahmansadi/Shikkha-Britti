@@ -601,6 +601,7 @@ class RegisterStudentController extends Controller
 
         $renew = new RenewalForm();
         $renew->student_id = $request->student_id;
+        $renew->tenant_id = $request->tenant_id;
         $renew->scholarship_id = $request->scholarship_id;
         $renew->level = $request->level;
         $renew->class_degree = $request->class_degree;
@@ -647,8 +648,6 @@ class RegisterStudentController extends Controller
         ]);
 
         $renew = RenewalForm::find($request->renewal_id);
-        // $renew->student_id = $request->student_id;
-        // $renew->scholarship_id = $request->scholarship_id;
         $renew->level = $request->level;
         $renew->class_degree = $request->class_degree;
         $renew->marks_cgpa1 = $request->marks_cgpa1;

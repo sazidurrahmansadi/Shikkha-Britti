@@ -149,6 +149,7 @@ Route::POST('/manage-applications-approved-update', [ManageApplicationController
 Route::GET('/pdf-student-profile/{student_id}', [ManageApplicationController::class, 'pdf_student_profile'])->name('pdf_student_profile')->middleware('auth');
 
 
+Route::GET('/manage-renewal-form-details/{scholarship_id}/{student_id}', [ManageApplicationController::class, 'application_renewal_form_details'])->name('manage_renewal_form_details')->middleware('auth');
 
 /*
 -----------------------------------------------------------

@@ -185,6 +185,8 @@
                                                         <option value="{{ $applied_scholarship->scholarship_id }}">
                                                             {{ $applied_scholarship->scholarship->scholarship_title }}
                                                         </option>
+                                                        <input type="hidden" id="tenant_id" name="tenant_id"
+                                                            value="{{ $applied_scholarship->tenant_id }}">
                                                     @endforeach
                                                 @endif
                                             </select><br>
@@ -229,6 +231,7 @@
                                     <div>
                                         <br>
                                         <h3>Update Your Academic information</h3>
+
                                         <div class="row dynm_field">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -285,16 +288,16 @@
                                                 </div>
                                             </div>
 
-
-                                            <br>
-
-                                            <div class="col-md-12">
-                                                {{-- <button type="submit" class="account-btn">Edit</button> --}}
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    <label>Achievement:<span
+                                                            class="text-danger font-weight-bold">*</span></label>
+                                                    <input type="text" id="achievement" name="achievement"
+                                                        class="form-control" placeholder="achievement">
+                                                </div>
                                             </div>
+                                            <br>
                                         </div>
-                                        <a href="javascript:void(0);" id="achievement" name="achievement"
-                                            class="add_button" title="Add Achievements"><i class="bx bx-plus">Add
-                                                Achievements</i></a>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
