@@ -63,7 +63,7 @@
 
 
                             <div class="candidate-education">
-                                <form method="post" action="{{ route('renewal_form_update') }}">
+                                <form method="post" action="{{ route('student_renewal_form_update') }}">
                                     @csrf
                                     <input type="hidden" name="renewal_id" value="{{ $renewal_info->id }}">
 
@@ -72,7 +72,7 @@
                                             <label for="institution">School/University/Department<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="level" name="level"
-                                                placeholder="Enter Account Title" value="{{ $account_details->level }}"
+                                                value="{{ $renewal_info->level }}"
                                                 required>
                                         </div>
 
@@ -82,13 +82,13 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="class_degtree"
                                                 name="class_degtree" placeholder="Grade"
-                                                value="{{ $account_details->class_degtree }}" required>
+                                                value="{{ $renewal_info->class_degree }}" required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
-                                            <label for="achievement">:<span class="text-danger">*</span></label>
+                                            <label for="achievement">Achievement:<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="achievement" name="achievement"
-                                                value="{{ $account_details->achievement }}" required>
+                                                value="{{ $renewal_info->achievement }}" required>
                                         </div>
 
                                         <div>
@@ -99,41 +99,41 @@
                                             <label for="marks_cgpa1">a. Class position/GPA/CGPA<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="marks_cgpa1" name="marks_cgpa1"
-                                                value="{{ $account_details->marks_cgpa1 }}" required>
+                                                value="{{ $renewal_info->marks_cgpa1 }}" required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
                                             <label for="date1">Date:<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="date1" name="date1"
-                                                value="{{ $account_details->date1 }}" required>
+                                                value="{{ $renewal_info->date1 }}" required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
                                             <label for="marks_cgpa2">b. Class position/GPA/CGPA<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="marks_cgpa1" name="marks_cgpa1"
-                                                placeholder="Enter Account No." value="{{ $account_details->marks_cgpa2 }}"
+                                                placeholder="Enter Account No." value="{{ $renewal_info->marks_cgpa2 }}"
                                                 required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
                                             <label for="date1">Date:<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="date2" name="date2"
-                                                value="{{ $account_details->date2 }}" required>
+                                                value="{{ $renewal_info->date2 }}" required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
                                             <label for="financial">Did your financial situation change in last one
                                                 year?<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="financial" name="financial"
-                                                value="{{ $account_details->financial }}" required>
+                                                value="{{ $renewal_info->financial }}" required>
                                         </div>
 
                                         <div class="mb-3" class="col-form-label">
                                             <label for="opinion">Did your financial situation change in last one
                                                 year?<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="opinion" name="opinion"
-                                                value="{{ $account_details->opinion }}" required>
+                                                value="{{ $renewal_info->opinion }}" required>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary">Update</button>
@@ -155,11 +155,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edit_account_modal">New Account</h5>
+                    <h5 class="modal-title" id="edit_account_modal">New Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('renewal_form_update') }}">
+                    {{-- <form method="post" action="{{ route('student_renewal_form_update') }}">
                         @csrf
                         <input type="hidden" name="renewal_id" value="{{ $renewal_info->id }}">
 
@@ -168,7 +168,7 @@
                                 <label for="institution">School/University/Department<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="level" name="level"
-                                    placeholder="Enter Account Title" value="{{ $account_details->level }}" required>
+                                    placeholder="Enter Account Title" value="{{ $renewal_info->level }}" required>
                             </div>
 
                             <!-- select -->
@@ -176,13 +176,13 @@
                                 <label for="class_degtree">Grade/Undergraduate Year<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="class_degtree" name="class_degtree"
-                                    placeholder="Grade" value="{{ $account_details->class_degtree }}" required>
+                                    placeholder="Grade" value="{{ $renewal_info->class_degree }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
-                                <label for="achievement">:<span class="text-danger">*</span></label>
+                                <label for="achievement">Achievement:<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="achievement" name="achievement"
-                                    value="{{ $account_details->achievement }}" required>
+                                    value="{{ $renewal_info->achievement }}" required>
                             </div>
 
                             <div>
@@ -193,46 +193,46 @@
                                 <label for="marks_cgpa1">a. Class position/GPA/CGPA<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="marks_cgpa1" name="marks_cgpa1"
-                                    value="{{ $account_details->marks_cgpa1 }}" required>
+                                    value="{{ $renewal_info->marks_cgpa1 }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
                                 <label for="date1">Date:<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="date1" name="date1"
-                                    value="{{ $account_details->date1 }}" required>
+                                    value="{{ $renewal_info->date1 }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
                                 <label for="marks_cgpa2">b. Class position/GPA/CGPA<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="marks_cgpa1" name="marks_cgpa1"
-                                    placeholder="Enter Account No." value="{{ $account_details->marks_cgpa2 }}" required>
+                                    placeholder="Enter Account No." value="{{ $renewal_info->marks_cgpa2 }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
                                 <label for="date1">Date:<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="date2" name="date2"
-                                    value="{{ $account_details->date2 }}" required>
+                                    value="{{ $renewal_info->date2 }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
                                 <label for="financial">Did your financial situation change in last one year?<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="financial" name="financial"
-                                    value="{{ $account_details->financial }}" required>
+                                    value="{{ $renewal_info->financial }}" required>
                             </div>
 
                             <div class="mb-3" class="col-form-label">
                                 <label for="opinion">Did your financial situation change in last one year?<span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="opinion" name="opinion"
-                                    value="{{ $account_details->opinion }}" required>
+                                    value="{{ $renewal_info->opinion }}" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
 
             </div>

@@ -36,9 +36,9 @@ Route::POST('/student/student-document-delete',[StudentDocumentController::class
 Route::GET('/student/student-applications', [StudentApplicationController::class, 'index'])->name('student_applications_index')->middleware('auth');
 
 
-Route::GET('/student/student-renewal-form/{student_id}', [RegisterStudentController::class, 'renew_form_index'])->name('student_renewal_form')->middleware('auth');
-Route::POST('/student/student-renewal-form-create/{student_id}', [RegisterStudentController::class, 'renew_form_create'])->name('student_renewal_form_create')->middleware('auth');
-Route::GET('/student/student-renewal-form-edit/{student_id}', [RegisterStudentController::class, 'renewal_form_edit'])->name('renewal_form_edit');
+Route::GET('/student/student-renewal-form', [RegisterStudentController::class, 'renew_form_index'])->name('student_renewal_form')->middleware('auth');
+Route::POST('/student/student-renewal-form-create', [RegisterStudentController::class, 'renew_form_create'])->name('student_renewal_form_create')->middleware('auth');
+Route::GET('/student/student-renewal-form-edit/{renewal_id}', [RegisterStudentController::class, 'renewal_form_edit'])->name('renewal_form_edit')->middleware('auth');
 Route::POST('/student/student-renewal-form-update', [RegisterStudentController::class, 'update_renewal_form'])->name('student_renewal_form_update')->middleware('auth');
 
 

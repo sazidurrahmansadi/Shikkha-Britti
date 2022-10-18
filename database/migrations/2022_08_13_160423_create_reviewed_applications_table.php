@@ -18,7 +18,7 @@ class CreateReviewedApplicationsTable extends Migration
             $table->foreignId('tenant_id')->nullable()->constrained();
             $table->foreignId('student_id')->references('id')->on('students');
             $table->foreignId('scholarship_id')->references('id')->on('scholarships');
-            // $table->string('comment')->nullable()->after('reviewed_by');
+            $table->string('comment')->nullable();
             $table->date('review_date')->nullable();
             $table->string('reviewed_by')->nullable();
             $table->timestamps();

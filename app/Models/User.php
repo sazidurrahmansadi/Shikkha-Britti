@@ -92,10 +92,10 @@ class User extends Authenticatable
         return $this->hasOne(Donor::class);
     }
 
-    public function stuff1()
-    {
-        return $this->hasOne(Stuff1::class);
-    }
+    // public function stuff1()
+    // {
+    //     return $this->hasOne(Stuff1::class);
+    // }
     
 
     protected static function booted()

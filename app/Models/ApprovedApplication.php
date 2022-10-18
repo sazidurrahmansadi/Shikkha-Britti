@@ -25,11 +25,6 @@ class ApprovedApplication extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function renewal_form()
-    {
-        return $this->belongsTo(RenewalForm::class);
-    }
-
     protected static function booted()
     {
         static::addGlobalScope(new TenantScope);

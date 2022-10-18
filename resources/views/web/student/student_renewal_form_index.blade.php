@@ -125,7 +125,7 @@
                                             data-target="#edit_account_modal"
                                             data-document_id="{{ $student_data->id }}">Edit</button> --}}
 
-                                        <a href="{{ route('student_renewal_form_update', $renewal_info->id) }}" type="button" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('renewal_form_edit', $renewal_info->id) }}" type="button" class="btn btn-primary">Edit</a>
 
                                     </div>
                                 @empty

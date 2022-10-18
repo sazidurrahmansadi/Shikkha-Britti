@@ -538,17 +538,14 @@ class RegisterStudentController extends Controller
 
     #Student Renewal Form
 
-    public function renew_form_index($student_id)
+    public function renew_form_index()
     {
-        $student_data = Student::findOrFail($student_id);
-        $academic_data = Student::find($student_data->id)->degree_information;
-        $achievement = Student::find($student_data->id)->achievements;
+
+        $student_data = User::find(Auth::user()->id)->student_information;
         $renewal_info = $student_data->renewal_form;
  
          return view('web.student.student_renewal_form_index', [
-             'student_data' => $student_data,
-             'academic_data' => $academic_data,
-             'achievement' => $achievement,
+            'student_data' => $student_data,
              'renewal_info' => $renewal_info,          
          ]);
     }
@@ -557,7 +554,7 @@ class RegisterStudentController extends Controller
 
     
 
-    public function renew_form_create(Request $request, $student_id)
+    public function renew_form_create(Request $request)
     {
 
         $this->validate($request, [
@@ -573,8 +570,7 @@ class RegisterStudentController extends Controller
             'opinion'=>'required',
         ]);
 
-        $student_data = Student::findOrFail($student_id);
-        $scholarship_data = Scholarship::where('student_id', $student_id);       
+        $student_data = Student::find($request->student_id);      
         
         $renew = new RenewalForm();
         $renew->student_id = $request->student_id;
@@ -588,23 +584,23 @@ class RegisterStudentController extends Controller
         $renew->achievement = $request->achievement;
         $renew->financial = $request->financial;
         $renew->opinion = $request->opinion;
-        $renew->save();
+        $student_data->renewal_form()->save($renew);
 
-        return redirect()->route('student_renewal_form', ['student_id' => $student_id])->with('success', 'renewed succesfully');
+        return redirect()->route('student_renewal_form')->with('success', 'renewed succesfully');
     }
 
     public function renewal_form_edit($renewal_id)
     {        
+        // $academic_data = Student::find($student_data->id)->degree_information;
+        // $achievement = Student::find($student_data->id)->achievements;
         $student_data = User::find(Auth::user()->id)->student_information;
-        $academic_data = Student::find($student_data->id)->degree_information;
-        $achievement = Student::find($student_data->id)->achievements;
         $renewal_info = RenewalForm::find($renewal_id);
+        // dd($renewal_info);
 
-
-        return view('web.student.student_renewal_form_index', [
+        return view('web.student.student-renewal-form-edit', [
             'student_data' => $student_data,
-             'academic_data' => $academic_data,
-             'achievement' => $achievement,
+            //  'academic_data' => $academic_data,
+            //  'achievement' => $achievement,
              'renewal_info' => $renewal_info,  
         ]);
     }
@@ -624,7 +620,6 @@ class RegisterStudentController extends Controller
         ]);
 
         $renew = RenewalForm::find($request->renewal_id);
-
         // $renew->student_id = $request->student_id;
         // $renew->scholarship_id = $request->scholarship_id;
         $renew->level = $request->level;
