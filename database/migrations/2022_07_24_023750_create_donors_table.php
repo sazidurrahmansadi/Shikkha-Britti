@@ -15,7 +15,7 @@ class CreateDonorsTable extends Migration
     {
         Schema::create('donors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('tenant_id')->nullable()->constrained();
             $table->string('address')->nullable();
             $table->string('occupation')->nullable();
@@ -23,7 +23,6 @@ class CreateDonorsTable extends Migration
             $table->string('position')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

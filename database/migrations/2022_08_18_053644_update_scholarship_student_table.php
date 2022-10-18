@@ -16,7 +16,7 @@ class UpdateScholarshipStudentTable extends Migration
         //
 
         Schema::table('scholarship_student', function (Blueprint $table) {
-            $table->double('is_review')->default(0)->after('is_approve');
+            $table->boolean('is_review')->default(0)->after('is_approve');
 
         });
     }

@@ -16,15 +16,16 @@ class CreateApprovedApplicationsTable extends Migration
         Schema::create('approved_applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->nullable()->constrained();
-            $table->foreignId('student_id')->references('id')->on('students');
-            $table->foreignId('scholarship_id')->references('id')->on('scholarships');
+            $table->foreignId('student_id')->constrained();
+            $table->foreignId('mentor_id')->nullable()->constrained();
+            $table->foreignId('scholarship_id')->constrained();
             $table->double('approved_amount')->nullable();
-            // $table->double('approved_cost')->nullable();
+            $table->double('approval_cost')->nullable();
             $table->date('from_date')->nullable();
             $table->date('to_date')->nullable();
             $table->date('approval_date')->nullable();
             $table->string('approved_by')->nullable();
-            $table->foreignId('account_id')->references('id')->on('accounts');
+            $table->foreignId('account_id')->constrained();
             $table->timestamps();
         });
     }

@@ -72,8 +72,7 @@
                         </a>
                     </li>
                 @endcan
-                @role('TENANT')
-
+                {{-- @role('TENANT')
                 <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user-tie"></i>
@@ -107,8 +106,7 @@
                             </li>
                         </ul>
                     </li>
-
-                @endrole
+                @endrole --}}
                 @can('admin-can')
                     <li class="nav-item">
                         <a href="{{ route('manage_permissions.index') }}" class="nav-link">

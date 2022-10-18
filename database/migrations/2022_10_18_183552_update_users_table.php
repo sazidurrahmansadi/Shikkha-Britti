@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateMonthlyStatementsTable extends Migration
+class UpdateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class UpdateMonthlyStatementsTable extends Migration
      */
     public function up()
     {
-        Schema::table('monthly_statements', function (Blueprint $table) {
-            $table->double('approval_cost')->nullable()->after('approved_amount');
+        Schema::table('users', function (Blueprint $table) {
+
+            $table->string('signature_url')->nullable()->after('photo_url');
+                
         });
     }
 

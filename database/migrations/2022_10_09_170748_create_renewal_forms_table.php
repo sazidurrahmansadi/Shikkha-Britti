@@ -16,8 +16,8 @@ class CreateRenewalFormsTable extends Migration
         Schema::create('renewal_forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->nullable()->constrained();
-            $table->foreignId('student_id')->references('id')->on('students');
-            $table->foreignId('scholarship_id')->nullable()->constrained();
+            $table->foreignId('student_id')->constrained();
+            $table->foreignId('scholarship_id')->constrained();
             $table->string('level')->nullable();
             $table->string('class_degree')->nullable();
             $table->string('marks_cgpa1')->nullable();

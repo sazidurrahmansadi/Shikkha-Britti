@@ -74,7 +74,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Approval</th>
-                                        <th>Status</th>
+                                        <th>Review</th>
                                         {{-- <th>Reference</th> --}}
                                         <th class="text-center">View/Action</th>
                                         {{-- <th>Action</th> --}}

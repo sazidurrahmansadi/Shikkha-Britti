@@ -15,11 +15,11 @@ class CreateMonthlyStatementsTable extends Migration
     {
         Schema::create('monthly_statements', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->foreignId('student_id')->references('id')->on('students');
-            $table->foreignId('scholarship_id')->references('id')->on('scholarships');
-            $table->double('approved_amount')->nullable();
-            // $table->double('approved_cost')->nullable();
-            $table->date('month_year')->nullable();
+            $table->foreignId('student_id')->constrained();
+            $table->foreignId('scholarship_id')->constrained();
+            $table->double('approved_amount');
+            $table->double('approval_cost')->nullable();
+            $table->date('month_year');
             $table->text('note')->nullable();
             $table->integer('account_id')->nullable();
             $table->string('status')->default("PENDING");
